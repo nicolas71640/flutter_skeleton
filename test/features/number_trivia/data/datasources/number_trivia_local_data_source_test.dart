@@ -15,7 +15,7 @@ import 'number_trivia_local_data_source_test.mocks.dart';
 void main() {
   late NumberTriviaLocalDataSourceImpl dataSource;
   late MockSharedPreferences mockSharedPreferences;
-  const tNumberTriviaModel =NumberTriviaModel(text: "Test Text", number: 1);
+  const tNumberTriviaModel = NumberTriviaModel(text: "Test Text", number: 1);
 
   group("getLastNumberTrivia", () {
     setUp(() {
@@ -49,14 +49,13 @@ void main() {
       dataSource = NumberTriviaLocalDataSourceImpl(mockSharedPreferences);
     });
 
-    test(
-        "should cache NumberTrivia in SharedPreferences",
-        () async {
-            when(mockSharedPreferences.setString(any, any)).thenAnswer((_) async => true);
-            dataSource.cacheNumberTrivia(tNumberTriviaModel);
-            final expectedString = json.encode(tNumberTriviaModel.toJson());
-            verify(mockSharedPreferences.setString(CACHED_NUMBER_TRIVIA, expectedString));
-
-        });
+    test("should cache NumberTrivia in SharedPreferences", () async {
+      when(mockSharedPreferences.setString(any, any))
+          .thenAnswer((_) async => true);
+      dataSource.cacheNumberTrivia(tNumberTriviaModel);
+      final expectedString = json.encode(tNumberTriviaModel.toJson());
+      verify(mockSharedPreferences.setString(
+          CACHED_NUMBER_TRIVIA, expectedString));
+    });
   });
 }

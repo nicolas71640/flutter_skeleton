@@ -26,9 +26,11 @@ void main() {
   testWidgets(
     "should get random trivia when clicking on Get Random Trivia button",
     (WidgetTester tester) async {
-      const tNumberTriviaModel = NumberTriviaModel(text: "Number trivia", number: 1234);
+      const tNumberTriviaModel =
+          NumberTriviaModel(text: "Number trivia", number: 1234);
 
-      when(numberTriviaRemoteDataSource.getRandomNumberTrivia()).thenAnswer((_) async {
+      when(numberTriviaRemoteDataSource.getRandomNumberTrivia())
+          .thenAnswer((_) async {
         return tNumberTriviaModel;
       });
 
@@ -36,28 +38,31 @@ void main() {
       await tester.tap(find.text('Get random trivia'));
       await tester.pumpAndSettle();
 
-
       verify(numberTriviaRemoteDataSource.getRandomNumberTrivia());
       expect(find.text(tNumberTriviaModel.text), findsOneWidget);
       expect(find.text(tNumberTriviaModel.number.toString()), findsOneWidget);
     },
   );
 
-    testWidgets(
+  testWidgets(
     "should get concrete trivia when clicking on Search button",
     (WidgetTester tester) async {
-      const tNumberTriviaModel = NumberTriviaModel(text: "Number trivia", number: 1234);
+      const tNumberTriviaModel =
+          NumberTriviaModel(text: "Number trivia", number: 1234);
 
-      when(numberTriviaRemoteDataSource.getConcreteNumberTrivia(any)).thenAnswer((_) async {
+      when(numberTriviaRemoteDataSource.getConcreteNumberTrivia(any))
+          .thenAnswer((_) async {
         return tNumberTriviaModel;
       });
 
       await tester.pumpWidget(const MyApp());
-      await tester.enterText(find.byType(TextField),tNumberTriviaModel.number.toString());
+      await tester.enterText(
+          find.byType(TextField), tNumberTriviaModel.number.toString());
       await tester.tap(find.text('Search'));
       await tester.pumpAndSettle();
 
-      verify(numberTriviaRemoteDataSource.getConcreteNumberTrivia(tNumberTriviaModel.number));
+      verify(numberTriviaRemoteDataSource
+          .getConcreteNumberTrivia(tNumberTriviaModel.number));
       expect(find.text(tNumberTriviaModel.text), findsOneWidget);
       expect(find.text(tNumberTriviaModel.number.toString()), findsOneWidget);
     },

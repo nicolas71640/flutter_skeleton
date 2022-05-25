@@ -77,8 +77,9 @@ void main() {
       verify(getConcreteNumberTriviaUseCase(tNumberParsed));
     });
 
-
-    test("should emit [Loading, Loaded] state when a number trivia is return from the usecase", () async {
+    test(
+        "should emit [Loading, Loaded] state when a number trivia is return from the usecase",
+        () async {
       when(inputConverter.stringToUnsignedInteger(any))
           .thenReturn(const Right(tNumberParsed));
       when(getConcreteNumberTriviaUseCase.call(any))
@@ -94,7 +95,8 @@ void main() {
       bloc.add(const GetTriviaForConcreteNumberEvent(tNumberString));
     });
 
-    test("should emit [Loading, Error] when there is a ServerFailure", () async {
+    test("should emit [Loading, Error] when there is a ServerFailure",
+        () async {
       when(inputConverter.stringToUnsignedInteger(any))
           .thenReturn(const Right(tNumberParsed));
       when(getConcreteNumberTriviaUseCase.call(any))
@@ -127,10 +129,8 @@ void main() {
     });
   });
 
-
   group("GetRandomTriviaNumberEvent", () {
-    const tNumberTrivia =
-        NumberTrivia(text: "Test text", number: 123);
+    const tNumberTrivia = NumberTrivia(text: "Test text", number: 123);
 
     test("should get data from usecase", () async {
       when(getRandomNumberTriviaUseCase(any))
@@ -142,8 +142,9 @@ void main() {
       verify(getRandomNumberTriviaUseCase(any));
     });
 
-
-    test("should emit [Loading, Loaded] state when a number trivia is return from the usecase", () async {
+    test(
+        "should emit [Loading, Loaded] state when a number trivia is return from the usecase",
+        () async {
       when(getRandomNumberTriviaUseCase(any))
           .thenAnswer((_) async => const Right(tNumberTrivia));
 
@@ -157,7 +158,8 @@ void main() {
       bloc.add(GetTriviaForRandomNumberEvent());
     });
 
-    test("should emit [Loading, Error] when there is a ServerFailure", () async {
+    test("should emit [Loading, Error] when there is a ServerFailure",
+        () async {
       when(getRandomNumberTriviaUseCase.call(any))
           .thenAnswer((_) async => Left(ServerFailure()));
 

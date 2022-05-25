@@ -15,5 +15,3 @@ class GetRandomNumberTriviaUseCase implements UseCase<NumberTrivia, NoParams> {
     return await repository.getRandomNumberTrivia();
   }
 }
-
- 

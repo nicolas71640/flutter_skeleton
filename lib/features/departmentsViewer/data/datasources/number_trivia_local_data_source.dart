@@ -11,9 +11,9 @@ abstract class NumberTriviaLocalDataSource {
   Future<void> cacheNumberTrivia(NumberTriviaModel triviaToCache);
 }
 
-
 // ignore: constant_identifier_names
 const CACHED_NUMBER_TRIVIA = "CACHED_NUMBER_TRIVIA";
+
 class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
   final SharedPreferences sharedPreferences;
 
@@ -25,12 +25,13 @@ class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
     if (jsonString != null) {
       return Future.value(NumberTriviaModel.fromJson(json.decode(jsonString)));
     } else {
-      throw CacheException(); 
+      throw CacheException();
     }
   }
 
   @override
   Future<void> cacheNumberTrivia(NumberTriviaModel triviaToCache) {
-    return sharedPreferences.setString(CACHED_NUMBER_TRIVIA, json.encode(triviaToCache.toJson()));
+    return sharedPreferences.setString(
+        CACHED_NUMBER_TRIVIA, json.encode(triviaToCache.toJson()));
   }
 }

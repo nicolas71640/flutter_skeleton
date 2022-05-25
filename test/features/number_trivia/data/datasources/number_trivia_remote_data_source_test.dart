@@ -40,8 +40,7 @@ void main() {
       expect(result, equals(tNumberTriviaModel));
     });
 
-    test(
-        'shoud throw a ServerException when the response code is 404 or other',
+    test('shoud throw a ServerException when the response code is 404 or other',
         () async {
       when(httpClient.get(any, headers: anyNamed('headers')))
           .thenAnswer((_) async => http.Response(fixture('trivia.json'), 404));
@@ -70,8 +69,7 @@ void main() {
       expect(result, equals(tNumberTriviaModel));
     });
 
-    test(
-        'shoud throw a ServerException when the response code is 404 or other',
+    test('shoud throw a ServerException when the response code is 404 or other',
         () async {
       when(httpClient.get(any, headers: anyNamed('headers')))
           .thenAnswer((_) async => http.Response(fixture('trivia.json'), 404));

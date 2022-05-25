@@ -5,7 +5,7 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../repositories/number_trivia_repository.dart';
 
-class GetConcreteNumberTriviaUseCase implements UseCase<NumberTrivia, int>{
+class GetConcreteNumberTriviaUseCase implements UseCase<NumberTrivia, int> {
   final NumberTriviaRepository repository;
 
   GetConcreteNumberTriviaUseCase(this.repository);
@@ -14,5 +14,4 @@ class GetConcreteNumberTriviaUseCase implements UseCase<NumberTrivia, int>{
   Future<Either<Failure, NumberTrivia>> call(int number) async {
     return await repository.getConcreteNumberTrivia(number);
   }
-
 }

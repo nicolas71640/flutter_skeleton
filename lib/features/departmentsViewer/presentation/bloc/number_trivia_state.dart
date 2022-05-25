@@ -2,7 +2,7 @@ part of 'number_trivia_bloc.dart';
 
 abstract class NumberTriviaState extends Equatable {
   const NumberTriviaState();
-  
+
   @override
   List<Object> get props => [];
 }
@@ -16,7 +16,7 @@ class Loaded extends NumberTriviaState {
 
   const Loaded({required this.numberTrivia});
 
-    @override
+  @override
   List<Object> get props => [numberTrivia];
 }
 
@@ -25,6 +25,6 @@ class Error extends NumberTriviaState {
 
   const Error({required this.message});
 
-    @override
+  @override
   List<Object> get props => [message];
 }

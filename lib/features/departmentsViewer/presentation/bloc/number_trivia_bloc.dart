@@ -42,12 +42,12 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
     });
 
     on<GetTriviaForRandomNumberEvent>((event, emit) async {
-        emit(Loading());
-        final failureOrTrivia = await getRandomNumberTriviaUseCase(NoParams());
-        failureOrTrivia.fold(
-            (failure) => emit(Error(message: _mapFailureToMessage(failure))),
-            (trivia) => emit(Loaded(numberTrivia: trivia)));
-      });
+      emit(Loading());
+      final failureOrTrivia = await getRandomNumberTriviaUseCase(NoParams());
+      failureOrTrivia.fold(
+          (failure) => emit(Error(message: _mapFailureToMessage(failure))),
+          (trivia) => emit(Loaded(numberTrivia: trivia)));
+    });
   }
 
   String _mapFailureToMessage(Failure failure) {

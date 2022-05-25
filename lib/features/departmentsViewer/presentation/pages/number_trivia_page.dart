@@ -51,4 +51,3 @@ class NumberTriviaPage extends StatelessWidget {
     );
   }
 }
-

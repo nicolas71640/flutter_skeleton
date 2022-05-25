@@ -128,8 +128,6 @@ void main() {
     });
   });
 
-
-
   group('getRandomNumberTrivia', () {
     const tNumberTriviaModel =
         NumberTriviaModel(text: 'test trivia', number: 123);
@@ -150,8 +148,7 @@ void main() {
         when(mockNumberTriviaRemoteDataSource.getRandomNumberTrivia())
             .thenAnswer((_) async => tNumberTriviaModel);
         final result = await repository.getRandomNumberTrivia();
-        verify(
-            mockNumberTriviaRemoteDataSource.getRandomNumberTrivia());
+        verify(mockNumberTriviaRemoteDataSource.getRandomNumberTrivia());
         expect(result, const Right(tNumberTrivia));
       });
 
@@ -161,8 +158,7 @@ void main() {
         when(mockNumberTriviaRemoteDataSource.getRandomNumberTrivia())
             .thenAnswer((_) async => tNumberTriviaModel);
         final result = await repository.getRandomNumberTrivia();
-        verify(
-            mockNumberTriviaRemoteDataSource.getRandomNumberTrivia());
+        verify(mockNumberTriviaRemoteDataSource.getRandomNumberTrivia());
         verify(mockNumberTriviaLocalDataSource
             .cacheNumberTrivia(tNumberTriviaModel));
         expect(result, const Right(tNumberTrivia));
@@ -174,8 +170,7 @@ void main() {
         when(mockNumberTriviaRemoteDataSource.getRandomNumberTrivia())
             .thenThrow(ServerException(""));
         final result = await repository.getRandomNumberTrivia();
-        verify(
-            mockNumberTriviaRemoteDataSource.getRandomNumberTrivia());
+        verify(mockNumberTriviaRemoteDataSource.getRandomNumberTrivia());
         verifyZeroInteractions(mockNumberTriviaLocalDataSource);
 
         expect(result, Left(ServerFailure()));
@@ -205,6 +200,4 @@ void main() {
       });
     });
   });
-
-  
 }

@@ -6,7 +6,7 @@ class InputConverter {
   Either<Failure, int> stringToUnsignedInteger(String str) {
     try {
       final integer = int.parse(str);
-      if(integer >= 0) {
+      if (integer >= 0) {
         return Right(integer);
       } else {
         throw const FormatException();
@@ -17,4 +17,4 @@ class InputConverter {
   }
 }
 
-class InvalidInputFailure extends Failure{}
+class InvalidInputFailure extends Failure {}

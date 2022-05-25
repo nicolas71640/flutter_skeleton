@@ -1,7 +1,6 @@
 import 'package:departments/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
 import 'package:departments/features/departmentsViewer/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

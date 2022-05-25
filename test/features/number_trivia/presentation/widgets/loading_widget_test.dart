@@ -7,7 +7,7 @@ import '../../../../utils/test_widget_utils.dart';
 void main() {
   testWidgets('CircularProgessIndicator is displayed',
       (WidgetTester tester) async {
-    await tester.pumpWidget(createWidgetUnderTest(LoadingWidget()));
+    await tester.pumpWidget(createWidgetUnderTest(const LoadingWidget()));
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 }

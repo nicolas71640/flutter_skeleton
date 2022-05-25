@@ -3,14 +3,11 @@ import 'package:departments/features/departmentsViewer/presentation/bloc/number_
 import 'package:departments/features/departmentsViewer/presentation/pages/number_trivia_page.dart';
 import 'package:departments/features/departmentsViewer/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import '../../../../fixtures/loading_widget_test.mocks.dart';
-import '../../../../utils/test_widget_utils.dart';
 
 @GenerateMocks([NumberTriviaBloc])
 void main() {

@@ -14,6 +14,7 @@ void main() {
   late MockNumberTriviaBloc numberTriviaBloc;
   setUp(() {
     numberTriviaBloc = MockNumberTriviaBloc();
+    GetIt.instance.pushNewScope();
     GetIt.instance.registerSingleton<NumberTriviaBloc>(numberTriviaBloc);
     when(numberTriviaBloc.add(any)).thenAnswer((realInvocation) {});
     when(numberTriviaBloc.stream)

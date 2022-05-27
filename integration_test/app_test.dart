@@ -21,7 +21,7 @@ void main() {
     sl.registerLazySingleton<NumberTriviaRemoteDataSource>(
         () => numberTriviaRemoteDataSource);
 
-    return sl.allReady();
+    await sl.allReady();
   });
 
   testWidgets(

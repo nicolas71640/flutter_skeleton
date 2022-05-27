@@ -14,7 +14,7 @@ void main() {
   late MockNumberTriviaRemoteDataSource numberTriviaRemoteDataSource;
 
   setUp(() async {
-    sl.reset();
+    await sl.reset();
     numberTriviaRemoteDataSource = MockNumberTriviaRemoteDataSource();
     init();
     sl.pushNewScope();

@@ -14,13 +14,14 @@ void main() {
   late MockNumberTriviaRemoteDataSource numberTriviaRemoteDataSource;
 
   setUp(() async {
+    sl.reset();
     numberTriviaRemoteDataSource = MockNumberTriviaRemoteDataSource();
     init();
     sl.pushNewScope();
     sl.registerLazySingleton<NumberTriviaRemoteDataSource>(
         () => numberTriviaRemoteDataSource);
 
-    await sl.allReady();
+    return sl.allReady();
   });
 
   testWidgets(

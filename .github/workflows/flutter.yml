@@ -128,7 +128,7 @@ jobs:
       - run: flutter test
 
   android-integration-test:
-    needs: build
+    needs: setup
     name: run integration test on Android emulator
     runs-on: macos-latest
     strategy:

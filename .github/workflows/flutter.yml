@@ -9,13 +9,43 @@ on:
 
     # on: push    # Default will running for every branch.
 
-defaults:
-  run:
-    working-directory: ./frontend
-jobs:
-  setup:
-    runs-on: ${{ matrix.os }}
 
+jobs:
+  backend-unit-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "npm"
+          cache-dependency-path: './backend/package-lock.json'
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: 5.0
+          mongodb-port: 27017
+
+      - name: Install mocha and chai
+        run: npm install -g mocha chai
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Tests
+        run: npm test
+        env:
+          CI: true
+
+  frontend-setup:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./frontend
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -36,9 +66,12 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-  lint:
-    needs: setup
+  frontend-lint:
+    needs: frontend-setup
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       # Setup Java environment in order to build the Android app.
       - uses: actions/checkout@v1
@@ -66,9 +99,12 @@ jobs:
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze .
 
-  build:
-    needs: setup
+  frontend-build:
+    needs: frontend-setup
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       # Setup Java environment in order to build the Android app.
       - uses: actions/checkout@v1
@@ -99,10 +135,13 @@ jobs:
           name: release-apk
           path: frontend/build/app/outputs/apk/release/app-release.apk
 
-  unit-test:
-    needs: setup
+  frontend-unit-test:
+    needs: frontend-setup
     name: run unit test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       # Setup Java environment in order to build the Android app.
       - uses: actions/checkout@v1
@@ -127,10 +166,13 @@ jobs:
       # Run widget tests for our flutter project.
       - run: flutter test
 
-  android-integration-test:
-    needs: build
+  frontend-android-integration-test:
+    needs: frontend-build
     name: run integration test on Android emulator
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     strategy:
       matrix:
         device:

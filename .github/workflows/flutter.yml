@@ -13,8 +13,31 @@ defaults:
   run:
     working-directory: ./frontend
 jobs:
+  setup:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            flutter_path: /opt/hostedtoolcache/flutter
+          - os: macos-latest
+            flutter_path: /Users/runner/hostedtoolcache/flutter
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ matrix.flutter_path }}
+          key: ${{ runner.os }}-flutter
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
   lint:
-    # This job will run on ubuntu virtual machine
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       # Setup Java environment in order to build the Android app.
@@ -39,7 +62,7 @@ jobs:
       - run: flutter analyze .
 
   build:
-    # This job will run on ubuntu virtual machine
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       # Setup Java environment in order to build the Android app.

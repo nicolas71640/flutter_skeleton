@@ -67,6 +67,7 @@ jobs:
           path: frontend/build/app/outputs/apk/release/app-release.apk
 
   test:
+    needs: build
     name: run unit test
     runs-on: ubuntu-latest
     steps:

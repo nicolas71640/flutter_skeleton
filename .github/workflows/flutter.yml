@@ -205,7 +205,7 @@ jobs:
     needs: frontend-setup
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: frontend
     #Create a construction matrix
     strategy:
       #Set up different configurations for a set of virtual environments

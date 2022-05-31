@@ -212,10 +212,10 @@ jobs:
           - "iPhone 11 Pro Max (14.4)"
       #When set to true, GitHub cancels all in progress jobs if any of the matrix jobs fail.
       fail-fast: false
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: "List all simulators"
-        run: "ls && pwd && xcrun instruments -s"
+        run: "xcrun xctrace list devices"
       - name: "Start Simulator"
         run: |
           UDID=$(

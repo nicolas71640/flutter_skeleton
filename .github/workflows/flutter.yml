@@ -171,7 +171,8 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage/lcov.info
-
+          working-directory: ./frontend
+          
   frontend-android-integration-test:
     needs: frontend-build
     name: run integration test on Android emulator

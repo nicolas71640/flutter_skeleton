@@ -170,8 +170,7 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage/lcov.info
-          working-directory: ./frontend
+          file: ./frontend/coverage/lcov.info
           
   frontend-android-integration-test:
     needs: frontend-build

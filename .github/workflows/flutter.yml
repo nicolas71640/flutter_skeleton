@@ -198,9 +198,14 @@ jobs:
           working-directory: ./frontend
           api-level: 29
           profile: ${{ matrix.device }}
-          script: |
+          script: | 
             flutter test integration_test
-            
+            flutter drive --driver=test_driver/integration_test.dart --target=screenshots_test/screenshots_test.dart -d "emulator-5554"
+      - uses: actions/upload-artifact@v1
+        with:
+          name: screenshots
+          path: frontend/screenshots
+          
   frontend-ios-integration-test:
     needs: frontend-setup
     #Create a construction matrix
@@ -234,4 +239,10 @@ jobs:
       - name: "Run Flutter Driver tests"
         run: flutter test integration_test
         working-directory: ./frontend
-        
+      - name: "Generate Screenshots"  
+        run: flutter drive --driver=test_driver/integration_test.dart --target=screenshots_test/screenshots_test.dart
+        working-directory: ./frontend
+      - uses: actions/upload-artifact@v1
+        with:
+          name: screenshots
+          path: frontend/screenshots

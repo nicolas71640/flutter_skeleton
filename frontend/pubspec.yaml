@@ -40,6 +40,7 @@ dependencies:
   http: ^0.13.4
   internet_connection_checker: ^0.0.1+4
   mockito: ^5.2.0
+  screenshot: ^1.2.3
   shared_preferences: ^2.0.15
 
 dev_dependencies:

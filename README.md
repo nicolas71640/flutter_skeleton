@@ -1,0 +1,5 @@
+# flutter_skeleton
+
+<a href="https://github.com/[USER_NAME]/[REPO_NAME]/actions"><img src="https://github.com/nicolas71640/flutter_skeleton/workflows/Flutter CI/badge.svg" alt="Build Status"></a>
+
+[![codecov](https://codecov.io/gh/nicolas71640/flutter_skeleton/branch/main/graph/badge.svg?token=0VLH5LNCTB)](https://codecov.io/gh/nicolas71640/flutter_skeleton)

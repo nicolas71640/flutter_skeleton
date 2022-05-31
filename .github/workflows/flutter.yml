@@ -164,8 +164,14 @@ jobs:
       - run: flutter pub get
 
       # Run widget tests for our flutter project.
-      - run: flutter test
-
+      - run: flutter test --coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./frontend/coverage/lcov.info
+          
   frontend-android-integration-test:
     needs: frontend-build
     name: run integration test on Android emulator
@@ -194,3 +200,38 @@ jobs:
           profile: ${{ matrix.device }}
           script: |
             flutter test integration_test
+            
+  frontend-ios-integration-test:
+    needs: frontend-setup
+    #Create a construction matrix
+    strategy:
+      #Set up different configurations for a set of virtual environments
+      matrix:
+        device:
+          - "iPhone 8 Simulator (15.2)"
+          - "iPhone 11 Simulator (15.2)"
+      #When set to true, GitHub cancels all in progress jobs if any of the matrix jobs fail.
+      fail-fast: false
+    runs-on: macos-latest
+    steps:
+      - name: "List all simulators"
+        run: "xcrun xctrace list devices"
+      - name: "Start Simulator"
+        run: |
+          UDID=$(xcrun xctrace list devices | grep "^${{ matrix.device }}" | awk '{gsub(/[()]/,""); print $NF}')
+          echo $UDID
+          xcrun simctl boot "${UDID:?No Simulator with this name found}"
+      - uses: actions/checkout@v2
+      - name: Cache Flutter
+        id: cache-flutter
+        uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - name: "Run Flutter Driver tests"
+        run: flutter test integration_test
+        working-directory: ./frontend
+        

@@ -164,7 +164,13 @@ jobs:
       - run: flutter pub get
 
       # Run widget tests for our flutter project.
-      - run: flutter test
+      - run: flutter test --coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage/lcov.info
 
   frontend-android-integration-test:
     needs: frontend-build

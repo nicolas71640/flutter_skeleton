@@ -203,9 +203,6 @@ jobs:
             
   frontend-ios-integration-test:
     needs: frontend-setup
-    defaults:
-      run:
-        working-directory: frontend
     #Create a construction matrix
     strategy:
       #Set up different configurations for a set of virtual environments
@@ -216,9 +213,12 @@ jobs:
       #When set to true, GitHub cancels all in progress jobs if any of the matrix jobs fail.
       fail-fast: false
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - name: "List all simulators"
-        run: "xcrun instruments -s"
+        run: "ls && pwd && xcrun instruments -s"
       - name: "Start Simulator"
         run: |
           UDID=$(

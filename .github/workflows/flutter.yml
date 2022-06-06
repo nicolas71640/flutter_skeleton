@@ -239,9 +239,6 @@ jobs:
       - name: "Run Flutter Driver tests"
         run: flutter test integration_test
         working-directory: ./frontend
-      - name: "Generate Screenshots"  
-        run: flutter drive --driver=test_driver/integration_test.dart --target=screenshots_test/screenshots_test.dart
-        working-directory: ./frontend
       - uses: actions/upload-artifact@v1
         with:
           name: screenshots

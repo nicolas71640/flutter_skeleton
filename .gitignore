@@ -48,3 +48,6 @@ app.*.map.json
 
 # Server
 backend/node_modules
+
+frontend/coverage
+frontend/screenshots

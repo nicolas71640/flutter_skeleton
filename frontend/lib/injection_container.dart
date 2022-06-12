@@ -18,6 +18,7 @@ import 'package:departments/features/stuff/domain/repositories/stuff_repository.
 import 'package:departments/features/stuff/domain/usecases/get_stuff_usecase.dart';
 import 'package:departments/features/stuff/presentation/bloc/bloc/stuff_bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,8 +79,10 @@ void initFeatures() {
       () => NumberTriviaLocalDataSourceImpl(sl()),
       dependsOn: [SharedPreferences]);
 
-  sl.registerLazySingleton<Dio>(instanceName: "Dio",() => Api.createDio(sl(),sl()));
-  sl.registerLazySingleton<Dio>(instanceName: "CredentialsDio",() => Api.createCredentialsDio());
+  sl.registerLazySingleton<Dio>(
+      instanceName: "Dio", () => Api.createDio(sl(), sl()));
+  sl.registerLazySingleton<Dio>(
+      instanceName: "CredentialsDio", () => Api.createCredentialsDio());
 
   sl.registerLazySingleton<CredentialsLocalDataSource>(
       () => CredentialsLocalDataSourceImpl(sl()));
@@ -87,7 +90,6 @@ void initFeatures() {
       () => CredentialsApiService(sl(instanceName: "CredentialsDio")));
   sl.registerLazySingleton<StuffApiService>(
       () => StuffApiService(sl(instanceName: "Dio")));
-
 }
 
 void initCore() {
@@ -96,6 +98,7 @@ void initCore() {
 }
 
 void initExternal() {
+  sl.registerLazySingleton(() => const FlutterSecureStorage());
   sl.registerSingletonAsync(() async => await SharedPreferences.getInstance());
   sl.registerLazySingleton(() => InternetConnectionChecker());
   sl.registerLazySingleton<http.Client>(() => http.Client());

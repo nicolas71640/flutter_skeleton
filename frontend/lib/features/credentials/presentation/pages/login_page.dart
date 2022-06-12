@@ -1,6 +1,5 @@
 import 'package:departments/features/credentials/presentation/bloc/bloc/login_bloc.dart';
 import 'package:flutter/scheduler.dart';
-import '../../../departmentsViewer/presentation/pages/number_trivia_page.dart';
 import '../../../stuff/presentation/page/stuff_page.dart';
 import "../widgets/widgets.dart";
 import 'package:flutter/material.dart';

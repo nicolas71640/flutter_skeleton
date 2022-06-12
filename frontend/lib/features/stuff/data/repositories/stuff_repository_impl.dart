@@ -26,7 +26,7 @@ class StuffRepositoryImpl implements StuffRepository {
           .map(
               (responseStuff) => StuffModel.fromGetStuffResponse(responseStuff))
           .toList());
-    } on DioError catch (error) {
+    } on DioError {
       return Left(ServerFailure());
     }
   }

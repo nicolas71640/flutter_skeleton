@@ -3,10 +3,8 @@
 import 'dart:async';
 
 import 'package:departments/core/error/exceptions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-
-//TODO use secure storage
 abstract class CredentialsLocalDataSource {
   Future<String> getUserId();
   Future<String> getAccessToken();
@@ -16,19 +14,18 @@ abstract class CredentialsLocalDataSource {
       String userId, String accessToken, String refreshToken);
 }
 
-// ignore: constant_identifier_names
 const ACCESS_TOKEN = "ACCESS_TOKEN";
 const REFRESH_TOKEN = "REFRESH_TOKEN";
 const USER_ID = "USER_ID";
 
 class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
-  final SharedPreferences sharedPreferences;
+  final FlutterSecureStorage flutterSecureStorage;
 
-  CredentialsLocalDataSourceImpl(this.sharedPreferences);
+  CredentialsLocalDataSourceImpl(this.flutterSecureStorage);
 
   @override
-  Future<String> getUserId() {
-    final userId = sharedPreferences.getString(USER_ID);
+  Future<String> getUserId() async {
+    final userId = await flutterSecureStorage.read(key: USER_ID);
     if (userId != null) {
       return Future.value(userId);
     } else {
@@ -38,7 +35,7 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
 
   @override
   Future<String> getAccessToken() async {
-    final accessToken = sharedPreferences.getString(ACCESS_TOKEN);
+    final accessToken = await flutterSecureStorage.read(key: ACCESS_TOKEN);
     if (accessToken != null) {
       return Future.value(accessToken);
     } else {
@@ -48,7 +45,7 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
 
   @override
   Future<String> getRefreshToken() async {
-    final refreshToken = sharedPreferences.getString(REFRESH_TOKEN);
+    final refreshToken = await flutterSecureStorage.read(key: REFRESH_TOKEN);
     if (refreshToken != null) {
       return Future.value(refreshToken);
     } else {
@@ -59,15 +56,15 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
   @override
   Future<void> cacheCredentials(
       String userId, String accessToken, String refreshToken) async {
-    return sharedPreferences
-        .setString(REFRESH_TOKEN, refreshToken)
-        .then((_) => sharedPreferences.setString(ACCESS_TOKEN, accessToken))
-        .then((_) => sharedPreferences.setString(USER_ID, userId));
+    return flutterSecureStorage
+        .write(key: REFRESH_TOKEN, value: refreshToken)
+        .then((_) =>
+            flutterSecureStorage.write(key: ACCESS_TOKEN, value: accessToken))
+        .then((_) => flutterSecureStorage.write(key: USER_ID, value: userId));
   }
-  
+
   @override
   Future<void> cacheAccessToken(String accessToken) {
-    return sharedPreferences
-        .setString(ACCESS_TOKEN, accessToken);
+    return flutterSecureStorage.write(key: ACCESS_TOKEN, value: accessToken);
   }
 }

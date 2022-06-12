@@ -1,8 +1,10 @@
-import 'package:departments/features/departmentsViewer/presentation/pages/number_trivia_page.dart';
+import 'package:departments/features/credentials/presentation/pages/login_page.dart';
 import 'package:departments/injection_container.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart' show Level, Logger;
 
 void main() async {
+  _setupLogging();
   WidgetsFlutterBinding.ensureInitialized();
   init();
   await sl.allReady();
@@ -17,7 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Number Trivia',
       theme: ThemeData(primaryColor: Colors.green.shade800),
-      home: const NumberTriviaPage(),
+      home: const LoginPage(),
     );
   }
+}
+
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }

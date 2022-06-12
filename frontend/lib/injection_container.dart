@@ -1,3 +1,4 @@
+import 'package:departments/core/network/api.dart';
 import 'package:departments/core/network/network_info.dart';
 import 'package:departments/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:departments/features/credentials/data/repositories/credentials_repository_impl.dart';
@@ -16,6 +17,7 @@ import 'package:departments/features/stuff/data/datasources/stuff_api_service.da
 import 'package:departments/features/stuff/domain/repositories/stuff_repository.dart';
 import 'package:departments/features/stuff/domain/usecases/get_stuff_usecase.dart';
 import 'package:departments/features/stuff/presentation/bloc/bloc/stuff_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,9 +66,9 @@ void initFeatures() {
             networkInfo: sl(),
           ));
   sl.registerLazySingleton<CredentialsRepository>(
-      () => CredentialsRepositoryImpl(CredentialsApiService.create(), sl()));
+      () => CredentialsRepositoryImpl(sl(), sl()));
   sl.registerLazySingleton<StuffRepository>(
-      () => StuffRepositoryImpl(sl(),sl()));
+      () => StuffRepositoryImpl(sl(), sl()));
 
   //Data Sources
   sl.registerLazySingleton<NumberTriviaRemoteDataSource>(
@@ -76,12 +78,16 @@ void initFeatures() {
       () => NumberTriviaLocalDataSourceImpl(sl()),
       dependsOn: [SharedPreferences]);
 
+  sl.registerLazySingleton<Dio>(instanceName: "Dio",() => Api.createDio(sl(),sl()));
+  sl.registerLazySingleton<Dio>(instanceName: "CredentialsDio",() => Api.createCredentialsDio());
+
   sl.registerLazySingleton<CredentialsLocalDataSource>(
       () => CredentialsLocalDataSourceImpl(sl()));
-    sl.registerLazySingleton<CredentialsApiService>(
-      () => CredentialsApiService.create());
-    sl.registerLazySingleton<StuffApiService>(
-      () => StuffApiService.create(sl(),sl()));
+  sl.registerLazySingleton<CredentialsApiService>(
+      () => CredentialsApiService(sl(instanceName: "CredentialsDio")));
+  sl.registerLazySingleton<StuffApiService>(
+      () => StuffApiService(sl(instanceName: "Dio")));
+
 }
 
 void initCore() {

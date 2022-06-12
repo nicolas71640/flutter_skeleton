@@ -1,8 +1,12 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 
 import 'package:departments/core/error/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+//TODO use secure storage
 abstract class CredentialsLocalDataSource {
   Future<String> getUserId();
   Future<String> getAccessToken();

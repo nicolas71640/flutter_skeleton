@@ -1,12 +1,13 @@
 part of 'login_bloc.dart';
 
-abstract class LoginState {}
-
-
+abstract class LoginState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
 class LoginInitial extends LoginState {}
 
-class Empty extends LoginState{}
+class Empty extends LoginState {}
 
 class Error extends LoginState {
   final String message;
@@ -17,4 +18,4 @@ class Error extends LoginState {
   List<Object> get props => [message];
 }
 
-class Logged extends LoginState{}
+class Logged extends LoginState {}

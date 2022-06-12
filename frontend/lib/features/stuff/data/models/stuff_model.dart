@@ -1,6 +1,5 @@
-import 'package:departments/features/stuff/data/models/get_stuff_response.dart';
-
 import '../../domain/entities/stuff.dart';
+import 'api/get_stuff_response.dart';
 
 class StuffModel extends Stuff {
   const StuffModel({

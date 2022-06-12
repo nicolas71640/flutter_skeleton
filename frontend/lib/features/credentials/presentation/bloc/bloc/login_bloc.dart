@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:departments/features/credentials/domain/usecases/login_usecase.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 part 'login_event.dart';

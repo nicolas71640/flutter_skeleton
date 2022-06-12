@@ -1,6 +1,5 @@
-import 'package:departments/features/credentials/data/models/login_response.dart';
-
 import '../../domain/entities/user.dart';
+import 'api/login_response.dart';
 
 class UserModel extends User {
   const UserModel({required super.mail});

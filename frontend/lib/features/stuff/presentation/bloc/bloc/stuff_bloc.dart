@@ -9,7 +9,6 @@ class StuffBloc extends Bloc<StuffEvent, StuffState> {
 
   StuffBloc(this.stuffRepository) : super(StuffInitial()) {
     on<GetStuffEvent>((event, emit) async {
-      print("getstuff");
       await stuffRepository.getStuff();
     });
   }

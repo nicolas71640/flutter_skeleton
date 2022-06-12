@@ -1,47 +1,56 @@
-// Source code generation in Dart works by creating a new file which contains a "companion class".
-// In order for the source gen to know which file to generate and which files are "linked", you need to use the part keyword.
 import 'dart:async';
 
-import 'package:chopper/chopper.dart';
-import 'package:departments/core/network/build_value_converter.dart';
-import 'package:departments/features/credentials/data/models/login_response.dart';
-import 'package:departments/features/credentials/data/models/refresh_token_response.dart';
-import 'package:departments/features/credentials/data/models/signup_request.dart';
-import 'package:departments/features/credentials/data/models/signup_response.dart';
+
+import 'package:dio/dio.dart';
 
 import '../../../../core/network/network_utils.dart';
-import '../models/login_request.dart';
+import 'dart:developer' as developer;
 
-part 'credentials_api_service.chopper.dart';
+import '../models/api/login_request.dart';
+import '../models/api/login_response.dart';
+import '../models/api/refresh_token_response.dart';
+import '../models/api/signup_request.dart';
+import '../models/api/signup_response.dart';
 
-@ChopperApi()
-abstract class CredentialsApiService extends ChopperService {
-  @Post(path: '/signup')
-  Future<Response<SignupResponse>> signup(@Body() SignupRequest signupRequest);
+class CredentialsApiService {
+  final Dio dio;
 
-  @Post(path: '/login')
-  Future<Response<LoginResponse>> login(@Body() LoginRequest loginRequest);
+  CredentialsApiService(this.dio);
 
-  @Post(optionalBody: true, path: '/refreshToken')
-  Future<Response<RefreshTokenResponse>> refreshToken(
-    @Header('Authorization') String refreshToken,
-  );
+  Future<SignupResponse> signup(SignupRequest signupRequest) async {
+    developer.log("signup");
 
-  static CredentialsApiService create() {
-    final client = ChopperClient(
-      interceptors: [HttpLoggingInterceptor()],
-      // The first part of the URL is now here
-      baseUrl: '${NetworkUtils.BASE_URL}/api/auth',
-      services: [
-        // The generated implementation
-        _$CredentialsApiService(),
-      ],
-      // Converts data to & from JSON and adds the application/json header.
-      converter: BuiltValueConverter(),
+    Response response = await dio.post(
+      '/auth/signup',
+      data: signupRequest.toJson(),
     );
 
-    // The generated class with the ChopperClient passed in
-    return _$CredentialsApiService(client);
+    SignupResponse signupResponse = SignupResponse.fromJson(response.data);
+
+    return signupResponse;
+  }
+
+  Future<LoginResponse> login(LoginRequest loginRequest) async {
+    developer.log("login");
+
+    Response response = await dio.post(
+      '/auth/login',
+      data: loginRequest.toJson(),
+    );
+
+    LoginResponse loginResponse = LoginResponse.fromJson(response.data);
+
+    return loginResponse;
+  }
+
+  Future<RefreshTokenResponse> refreshToken(String refreshToken) async {
+    developer.log("refreshToken");
+    dio.options.headers["Authorization"] = NetworkUtils.BEARER + refreshToken;
+    Response response = await dio.post('/auth/refreshToken');
+
+    RefreshTokenResponse refreshTokenResponse =
+        RefreshTokenResponse.fromJson(response.data);
+
+    return refreshTokenResponse;
   }
 }
-

@@ -3,6 +3,8 @@ import 'package:departments/features/credentials/domain/usecases/login_usecase.d
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/user.dart';
+
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -11,12 +13,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc(this.loginUseCase) : super(LoginInitial()) {
     on<TryLoginEvent>((event, emit) async {
-      final failureOrUser = await loginUseCase.call(event.mail, event.password);
-      failureOrUser.fold(
-        (failure) => emit(Error(message: "Wrong Ids")),
-        (user) {
-          emit(Logged());
-        },
+      
+      await emit.forEach<User>(
+        loginUseCase.call(event.mail, event.password),
+        onData: (users) => Logged(),
+        onError: (_, __) => Error(message: "Wrong Ids"),
       );
     });
   }

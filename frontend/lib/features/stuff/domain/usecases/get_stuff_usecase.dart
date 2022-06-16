@@ -9,7 +9,7 @@ class GetStuffUseCase{
 
   GetStuffUseCase(this.repository);
 
-  Future<Either<Failure, List<Stuff>>> call() async {
-    return await repository.getStuff();
+  Stream<List<Stuff>> call() {
+    return repository.getStuff();
   }
 }

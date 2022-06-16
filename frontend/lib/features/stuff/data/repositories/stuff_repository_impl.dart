@@ -5,6 +5,7 @@ import 'package:departments/features/stuff/data/datasources/stuff_api_service.da
 import 'package:departments/features/stuff/domain/entities/stuff.dart';
 import 'package:departments/features/stuff/domain/repositories/stuff_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../models/stuff_model.dart';
 
@@ -19,15 +20,18 @@ class StuffRepositoryImpl implements StuffRepository {
   StuffRepositoryImpl(this.stuffApiService, this.credentialsLocalDataSource);
 
   @override
-  Future<Either<Failure, List<Stuff>>> getStuff() async {
-    try {
-      final stuffList = await stuffApiService.getStuff();
-      return Right(stuffList
-          .map(
-              (responseStuff) => StuffModel.fromGetStuffResponse(responseStuff))
-          .toList());
-    } on DioError {
-      return Left(ServerFailure());
-    }
+  Stream<List<Stuff>> getStuff() {
+    return stuffApiService
+        .getStuff()
+        .flatMapIterable((value) => Stream.value(value))
+        .map((responseStuff) => StuffModel.fromGetStuffResponse(responseStuff))
+        .onErrorResume((error, stackTrace) {
+          if (error is DioError) {
+            return Stream.error(ServerFailure());
+          }
+          return Stream.error(error);
+        })
+        .toList()
+        .asStream();
   }
 }

@@ -10,7 +10,7 @@ abstract class CredentialsLocalDataSource {
   Future<String> getAccessToken();
   Future<String> getRefreshToken();
   Future<void> cacheAccessToken(String accessToken);
-  Future<void> cacheCredentials(
+  Stream<void> cacheCredentials(
       String userId, String accessToken, String refreshToken);
 }
 
@@ -54,13 +54,13 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
   }
 
   @override
-  Future<void> cacheCredentials(
-      String userId, String accessToken, String refreshToken) async {
-    return flutterSecureStorage
+  Stream<void> cacheCredentials(
+      String userId, String accessToken, String refreshToken) {
+    return Stream.fromFuture(flutterSecureStorage
         .write(key: REFRESH_TOKEN, value: refreshToken)
         .then((_) =>
             flutterSecureStorage.write(key: ACCESS_TOKEN, value: accessToken))
-        .then((_) => flutterSecureStorage.write(key: USER_ID, value: userId));
+        .then((_) => flutterSecureStorage.write(key: USER_ID, value: userId)));
   }
 
   @override

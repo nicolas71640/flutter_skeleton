@@ -9,7 +9,7 @@ class SignupUseCase {
 
   SignupUseCase(this.repository);
 
-  Future<Either<Failure, User>> call(String username, String password) async {
-    return await repository.signup(username,password);
+  Stream<User> call(String username, String password)  {
+    return repository.signup(username,password);
   }
 }

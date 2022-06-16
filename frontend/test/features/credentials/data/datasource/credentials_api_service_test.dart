@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:departments/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:departments/features/credentials/data/models/api/login_request.dart';
 import 'package:departments/features/credentials/data/models/api/signup_request.dart';

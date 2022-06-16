@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:dio/dio.dart';
 
 import '../../../../core/network/network_utils.dart';
@@ -17,30 +16,22 @@ class CredentialsApiService {
 
   CredentialsApiService(this.dio);
 
-  Future<SignupResponse> signup(SignupRequest signupRequest) async {
+  Stream<SignupResponse> signup(SignupRequest signupRequest) {
     developer.log("signup");
 
-    Response response = await dio.post(
+    return Stream.fromFuture(dio.post(
       '/auth/signup',
       data: signupRequest.toJson(),
-    );
-
-    SignupResponse signupResponse = SignupResponse.fromJson(response.data);
-
-    return signupResponse;
+    )).map((response) => SignupResponse.fromJson(response.data));
   }
 
-  Future<LoginResponse> login(LoginRequest loginRequest) async {
+  Stream<LoginResponse> login(LoginRequest loginRequest) {
     developer.log("login");
 
-    Response response = await dio.post(
+    return Stream.fromFuture(dio.post(
       '/auth/login',
       data: loginRequest.toJson(),
-    );
-
-    LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-
-    return loginResponse;
+    )).map((response) => LoginResponse.fromJson(response.data));
   }
 
   Future<RefreshTokenResponse> refreshToken(String refreshToken) async {

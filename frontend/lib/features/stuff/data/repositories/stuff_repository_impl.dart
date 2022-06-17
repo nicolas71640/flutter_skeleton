@@ -1,5 +1,4 @@
 import 'package:departments/core/error/failures.dart';
-import 'package:dartz/dartz.dart';
 import 'package:departments/core/network/credentials_local_data_source.dart';
 import 'package:departments/features/stuff/data/datasources/stuff_api_service.dart';
 import 'package:departments/features/stuff/domain/entities/stuff.dart';

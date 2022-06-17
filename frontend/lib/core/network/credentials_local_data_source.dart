@@ -6,10 +6,10 @@ import 'package:departments/core/error/exceptions.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class CredentialsLocalDataSource {
-  Future<String> getUserId();
-  Future<String> getAccessToken();
-  Future<String> getRefreshToken();
-  Future<void> cacheAccessToken(String accessToken);
+  Stream<String> getUserId();
+  Stream<String> getAccessToken();
+  Stream<String> getRefreshToken();
+  Stream<void> cacheAccessToken(String accessToken);
   Stream<void> cacheCredentials(
       String userId, String accessToken, String refreshToken);
 }
@@ -24,33 +24,18 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
   CredentialsLocalDataSourceImpl(this.flutterSecureStorage);
 
   @override
-  Future<String> getUserId() async {
-    final userId = await flutterSecureStorage.read(key: USER_ID);
-    if (userId != null) {
-      return Future.value(userId);
-    } else {
-      throw CacheException();
-    }
+  Stream<String> getUserId() {
+    return _getString(USER_ID);
   }
 
   @override
-  Future<String> getAccessToken() async {
-    final accessToken = await flutterSecureStorage.read(key: ACCESS_TOKEN);
-    if (accessToken != null) {
-      return Future.value(accessToken);
-    } else {
-      throw CacheException();
-    }
+  Stream<String> getAccessToken() {
+    return _getString(ACCESS_TOKEN);
   }
 
   @override
-  Future<String> getRefreshToken() async {
-    final refreshToken = await flutterSecureStorage.read(key: REFRESH_TOKEN);
-    if (refreshToken != null) {
-      return Future.value(refreshToken);
-    } else {
-      throw CacheException();
-    }
+  Stream<String> getRefreshToken() {
+    return _getString(REFRESH_TOKEN);
   }
 
   @override
@@ -64,7 +49,18 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
   }
 
   @override
-  Future<void> cacheAccessToken(String accessToken) {
-    return flutterSecureStorage.write(key: ACCESS_TOKEN, value: accessToken);
+  Stream<void> cacheAccessToken(String accessToken) {
+    return Stream.fromFuture(
+        flutterSecureStorage.write(key: ACCESS_TOKEN, value: accessToken));
+  }
+
+  Stream<String> _getString(String key) {
+    return Stream.fromFuture(flutterSecureStorage.read(key: key)).map((value) {
+      if (value != null) {
+        return value;
+      } else {
+        throw CacheException();
+      }
+    });
   }
 }

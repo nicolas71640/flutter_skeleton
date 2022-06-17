@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:departments/features/stuff/domain/repositories/stuff_repository.dart';
 import 'package:departments/features/stuff/domain/usecases/get_stuff_usecase.dart';
 
 import '../../../domain/entities/stuff.dart';

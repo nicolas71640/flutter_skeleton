@@ -2,6 +2,7 @@ import 'package:departments/core/network/credentials_local_data_source.dart';
 import 'package:departments/core/network/network_utils.dart';
 import 'package:departments/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:dio/dio.dart';
+import 'package:rxdart/rxdart.dart';
 
 class Api {
   static Dio createDio(CredentialsLocalDataSource credentialsLocalDataSource,
@@ -33,7 +34,7 @@ class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    var accessToken = await credentialsLocalDataSource.getAccessToken();
+    var accessToken = await credentialsLocalDataSource.getAccessToken().first;
     options.headers['Authorization'] = 'Bearer $accessToken';
     return handler.next(options);
   }
@@ -52,11 +53,14 @@ class AppInterceptors extends Interceptor {
     ErrorInterceptorHandler handler,
   ) async {
     if (err.response?.statusCode == 401 && retries++ < 3) {
-      final refreshToken = await credentialsLocalDataSource.getRefreshToken();
-      final accessTokenResponse =
-          await credentialsApiService.refreshToken(refreshToken);
       await credentialsLocalDataSource
-          .cacheAccessToken(accessTokenResponse.accessToken);
+          .getRefreshToken()
+          .flatMap((refreshToken) =>
+              credentialsApiService.refreshToken(refreshToken))
+          .flatMap((accessTokenResponse) => credentialsLocalDataSource
+              .cacheAccessToken(accessTokenResponse.accessToken))
+          .last;
+
       try {
         await _retry(err.requestOptions);
       } on DioError catch (dioError) {

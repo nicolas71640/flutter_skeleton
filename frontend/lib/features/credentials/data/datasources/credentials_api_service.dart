@@ -34,14 +34,10 @@ class CredentialsApiService {
     )).map((response) => LoginResponse.fromJson(response.data));
   }
 
-  Future<RefreshTokenResponse> refreshToken(String refreshToken) async {
+  Stream<RefreshTokenResponse> refreshToken(String refreshToken) {
     developer.log("refreshToken");
     dio.options.headers["Authorization"] = NetworkUtils.BEARER + refreshToken;
-    Response response = await dio.post('/auth/refreshToken');
-
-    RefreshTokenResponse refreshTokenResponse =
-        RefreshTokenResponse.fromJson(response.data);
-
-    return refreshTokenResponse;
+    return Stream.fromFuture(dio.post('/auth/refreshToken'))
+        .map((response) => RefreshTokenResponse.fromJson(response.data));
   }
 }

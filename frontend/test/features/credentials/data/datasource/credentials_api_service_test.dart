@@ -28,98 +28,83 @@ void main() {
               data: fixtureJson("credentials/signup_ok.json")));
 
       final signupRequest = SignupRequest("email", "password");
-      final result = await credentialsApiService
-          .signup(signupRequest);
 
-      verify(mockDio.post("/auth/signup",data: signupRequest.toJson()));
-      expect(result.message, equals("User Created"));
+      final signupResponse =
+          await credentialsApiService.signup(signupRequest).first;
+
+      expect(signupResponse.message, "User Created");
+      verify(mockDio.post("/auth/signup", data: signupRequest.toJson()));
     });
 
     test("shoud throw a DioError when an error is thrown", () async {
-      when(mockDio.post(any, data: anyNamed("data")))
-          .thenThrow(DioError(requestOptions: RequestOptions(path: "")));
+      final dioError = DioError(requestOptions: RequestOptions(path: ""));
 
-      try {
-        await credentialsApiService.signup(SignupRequest("email", "password"));
-      } catch (error) {
-        expect(error, isA<DioError>());
-        return;
-      }
-      fail("No Error thrown");
+      when(mockDio.post(any, data: anyNamed("data")))
+          .thenAnswer((_) async => throw dioError);
+
+      expect(credentialsApiService.signup(SignupRequest("email", "password")),
+          emitsError(dioError));
     });
   });
 
   group("Login", () {
     test("should return a LoginResponse when no error is thrown ", () async {
       final jsonResponse = fixtureJson("credentials/login_ok.json");
-
       when(mockDio.post(any, data: anyNamed("data"))).thenAnswer(
           (realInvocation) async => Response(
               requestOptions: RequestOptions(path: ""),
               statusCode: 200,
               data: jsonResponse));
-
       final loginRequest = LoginRequest("email", "password");
-      final response = await credentialsApiService
-          .login(loginRequest);
 
+      final loginResponse =
+          await credentialsApiService.login(loginRequest).first;
 
-      verify(mockDio.post("/auth/login",data: loginRequest.toJson()));
-
-      expect(response.userId, equals(jsonResponse["userId"]));
-      expect(response.accessToken, equals(jsonResponse["accessToken"]));
-      expect(response.refreshToken, equals(jsonResponse["refreshToken"]));
-
+      expect(loginResponse.userId, equals(jsonResponse["userId"]));
+      expect(loginResponse.accessToken, equals(jsonResponse["accessToken"]));
+      expect(loginResponse.refreshToken, equals(jsonResponse["refreshToken"]));
+      verify(mockDio.post("/auth/login", data: loginRequest.toJson()));
     });
 
     test("shoud throw a DioError when an error is thrown", () async {
-      when(mockDio.post(any, data: anyNamed("data")))
-          .thenThrow(DioError(requestOptions: RequestOptions(path: "")));
+      final dioError = DioError(requestOptions: RequestOptions(path: ""));
 
-      try {
-        await credentialsApiService.login(LoginRequest("email", "password"));
-      } catch (error) {
-        expect(error, isA<DioError>());
-        return;
-      }
-      fail("No Error thrown");
+      when(mockDio.post(any, data: anyNamed("data")))
+          .thenAnswer((_) async => throw dioError);
+
+      expect(credentialsApiService.login(LoginRequest("email", "password")),
+          emitsError(dioError));
     });
   });
 
-
   group("RefreshToken", () {
-    test("should return a RefreshTokenResponse when no error is thrown ", () async {
+    test("should return a RefreshTokenResponse when no error is thrown ",
+        () async {
       final jsonResponse = fixtureJson("credentials/refresh_token_ok.json");
 
       when(mockDio.options).thenReturn(BaseOptions());
-      when(mockDio.post(any)).thenAnswer(
-          (realInvocation) async => Response(
-              requestOptions: RequestOptions(path: ""),
-              statusCode: 200,
-              data: jsonResponse));
+      when(mockDio.post(any)).thenAnswer((realInvocation) async => Response(
+          requestOptions: RequestOptions(path: ""),
+          statusCode: 200,
+          data: jsonResponse));
 
-      final response = await credentialsApiService
-          .refreshToken("refreshToken");
+      final response =
+          await credentialsApiService.refreshToken("refreshToken").first;
 
       verify(mockDio.post("/auth/refreshToken"));
 
       expect(response.accessToken, equals(jsonResponse["accessToken"]));
-
     });
 
     test("shoud throw a DioError when an error is thrown", () async {
-            when(mockDio.options).thenReturn(BaseOptions());
+      final dioError = DioError(requestOptions: RequestOptions(path: ""));
 
-      when(mockDio.post(any))
-          .thenThrow(DioError(requestOptions: RequestOptions(path: "")));
+      when(mockDio.options).thenReturn(BaseOptions());
+      when(mockDio.post(any, data: anyNamed("data")))
+          .thenAnswer((_) async => throw dioError);
 
-      try {
-        await credentialsApiService.refreshToken("refreshToken");
-      } catch (error) {
-        expect(error, isA<DioError>());
-        return;
-      }
-      fail("No Error thrown");
+      expect(credentialsApiService.refreshToken("refreshToken"),
+          emitsError(dioError));
     });
   });
 }

@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:departments/features/credentials/data/datasources/credentials_api_service.dart';
-import 'package:departments/features/credentials/data/models/api/signup_response.dart';
 import 'package:departments/features/credentials/data/models/user_model.dart';
 import 'package:departments/features/credentials/domain/entities/user.dart';
 import 'package:departments/core/error/failures.dart';
-import 'package:dartz/dartz.dart';
 import 'package:departments/features/credentials/domain/repositories/credentials_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';

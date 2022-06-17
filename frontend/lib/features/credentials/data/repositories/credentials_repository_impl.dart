@@ -24,6 +24,23 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
       this.credentialsApiService, this.credentialsLocalDataSource);
 
   @override
+  Stream<User> signup(String mail, String password) {
+    return credentialsApiService
+        .signup(SignupRequest(mail, password))
+        .flatMap((_) => login(mail, password))
+        .onErrorResume((error, stackTrace) {
+      if (error is DioError) {
+        if (error.response?.statusCode == HttpStatus.unauthorized) {
+          return Stream.error(EmailAlreadyUsed());
+        } else {
+          return Stream.error(ServerFailure());
+        }
+      }
+      return Stream.error(error);
+    });
+  }
+
+  @override
   Stream<User> login(String mail, String password) {
     return credentialsApiService
         .login(LoginRequest(mail, password))
@@ -31,52 +48,16 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
       return credentialsLocalDataSource
           .cacheCredentials(loginResponse.userId, loginResponse.accessToken,
               loginResponse.refreshToken)
-          .map(((_) => UserModel.fromLoginReponse(loginResponse)))
-          .onErrorResume((error, stackTrace) {
-        if (error is DioError) {
-          if (error.response?.statusCode == HttpStatus.unauthorized) {
-            return Stream.error(WrongIds());
-          } else {
-            return Stream.error(ServerFailure());
-          }
+          .map(((_) => UserModel.fromLoginReponse(loginResponse)));
+    }).onErrorResume((error, stackTrace) {
+      if (error is DioError) {
+        if (error.response?.statusCode == HttpStatus.unauthorized) {
+          return Stream.error(WrongIds());
+        } else {
+          return Stream.error(ServerFailure());
         }
-        return Stream.error(error);
-      });
+      }
+      return Stream.error(error);
     });
   }
-
-  @override
-  Stream<User> signup(String mail, String password) {
-    return credentialsApiService
-        .signup(SignupRequest(mail, password))
-        .flatMap((ignupResponse) => login(mail,password))
-          .onErrorResume((error, stackTrace) {
-        if (error is DioError) {
-          if (error.response?.statusCode == HttpStatus.unauthorized) {
-            return Stream.error(WrongIds());
-          } else {
-            return Stream.error(ServerFailure());
-          }
-        }
-        return Stream.error(error);
-      });
-  }
-
-  // @override
-  // Stream<User> signup(String mail, String password) {
-  //   try {
-  //     final result = await credentialsApiService
-  //         .signup(SignupRequest(mail, password))
-  //         .then((signupResponse) {
-  //       return login(mail, password);
-  //     });
-  //     return result;
-  //   } on DioError catch (error) {
-  //     if (error.response?.statusCode == HttpStatus.badRequest) {
-  //       return Left(EmailAlreadyUsed());
-  //     } else {
-  //       return Left(ServerFailure());
-  //     }
-  //   }
-  // }
 }

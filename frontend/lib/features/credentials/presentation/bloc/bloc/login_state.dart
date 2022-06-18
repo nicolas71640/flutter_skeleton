@@ -9,6 +9,8 @@ class LoginInitial extends LoginState {}
 
 class Empty extends LoginState {}
 
+class Loading extends LoginState {}
+
 class Error extends LoginState {
   final String message;
 

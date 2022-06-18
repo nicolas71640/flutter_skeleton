@@ -9,6 +9,9 @@ import '../../../domain/entities/user.dart';
 part 'signup_event.dart';
 part 'signup_state.dart';
 
+const String COULD_NOT_SIGNUP_MESSAGE =  "Couldn't signup";
+
+
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final SignupUseCase signupUseCase;
 
@@ -20,7 +23,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       await emit.forEach<User>(
         signupUseCase.call(event.mail, event.password),
         onData: (users) => Logged(),
-        onError: (_, __) => Error(message: "Couldn't signup"),
+        onError: (_, __) => Error(message: COULD_NOT_SIGNUP_MESSAGE),
       );
     });
   }

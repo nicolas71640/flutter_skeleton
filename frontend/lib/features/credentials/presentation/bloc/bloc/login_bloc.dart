@@ -8,16 +8,18 @@ import '../../../domain/entities/user.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+const String WRONG_ID_MESSAGE =  "Wrong Ids";
+
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase loginUseCase;
 
   LoginBloc(this.loginUseCase) : super(LoginInitial()) {
     on<TryLoginEvent>((event, emit) async {
-      
+      emit(Loading());
       await emit.forEach<User>(
         loginUseCase.call(event.mail, event.password),
         onData: (users) => Logged(),
-        onError: (_, __) => Error(message: "Wrong Ids"),
+        onError: (_, __) => Error(message: WRONG_ID_MESSAGE),
       );
     });
   }

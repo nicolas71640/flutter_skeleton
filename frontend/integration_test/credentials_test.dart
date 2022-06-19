@@ -3,10 +3,14 @@ import 'package:departments/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'utils/api_utils.dart';
+
 void main() {
   setUp(() async {
     init();
     await sl.allReady();
+
+    await ApiUtils().deleteUser("bbb").first;
   });
 
   testWidgets(
@@ -36,9 +40,7 @@ void main() {
       await tester.tap(find.text("SignUp"));
       await tester.pumpAndSettle();
 
-      ///await tester.pump(const Duration(seconds: 50));
-
-      expect(find.text("Number Trivia"), findsOneWidget);
+      expect(find.text("Stuff Title"), findsOneWidget);
     },
   );
 

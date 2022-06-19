@@ -80,10 +80,8 @@ exports.refreshToken = (req, res, next) => {
     });
 }
 
-exports.delete = (req, res, next) => {
-    console.log("delete")
-
-    User.deleteOne({ _id: req.auth.userId }).then(() => {
+exports.devDelete = (req, res, next) => {
+    User.deleteOne({ email: req.body.email }).then(() => {
         res.status(200).json({
             message: 'Deleted!'
         });

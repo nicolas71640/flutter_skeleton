@@ -6,4 +6,7 @@ router.post("/signup",UserCtrl.signUp);
 router.post("/login",UserCtrl.login);
 router.post("/refreshToken",UserCtrl.refreshToken);
 
+if(process.env.DEV){
+    router.post("/devDelete",UserCtrl.devDelete);
+}
 module.exports = router;

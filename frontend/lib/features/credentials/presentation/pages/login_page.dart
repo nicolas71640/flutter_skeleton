@@ -1,5 +1,6 @@
 import 'package:departments/features/credentials/presentation/bloc/bloc/login_bloc.dart';
 import 'package:flutter/scheduler.dart';
+import '../../../departmentsViewer/presentation/widgets/widgets.dart';
 import '../../../stuff/presentation/page/stuff_page.dart';
 import "../widgets/widgets.dart";
 import 'package:flutter/material.dart';
@@ -33,7 +34,9 @@ class LoginPage extends StatelessWidget {
                   builder: (context, state) {
                 if (state is Empty) {
                   return const Placeholder();
-                } else if (state is Error) {
+                } else if (state is Loading) {
+                    return const LoadingWidget();
+                  }else if (state is Error) {
                   return ErrorDisplay(message: state.message);
                 } else if( state is Logged){
                   SchedulerBinding.instance.addPostFrameCallback((_) {

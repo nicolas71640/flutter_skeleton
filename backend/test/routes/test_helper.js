@@ -20,9 +20,9 @@ async function login() {
             'password': 'tester'
         });
 
-    res.body.should.have.property('token');
+    res.body.should.have.property('accessToken');
 
-    return Promise.resolve(res.body.token);
+    return Promise.resolve(res.body.accessToken);
 }
 
 exports.login = login;

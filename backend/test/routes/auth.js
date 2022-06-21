@@ -39,7 +39,8 @@ describe('SignUp', function () {
                         'password': 'tester'
                     })
                     .end((err, res) => {
-                        res.body.should.have.property('token');
+                        res.body.should.have.property('accessToken');
+                        res.body.should.have.property('refreshToken');
                         var token = res.body.token;
                         done();
                     });

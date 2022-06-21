@@ -27,7 +27,7 @@ void main() {
       const username = "username";
       const password = "password";
       when(mockSignupUseCase.call(any, any))
-          .thenAnswer((_) => Stream.value(User(mail: "")));
+          .thenAnswer((_) => Stream.value(const User(mail: "")));
 
       expectLater(
           bloc.stream,

@@ -8,6 +8,7 @@ import '../../../domain/entities/user.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+// ignore: constant_identifier_names
 const String WRONG_ID_MESSAGE = "Wrong Ids";
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {

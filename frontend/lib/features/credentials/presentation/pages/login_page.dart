@@ -30,21 +30,21 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 const LoginControls(),
-                BlocBuilder<LoginBloc, LoginState>(
-                  builder: (context, state) {
-                if (state is Empty) {
-                  return const Placeholder();
-                } else if (state is Loading) {
+                BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+                  if (state is Empty) {
+                    return const Placeholder();
+                  } else if (state is Loading) {
                     return const LoadingWidget();
-                  }else if (state is Error) {
-                  return ErrorDisplay(message: state.message);
-                } else if( state is Logged){
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StuffPage()));
-                });
-                }
-                return const Placeholder();
-              }),
+                  } else if (state is Error) {
+                    return ErrorDisplay(message: state.message);
+                  } else if (state is Logged) {
+                    SchedulerBinding.instance.addPostFrameCallback((_) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const StuffPage()));
+                    });
+                  }
+                  return const Placeholder();
+                }),
               ],
             )),
       ),

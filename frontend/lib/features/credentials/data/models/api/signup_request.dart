@@ -10,5 +10,4 @@ class SignupRequest {
   SignupRequest(this.email, this.password);
 
   Map<String, dynamic> toJson() => _$SignupRequestToJson(this);
-
 }

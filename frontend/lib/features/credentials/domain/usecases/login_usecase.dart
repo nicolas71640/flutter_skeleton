@@ -7,6 +7,6 @@ class LoginUseCase {
   LoginUseCase(this.repository);
 
   Stream<User> call(String username, String password) {
-    return repository.login(username,password);
+    return repository.login(username, password);
   }
 }

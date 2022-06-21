@@ -8,7 +8,7 @@ import '../../../domain/entities/user.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
-const String WRONG_ID_MESSAGE =  "Wrong Ids";
+const String WRONG_ID_MESSAGE = "Wrong Ids";
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase loginUseCase;

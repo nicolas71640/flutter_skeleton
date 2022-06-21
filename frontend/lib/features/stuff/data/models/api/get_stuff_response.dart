@@ -11,7 +11,8 @@ class GetStuffResponse {
 
   final int price;
 
-  GetStuffResponse(this.userId, this.title, this.description, this.imageUrl, this.price);
+  GetStuffResponse(
+      this.userId, this.title, this.description, this.imageUrl, this.price);
 
   factory GetStuffResponse.fromJson(Map<String, dynamic> json) =>
       _$GetStuffResponseFromJson(json);

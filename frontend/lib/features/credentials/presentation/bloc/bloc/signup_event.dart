@@ -8,8 +8,7 @@ class TrySignupEvent extends SignupEvent {
   final String password;
 
   TrySignupEvent(this.mail, this.password);
-  
-  @override
-  List<Object?> get props => [mail,password];
-}
 
+  @override
+  List<Object?> get props => [mail, password];
+}

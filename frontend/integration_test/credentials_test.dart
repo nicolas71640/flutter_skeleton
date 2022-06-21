@@ -43,6 +43,4 @@ void main() {
       expect(find.text("Stuff Title"), findsOneWidget);
     },
   );
-
-  
 }

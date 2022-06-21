@@ -10,5 +10,4 @@ class LoginRequest {
   LoginRequest(this.email, this.password);
 
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
-
 }

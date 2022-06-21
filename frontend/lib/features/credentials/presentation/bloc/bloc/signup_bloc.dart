@@ -9,8 +9,7 @@ import '../../../domain/entities/user.dart';
 part 'signup_event.dart';
 part 'signup_state.dart';
 
-const String COULD_NOT_SIGNUP_MESSAGE =  "Couldn't signup";
-
+const String COULD_NOT_SIGNUP_MESSAGE = "Couldn't signup";
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final SignupUseCase signupUseCase;

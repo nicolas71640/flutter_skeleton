@@ -172,7 +172,7 @@ jobs:
           file: ./frontend/coverage/lcov.info
           
   frontend-android-integration-test:
-    # needs: frontend-build
+    needs: frontend-build
     name: run integration test on Android emulator
     runs-on: ubuntu-latest
     defaults:
@@ -202,7 +202,9 @@ jobs:
           cache-dependency-path: './backend/package-lock.json'
       - name: Start Server
         working-directory: ./backend
-        run: DEV=1 node ./app/server.js
+        run: |
+          npm install
+          DEV=1 node ./app/server.js &
       - name: run tests
         timeout-minutes: 30
         uses: reactivecircus/android-emulator-runner@v2

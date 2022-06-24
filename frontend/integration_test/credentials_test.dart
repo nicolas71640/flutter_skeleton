@@ -9,8 +9,11 @@ void main() {
   setUp(() async {
     init();
     await sl.allReady();
-
     await ApiUtils().deleteUser("bbb").first;
+  });
+
+  tearDown(() {
+    sl.reset();
   });
 
   testWidgets(

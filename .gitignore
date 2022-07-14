@@ -43,11 +43,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-
-
-
 # Server
 backend/node_modules
+backend/.nyc_output/
+backend/coverage/
 
 frontend/coverage
 frontend/screenshots

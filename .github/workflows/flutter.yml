@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Cache Flutter dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ matrix.flutter_path }}
           key: ${{ runner.os }}-flutter
@@ -73,9 +73,9 @@ jobs:
       # Cache Flutter Environment
       - name: Cache Flutter
         id: cache-flutter
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
-          path: /opt/hostedtoolcache/flutter
+          path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-flutter
       - uses: subosito/flutter-action@v2
         with:
@@ -106,9 +106,9 @@ jobs:
       # Cache Flutter Environment
       - name: Cache Flutter
         id: cache-flutter
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
-          path: /opt/hostedtoolcache/flutter
+          path: /Users/runner/hostedtoolcache/flutter
           key:  ${{ runner.os }}-flutter
       - uses: subosito/flutter-action@v2
         with:
@@ -143,9 +143,9 @@ jobs:
       # Cache Flutter Environment
       - name: Cache Flutter
         id: cache-flutter
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
-          path: /opt/hostedtoolcache/flutter
+          path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-flutter
       - uses: subosito/flutter-action@v2
         with:
@@ -163,7 +163,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./frontend/coverage/lcov.info
           flags: frontend
-          
+
   frontend-android-integration-test:
     needs: frontend-build
     name: run integration test on Android emulator
@@ -184,9 +184,9 @@ jobs:
       # Cache Flutter Environment
       - name: Cache Flutter
         id: cache-flutter
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
-          path: /opt/hostedtoolcache/flutter
+          path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-flutter
       - uses: subosito/flutter-action@v2
         with:
@@ -242,9 +242,9 @@ jobs:
       # Cache Flutter Environment
       - name: Cache Flutter
         id: cache-flutter
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
-          path: /opt/hostedtoolcache/flutter
+          path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-flutter
       - uses: subosito/flutter-action@v2
         with:

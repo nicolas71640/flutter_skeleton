@@ -17,7 +17,7 @@ class SignupPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Sign Up'),
       ),
-      body: SingleChildScrollView(child: buildBody(context)),
+      body: Container(child: buildBody(context)),
     );
   }
 
@@ -26,8 +26,10 @@ class SignupPage extends StatelessWidget {
       create: (_) => sl<SignupBloc>(),
       child: Center(
         child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(30.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SignupControls(),
                 BlocBuilder<SignupBloc, SignupState>(
@@ -41,13 +43,9 @@ class SignupPage extends StatelessWidget {
                   return currState is! Logged;
                 }, builder: (context, state) {
                   if (state is Empty) {
-                    return const Placeholder();
-                  } else if (state is Loading) {
-                    return const LoadingWidget();
-                  } else if (state is Error) {
-                    return ErrorDisplay(message: state.message);
+                    return Container();
                   }
-                  return const Placeholder();
+                  return Container();
                 }),
               ],
             )),

@@ -9,27 +9,27 @@
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
-            "env": {
-                "BASE_URL": "http://localhost:3000/api"
-            }
+            "args":[
+				"--dart-define=BASE_URL=http://192.168.1.27:3000/api"
+			]
         },
         {
             "name": "frontend (ci)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
-            "env": {
-                "BASE_URL": "http://10.0.2.2:3000/api"
-            }
+            "args":[
+				"--dart-define=BASE_URL=http://10.0.2.2:3000/api"
+			]
         },
         {
             "name": "frontend (prod)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
-            "env": {
-                "BASE_URL": "http://10.0.2.2:3000/api"
-            }
+            "args":[
+				"--dart-define=BASE_URL=http://10.0.2.2:3000/api"
+			]
         }
     ]
 }

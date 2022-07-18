@@ -1,5 +1,5 @@
-import 'package:departments/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
-import 'package:departments/features/departmentsViewer/presentation/widgets/widgets.dart';
+import 'package:avecpaulette/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
+import 'package:avecpaulette/features/departmentsViewer/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

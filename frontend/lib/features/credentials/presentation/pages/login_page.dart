@@ -1,5 +1,5 @@
-import 'package:departments/features/credentials/presentation/bloc/bloc/login_bloc.dart';
-import 'package:departments/features/credentials/presentation/pages/signup_page.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/bloc/login_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/pages/signup_page.dart';
 import 'package:flutter/scheduler.dart';
 import '../../../stuff/presentation/page/stuff_page.dart';
 import "../widgets/widgets.dart";

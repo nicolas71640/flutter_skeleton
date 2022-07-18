@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:departments/injection_container.dart';
-import 'package:departments/main.dart';
+import 'package:avecpaulette/injection_container.dart';
+import 'package:avecpaulette/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';

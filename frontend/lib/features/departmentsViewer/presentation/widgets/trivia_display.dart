@@ -1,4 +1,4 @@
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
 import 'package:flutter/material.dart';
 
 class TriviaDisplay extends StatelessWidget {

@@ -1,5 +1,5 @@
-import 'package:departments/injection_container.dart';
-import 'package:departments/main.dart';
+import 'package:avecpaulette/injection_container.dart';
+import 'package:avecpaulette/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

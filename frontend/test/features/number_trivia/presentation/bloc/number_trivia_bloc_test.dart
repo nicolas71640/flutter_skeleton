@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:departments/core/error/failures.dart';
-import 'package:departments/core/util/input_converter.dart';
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
-import 'package:departments/features/departmentsViewer/domain/usecases/get_concrete_number_trivia_usecase.dart';
-import 'package:departments/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
-import 'package:departments/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
+import 'package:avecpaulette/core/error/failures.dart';
+import 'package:avecpaulette/core/util/input_converter.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_concrete_number_trivia_usecase.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
+import 'package:avecpaulette/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

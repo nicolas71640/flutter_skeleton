@@ -1,6 +1,6 @@
-import 'package:departments/features/credentials/domain/entities/user.dart';
-import 'package:departments/features/credentials/domain/repositories/credentials_repository.dart';
-import 'package:departments/features/credentials/domain/usecases/signup_usecase.dart';
+import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
+import 'package:avecpaulette/features/credentials/domain/repositories/credentials_repository.dart';
+import 'package:avecpaulette/features/credentials/domain/usecases/signup_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

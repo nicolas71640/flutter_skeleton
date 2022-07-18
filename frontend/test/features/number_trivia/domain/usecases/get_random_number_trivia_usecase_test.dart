@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:departments/core/usecases/usecase.dart';
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
-import 'package:departments/features/departmentsViewer/domain/repositories/number_trivia_repository.dart';
-import 'package:departments/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
+import 'package:avecpaulette/core/usecases/usecase.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/repositories/number_trivia_repository.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

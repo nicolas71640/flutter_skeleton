@@ -1,4 +1,4 @@
-name: departments
+name: avecpaulette
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -49,6 +49,8 @@ dependencies:
   logging: ^1.0.2
   flutter_secure_storage: ^5.0.2
   rxdart: ^0.27.4
+  firebase_crashlytics: ^2.8.5
+  firebase_core: ^1.19.2
   
 dev_dependencies:
   flutter_lints: ^2.0.0

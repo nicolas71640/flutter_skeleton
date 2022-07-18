@@ -1,11 +1,11 @@
-import 'package:departments/core/error/exceptions.dart';
-import 'package:departments/features/departmentsViewer/data/datasources/number_trivia_local_data_source.dart';
-import 'package:departments/features/departmentsViewer/data/datasources/number_trivia_remote_data_source.dart';
-import 'package:departments/features/departmentsViewer/data/models/number_trivia_model.dart';
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
-import 'package:departments/core/error/failures.dart';
+import 'package:avecpaulette/core/error/exceptions.dart';
+import 'package:avecpaulette/features/departmentsViewer/data/datasources/number_trivia_local_data_source.dart';
+import 'package:avecpaulette/features/departmentsViewer/data/datasources/number_trivia_remote_data_source.dart';
+import 'package:avecpaulette/features/departmentsViewer/data/models/number_trivia_model.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:departments/features/departmentsViewer/domain/repositories/number_trivia_repository.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/repositories/number_trivia_repository.dart';
 
 import '../../../../core/network/network_info.dart';
 

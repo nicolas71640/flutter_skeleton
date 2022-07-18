@@ -1,4 +1,4 @@
-import 'package:departments/features/stuff/presentation/bloc/bloc/stuff_bloc.dart';
+import 'package:avecpaulette/features/stuff/presentation/bloc/bloc/stuff_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

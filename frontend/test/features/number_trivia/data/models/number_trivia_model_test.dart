@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:departments/features/departmentsViewer/data/models/number_trivia_model.dart';
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/features/departmentsViewer/data/models/number_trivia_model.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../fixtures/fixture_reader.dart';

@@ -1,4 +1,4 @@
-package com.avec_paulette
+package com.avecpaulette
 
 import io.flutter.embedding.android.FlutterActivity
 

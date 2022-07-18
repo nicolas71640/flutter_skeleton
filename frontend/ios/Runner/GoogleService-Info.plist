@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>133956385153-gv4npsrs7ghdimevhid9ak1qivum4vcn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.133956385153-gv4npsrs7ghdimevhid9ak1qivum4vcn</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDSC7UcG9TUoioBLmyZoNjoKJspWgWXBRM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>133956385153</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.avecpaulette</string>
+	<key>PROJECT_ID</key>
+	<string>avecpaulette-50195</string>
+	<key>STORAGE_BUCKET</key>
+	<string>avecpaulette-50195.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:133956385153:ios:a055e2f3bb42020eec9080</string>
+</dict>
+</plist>

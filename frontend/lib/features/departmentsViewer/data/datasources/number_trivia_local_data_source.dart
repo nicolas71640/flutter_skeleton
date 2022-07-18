@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:departments/core/error/exceptions.dart';
+import 'package:avecpaulette/core/error/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/number_trivia_model.dart';

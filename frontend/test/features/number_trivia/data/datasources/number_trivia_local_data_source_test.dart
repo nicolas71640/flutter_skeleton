@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:departments/core/error/exceptions.dart';
-import 'package:departments/features/departmentsViewer/data/datasources/number_trivia_local_data_source.dart';
-import 'package:departments/features/departmentsViewer/data/models/number_trivia_model.dart';
+import 'package:avecpaulette/core/error/exceptions.dart';
+import 'package:avecpaulette/features/departmentsViewer/data/datasources/number_trivia_local_data_source.dart';
+import 'package:avecpaulette/features/departmentsViewer/data/models/number_trivia_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

@@ -1,6 +1,6 @@
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mockito/annotations.dart';
-import 'package:departments/core/network/network_info.dart';
+import 'package:avecpaulette/core/network/network_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

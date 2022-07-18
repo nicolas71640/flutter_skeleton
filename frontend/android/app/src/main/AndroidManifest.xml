@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.avec_paulette">
+    package="com.avecpaulette">
    <application
-        android:label="departments"
+        android:label="avecpaulette"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

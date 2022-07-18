@@ -1,4 +1,4 @@
-import 'package:departments/features/stuff/presentation/page/stuff_page.dart';
+import 'package:avecpaulette/features/stuff/presentation/page/stuff_page.dart';
 import 'package:flutter/scheduler.dart';
 import '../bloc/bloc/signup_bloc.dart';
 import "../widgets/widgets.dart";

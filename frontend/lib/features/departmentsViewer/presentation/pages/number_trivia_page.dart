@@ -1,4 +1,4 @@
-import 'package:departments/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
+import 'package:avecpaulette/features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

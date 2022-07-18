@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:departments/features/credentials/domain/usecases/signup_usecase.dart';
+import 'package:avecpaulette/features/credentials/domain/usecases/signup_usecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';

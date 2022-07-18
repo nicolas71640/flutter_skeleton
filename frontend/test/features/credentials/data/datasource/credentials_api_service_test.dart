@@ -1,6 +1,6 @@
-import 'package:departments/features/credentials/data/datasources/credentials_api_service.dart';
-import 'package:departments/features/credentials/data/models/api/login_request.dart';
-import 'package:departments/features/credentials/data/models/api/signup_request.dart';
+import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/login_request.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/signup_request.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

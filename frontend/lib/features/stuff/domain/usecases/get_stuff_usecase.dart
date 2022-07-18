@@ -1,4 +1,4 @@
-import 'package:departments/features/stuff/domain/entities/stuff.dart';
+import 'package:avecpaulette/features/stuff/domain/entities/stuff.dart';
 import '../repositories/stuff_repository.dart';
 
 class GetStuffUseCase {

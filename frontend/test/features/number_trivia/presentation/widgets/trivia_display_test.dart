@@ -1,5 +1,5 @@
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
-import 'package:departments/features/departmentsViewer/presentation/widgets/widgets.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/features/departmentsViewer/presentation/widgets/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../utils/test_widget_utils.dart';

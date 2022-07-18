@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:departments/core/error/exceptions.dart';
+import 'package:avecpaulette/core/error/exceptions.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class CredentialsLocalDataSource {

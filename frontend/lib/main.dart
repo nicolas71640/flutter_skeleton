@@ -1,14 +1,28 @@
-import 'package:departments/features/credentials/presentation/pages/login_page.dart';
-import 'package:departments/injection_container.dart';
+import 'package:avecpaulette/features/credentials/presentation/pages/login_page.dart';
+import 'package:avecpaulette/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart' show Level, Logger;
+import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
-  _setupLogging();
-  WidgetsFlutterBinding.ensureInitialized();
-  init();
-  await sl.allReady();
-  runApp(const MyApp());
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+
+    // Pass all uncaught errors from the framework to Crashlytics.
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+    _setupLogging();
+    WidgetsFlutterBinding.ensureInitialized();
+    init();
+    await sl.allReady();
+
+    runApp(const MyApp());
+  },
+      (error, stack) =>
+          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
 }
 
 class MyApp extends StatelessWidget {

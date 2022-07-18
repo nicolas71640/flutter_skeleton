@@ -1,4 +1,4 @@
-import 'package:departments/features/credentials/presentation/widgets/credentials_text_field.dart';
+import 'package:avecpaulette/features/credentials/presentation/widgets/credentials_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

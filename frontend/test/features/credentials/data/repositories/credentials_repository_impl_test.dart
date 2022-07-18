@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:departments/core/error/failures.dart';
-import 'package:departments/core/network/credentials_local_data_source.dart';
-import 'package:departments/features/credentials/data/datasources/credentials_api_service.dart';
-import 'package:departments/features/credentials/data/models/api/login_response.dart';
-import 'package:departments/features/credentials/data/models/api/signup_response.dart';
-import 'package:departments/features/credentials/data/repositories/credentials_repository_impl.dart';
+import 'package:avecpaulette/core/error/failures.dart';
+import 'package:avecpaulette/core/network/credentials_local_data_source.dart';
+import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/signup_response.dart';
+import 'package:avecpaulette/features/credentials/data/repositories/credentials_repository_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

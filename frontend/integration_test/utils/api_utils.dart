@@ -1,4 +1,4 @@
-import 'package:departments/core/network/network_utils.dart';
+import 'package:avecpaulette/core/network/network_utils.dart';
 import 'package:dio/dio.dart';
 
 class ApiUtils {

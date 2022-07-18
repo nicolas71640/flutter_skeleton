@@ -11,18 +11,18 @@
             "program": "./test/"
         },
         {
-            "name": "departments",
+            "name": "avecpaulette",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "departments (profile mode)",
+            "name": "avecpaulette (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "departments (release mode)",
+            "name": "avecpaulette (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

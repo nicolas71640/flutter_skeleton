@@ -1,5 +1,5 @@
-import 'package:departments/features/credentials/domain/entities/user.dart';
-import 'package:departments/features/credentials/domain/repositories/credentials_repository.dart';
+import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
+import 'package:avecpaulette/features/credentials/domain/repositories/credentials_repository.dart';
 
 class LoginUseCase {
   final CredentialsRepository repository;

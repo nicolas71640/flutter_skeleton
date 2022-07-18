@@ -1,12 +1,12 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:bloc/bloc.dart';
-import 'package:departments/core/error/failures.dart';
-import 'package:departments/core/usecases/usecase.dart';
-import 'package:departments/core/util/input_converter.dart';
-import 'package:departments/features/departmentsViewer/domain/entities/number_trivia.dart';
-import 'package:departments/features/departmentsViewer/domain/usecases/get_concrete_number_trivia_usecase.dart';
-import 'package:departments/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
+import 'package:avecpaulette/core/error/failures.dart';
+import 'package:avecpaulette/core/usecases/usecase.dart';
+import 'package:avecpaulette/core/util/input_converter.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/entities/number_trivia.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_concrete_number_trivia_usecase.dart';
+import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
 import 'package:equatable/equatable.dart';
 
 part 'number_trivia_event.dart';

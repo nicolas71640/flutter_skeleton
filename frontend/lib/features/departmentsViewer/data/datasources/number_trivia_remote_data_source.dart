@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:departments/core/error/exceptions.dart';
+import 'package:avecpaulette/core/error/exceptions.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/number_trivia_model.dart';

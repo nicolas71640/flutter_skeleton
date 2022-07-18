@@ -1,7 +1,6 @@
 import 'package:departments/features/credentials/presentation/bloc/bloc/login_bloc.dart';
 import 'package:departments/features/credentials/presentation/pages/signup_page.dart';
 import 'package:flutter/scheduler.dart';
-import '../../../departmentsViewer/presentation/widgets/widgets.dart';
 import '../../../stuff/presentation/page/stuff_page.dart';
 import "../widgets/widgets.dart";
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class LoginPage extends StatelessWidget {
   BlocProvider<LoginBloc> buildBody(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<LoginBloc>(),
-      child: Container(
+      child: SizedBox(
         height: double.infinity,
         child: Padding(
             padding: const EdgeInsets.all(30.0),

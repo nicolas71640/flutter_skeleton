@@ -1,4 +1,4 @@
-package com.example.departments
+package com.avec_paulette
 
 import io.flutter.embedding.android.FlutterActivity
 

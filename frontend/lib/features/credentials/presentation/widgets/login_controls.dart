@@ -105,7 +105,9 @@ class _LoginControlsState extends State<LoginControls> {
                   borderRadius: BorderRadius.circular(20.0),
                 ))),
             onPressed: () {},
-            label: const Padding(padding: EdgeInsets.only(right: 10), child: Text('Sign in with Google')),
+            label: const Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: Text('Sign in with Google')),
           )
         ],
       );

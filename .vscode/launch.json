@@ -5,12 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Dart: Run Integration Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./frontend/integration_test/",
+            "args":[
+				"--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+			]
+        },
+        {
             "name": "frontend (dev)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
             "args":[
-				"--dart-define=BASE_URL=http://192.168.1.27:3000/api"
+				"--dart-define=BASE_URL=http://192.168.43.199:3000/api"
 			]
         },
         {

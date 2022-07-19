@@ -118,7 +118,7 @@ jobs:
       - run: flutter pub get
 
       # Build apk.
-      - run: flutter build apk --debug
+      - run: flutter build apk --debug -v
 
       # Upload generated apk to the artifacts.
       - uses: actions/upload-artifact@v1
@@ -203,12 +203,14 @@ jobs:
       - name: run tests
         timeout-minutes: 30
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          FLUTTER_FRONTEND_WORKSPACE_DIRECTORY: .
         with:
           working-directory: ./frontend
           api-level: 29
           profile: ${{ matrix.device }}
           script: | 
-            flutter test integration_test --dart-define=BASE_URL=http://10.0.2.2:3000/api
+            ./scripts/ci/run_tests.sh
             flutter drive --driver=test_driver/integration_test.dart --target=screenshots_test/screenshots_test.dart -d "emulator-5554"
       - uses: actions/upload-artifact@v1
         with:

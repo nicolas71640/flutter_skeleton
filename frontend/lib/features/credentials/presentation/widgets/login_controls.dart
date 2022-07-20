@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/bloc/login_bloc.dart';
+import '../pages/signup_page.dart';
 
 class LoginControls extends StatefulWidget {
   const LoginControls({Key? key}) : super(key: key);
@@ -104,7 +105,9 @@ class _LoginControlsState extends State<LoginControls> {
                     RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ))),
-            onPressed: () {},
+            onPressed: () {
+              BlocProvider.of<LoginBloc>(context).add(TryGoogleLoginEvent());
+            },
             label: const Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: Text('Sign in with Google')),

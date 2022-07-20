@@ -6,6 +6,7 @@ import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/core/error/failures.dart';
 import 'package:avecpaulette/features/credentials/domain/repositories/credentials_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../core/network/credentials_local_data_source.dart';
@@ -19,9 +20,10 @@ class EmailAlreadyUsed extends ServerFailure {}
 class CredentialsRepositoryImpl implements CredentialsRepository {
   final CredentialsApiService credentialsApiService;
   final CredentialsLocalDataSource credentialsLocalDataSource;
+  final GoogleSignIn googleSignIn;
 
-  CredentialsRepositoryImpl(
-      this.credentialsApiService, this.credentialsLocalDataSource);
+  CredentialsRepositoryImpl(this.credentialsApiService,
+      this.credentialsLocalDataSource, this.googleSignIn);
 
   @override
   Stream<User> signup(String mail, String password) {
@@ -58,6 +60,17 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
         }
       }
       return Stream.error(error);
+    });
+  }
+
+  @override
+  Stream<User> googleLogin() {
+    return Stream.fromFuture(googleSignIn.signIn()).flatMap((account) {
+      if (account != null) {
+        return Stream.value(User(mail: account.email));
+      } else {
+        return Stream.error(ServerFailure());
+      }
     });
   }
 }

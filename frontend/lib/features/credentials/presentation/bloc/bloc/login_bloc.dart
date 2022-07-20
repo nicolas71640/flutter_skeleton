@@ -23,5 +23,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         onError: (_, __) => Error(message: WRONG_ID_MESSAGE),
       );
     });
+
+    on<TryGoogleLoginEvent>((event, emit) async {
+      emit(Loading());
+      await emit.forEach<User>(
+        loginUseCase.googleLogin(),
+        onData: (users) => Logged(),
+        onError: (_, __) => Error(message: WRONG_ID_MESSAGE),
+      );
+    });
   }
 }

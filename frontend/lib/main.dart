@@ -5,6 +5,7 @@ import 'package:logging/logging.dart' show Level, Logger;
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 void main() async {
   runZonedGuarded<Future<void>>(() async {
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+      ],
       title: 'Number Trivia',
       theme: ThemeData(primaryColor: Colors.green.shade800),
       home: const LoginPage(),

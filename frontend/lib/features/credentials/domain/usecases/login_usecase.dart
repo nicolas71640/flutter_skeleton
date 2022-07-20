@@ -9,4 +9,8 @@ class LoginUseCase {
   Stream<User> call(String username, String password) {
     return repository.login(username, password);
   }
+
+  Stream<User> googleLogin() {
+    return repository.googleLogin();
+  }
 }

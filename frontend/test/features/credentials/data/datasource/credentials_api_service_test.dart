@@ -60,7 +60,7 @@ void main() {
       final loginResponse =
           await credentialsApiService.login(loginRequest).first;
 
-      expect(loginResponse.userId, equals(jsonResponse["userId"]));
+      expect(loginResponse.email, equals(jsonResponse["userId"]));
       expect(loginResponse.accessToken, equals(jsonResponse["accessToken"]));
       expect(loginResponse.refreshToken, equals(jsonResponse["refreshToken"]));
       verify(mockDio.post("/auth/login", data: loginRequest.toJson()));

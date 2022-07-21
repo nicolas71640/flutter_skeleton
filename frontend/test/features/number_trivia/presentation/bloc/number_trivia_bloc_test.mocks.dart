@@ -4,7 +4,6 @@
 
 import 'dart:async' as _i5;
 
-import 'package:dartz/dartz.dart' as _i3;
 import 'package:avecpaulette/core/error/failures.dart' as _i6;
 import 'package:avecpaulette/core/usecases/usecase.dart' as _i8;
 import 'package:avecpaulette/core/util/input_converter.dart' as _i10;
@@ -16,6 +15,7 @@ import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_conc
     as _i9;
 import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart'
     as _i4;
+import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

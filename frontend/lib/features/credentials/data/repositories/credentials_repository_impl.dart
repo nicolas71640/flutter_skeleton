@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/oauth_request.dart';
 import 'package:avecpaulette/features/credentials/data/models/user_model.dart';
 import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/core/error/failures.dart';
@@ -48,7 +49,7 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
         .login(LoginRequest(mail, password))
         .flatMap((loginResponse) {
       return credentialsLocalDataSource
-          .cacheCredentials(loginResponse.userId, loginResponse.accessToken,
+          .cacheCredentials(loginResponse.email, loginResponse.accessToken,
               loginResponse.refreshToken)
           .map(((_) => UserModel.fromLoginReponse(loginResponse)));
     }).onErrorResume((error, stackTrace) {
@@ -65,12 +66,24 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
 
   @override
   Stream<User> googleLogin() {
-    return Stream.fromFuture(googleSignIn.signIn()).flatMap((account) {
-      if (account != null) {
-        return Stream.value(User(mail: account.email));
-      } else {
-        return Stream.error(ServerFailure());
-      }
-    });
+    return Stream.fromFuture(googleSignIn.signIn())
+        .flatMap((account) {
+          if (account != null) {
+            return Stream.value(account);
+          } else {
+            return Stream.error(ServerFailure());
+          }
+        })
+        .flatMap((account) => Stream.fromFuture(account.authentication))
+        .flatMap((authentication) {
+          return credentialsApiService
+              .oauth(OAuthRequest(authentication.idToken));
+        })
+        .flatMap((oAuthResponse) {
+          return credentialsLocalDataSource
+              .cacheCredentials(oAuthResponse.email, oAuthResponse.accessToken,
+                  oAuthResponse.refreshToken)
+              .map(((_) => UserModel.fromOAuthResponse(oAuthResponse)));
+        });
   }
 }

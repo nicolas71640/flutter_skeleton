@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_response.dart';
+part of 'oauth_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
-    LoginResponse(
+OAuthResponse _$OAuthResponseFromJson(Map<String, dynamic> json) =>
+    OAuthResponse(
       json['email'] as String,
       json['accessToken'] as String,
       json['refreshToken'] as String,

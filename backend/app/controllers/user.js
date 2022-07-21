@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 
 function generateRefreshToken(user) {
     return jwt.sign({ userId: user._id }, "REFRESH_TOKEN_SECRET", { expiresIn: '1y' });
-  }
-  
-  function generateAccessToken(user) {
+}
+
+function generateAccessToken(user) {
     return jwt.sign({ userId: user._id }, "ACCESS_TOKEN_SECRET", { expiresIn: '5s' });
-  }
+}
 
 exports.signUp = (req, res, next) => {
     console.log("Signup")
@@ -44,10 +44,9 @@ exports.login = (req, res, next) => {
                     if (!valid) {
                         return res.status(401).json({ error: 'Mot de passe incorrect' });
                     }
-                    console.log("200");
 
                     res.status(200).json({
-                        userId: user._id,
+                        email: user.email,
                         accessToken: generateAccessToken(user),
                         refreshToken: generateRefreshToken(user),
                     });
@@ -61,11 +60,63 @@ exports.login = (req, res, next) => {
         .catch((error) => { res.status(500).json({ error }) });
 }
 
+const CLIENT_ID = "133956385153-foniq2v586hk016ld1ms49r8kls1krca.apps.googleusercontent.com"
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(CLIENT_ID);
+async function verify(idToken) {
+    const ticket = await client.verifyIdToken({
+        idToken: idToken,
+        requiredAudience: CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    return [payload['sub'], payload['email']];
+}
+
+exports.oauth = async (req, res, next) => {
+    try {
+        [userId, email] = await verify(req.body.idToken).catch(console.error);
+        User.findOne({ email: email, userId: userId })
+            .then((user) => {
+                if (user) {
+                    res.status(200).json({
+                        email: user.email,
+                        accessToken: generateAccessToken(user),
+                        refreshToken: generateRefreshToken(user),
+                    });
+                }
+                else {
+                    const user = new User({
+                        email: email,
+                        userId: userId
+                    });
+
+                    
+
+                    user.save()
+                        .then(() => {
+                            console.log("OAuth User Created");
+                            res.status(200).json({
+                                email: user.email,
+                                accessToken: generateAccessToken(user),
+                                refreshToken: generateRefreshToken(user),
+                            });
+                        })
+                        .catch((error) => { res.status(400).json({ error }) });
+                }
+            })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error })
+    }
+}
+
+
 exports.refreshToken = (req, res, next) => {
     console.log("refreshToken")
 
     const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, "REFRESH_TOKEN_SECRET",(err, user) => {
+    const decodedToken = jwt.verify(token, "REFRESH_TOKEN_SECRET", (err, user) => {
         if (err) {
             return res.sendStatus(401)
         }
@@ -75,7 +126,7 @@ exports.refreshToken = (req, res, next) => {
 
         res.status(200).json({
             accessToken: refreshedToken,
-          });
+        });
 
     });
 }

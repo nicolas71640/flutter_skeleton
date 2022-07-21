@@ -7,6 +7,8 @@ import 'dart:developer' as developer;
 
 import '../models/api/login_request.dart';
 import '../models/api/login_response.dart';
+import '../models/api/oauth_request.dart';
+import '../models/api/oauth_response.dart';
 import '../models/api/refresh_token_response.dart';
 import '../models/api/signup_request.dart';
 import '../models/api/signup_response.dart';
@@ -32,6 +34,15 @@ class CredentialsApiService {
       '/auth/login',
       data: loginRequest.toJson(),
     )).map((response) => LoginResponse.fromJson(response.data));
+  }
+
+  Stream<OAuthResponse> oauth(OAuthRequest oAuthRequest) {
+    developer.log("oauth");
+
+    return Stream.fromFuture(dio.post(
+      '/auth/oauth',
+      data: oAuthRequest.toJson(),
+    )).map((response) => OAuthResponse.fromJson(response.data));
   }
 
   Stream<RefreshTokenResponse> refreshToken(String refreshToken) {

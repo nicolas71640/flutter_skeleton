@@ -8,23 +8,26 @@ import 'package:avecpaulette/features/credentials/data/models/api/signup_respons
 import 'package:avecpaulette/features/credentials/data/repositories/credentials_repository_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'credentials_repository_impl_test.mocks.dart';
 
-@GenerateMocks([CredentialsApiService, CredentialsLocalDataSourceImpl])
+@GenerateMocks([CredentialsApiService, CredentialsLocalDataSourceImpl, GoogleSignIn])
 void main() {
   late MockCredentialsApiService mockCredentialsApiService;
   late MockCredentialsLocalDataSourceImpl mockCredentialsLocalDataSourceImpl;
+  late MockGoogleSignIn mockGoogleSignIn;
 
   late CredentialsRepositoryImpl credentialsRepositoryImpl;
 
   setUp(() {
     mockCredentialsApiService = MockCredentialsApiService();
     mockCredentialsLocalDataSourceImpl = MockCredentialsLocalDataSourceImpl();
+    mockGoogleSignIn = MockGoogleSignIn();
     credentialsRepositoryImpl = CredentialsRepositoryImpl(
-        mockCredentialsApiService, mockCredentialsLocalDataSourceImpl);
+        mockCredentialsApiService, mockCredentialsLocalDataSourceImpl,mockGoogleSignIn);
 
     when(mockCredentialsLocalDataSourceImpl.cacheCredentials(any, any, any))
         .thenAnswer((_) => Stream.value(null));

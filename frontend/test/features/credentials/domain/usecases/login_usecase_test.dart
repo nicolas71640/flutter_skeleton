@@ -28,4 +28,16 @@ void main() {
       expect(await loginUseCase("username", "password").first, user);
     });
   });
+
+  group('googleLogin', () {
+    test(
+        'should call googleLogin method of credential repository and return its stream',
+        () async {
+      User user = const User(mail: "mail");
+      when(mockCredentialsRepository.googleLogin())
+          .thenAnswer((realInvocation) => Stream.value(user));
+
+      expect(await loginUseCase.googleLogin().first, user);
+    });
+  });
 }

@@ -15,11 +15,11 @@ chai.use(chaiHttp);
 
 describe('SignUp', function () {
 
-    beforeEach((done) => { 
-        User.remove({}, (err) => { 
-             done();           
-          });        
-      });
+    beforeEach((done) => {
+        User.remove({}, (err) => {
+            done();
+        });
+    });
 
     it('should Register user and then login', function (done) {
         chai.request(app)
@@ -28,7 +28,7 @@ describe('SignUp', function () {
                 'email': 'tester@gmail.com',
                 'password': 'tester'
             })
-            .end((err, res) => { 
+            .end((err, res) => {
                 res.should.have.status(201);
 
                 // follow up with login
@@ -53,20 +53,44 @@ describe('SignUp', function () {
             .send({
                 'email': 'tester@gmail.com',
                 'password': 'tester'
-            }) 
-            .end((err, res) => { 
+            })
+            .end((err, res) => {
                 res.should.have.status(201);
 
                 chai.request(app)
-                .post('/api/auth/signup')
-                .send({
-                    'email': 'tester@gmail.com',
-                    'password': 'tester'
-                }) 
-                .end((err, res) => { 
-                    res.should.have.status(400);
-                    done();
-                });
+                    .post('/api/auth/signup')
+                    .send({
+                        'email': 'tester@gmail.com',
+                        'password': 'tester'
+                    })
+                    .end((err, res) => {
+                        res.should.have.status(400);
+                        done();
+                    });
             })
     })
+});
+
+describe('Login', function () {
+
+    beforeEach((done) => {
+        User.remove({}, (err) => {
+            done();
+        });
+    });
+
+    it('should return error 500 when the user does not exist', function (done) {
+        chai.request(app)
+            .post('/api/auth/login')
+            .send({
+                'email': 'tester@gmail.com',
+                'password': 'tester'
+            })
+            .end((err, res) => {
+                res.should.have.status(401);
+                done();
+            });
+    });   
 })
+
+

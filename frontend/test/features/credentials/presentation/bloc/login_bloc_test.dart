@@ -55,4 +55,39 @@ void main() {
       bloc.add(TryLoginEvent("username", "password"));
     });
   });
+
+  group("TryGoogleLoginEvent", () {
+    test(
+        "should call googleLogin method from login usecase to log the user and emit Logged state when return a User",
+        () async {
+      when(mockLoginUseCase.googleLogin())
+          .thenAnswer((_) => Stream.value(const User(mail: "")));
+
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            Loading(),
+            Logged(),
+          ]));
+
+      bloc.add(TryGoogleLoginEvent());
+      await untilCalled(mockLoginUseCase.googleLogin());
+      verify(mockLoginUseCase.googleLogin());
+    });
+
+    test("should emit [Error] when the googleLogin method returns an error",
+        () async {
+      when(mockLoginUseCase.googleLogin())
+          .thenAnswer((_) => Stream.error(WrongIds));
+
+      expectLater(
+          bloc.stream,
+          emitsInOrder([
+            Loading(),
+            Error(message: WRONG_ID_MESSAGE),
+          ]));
+
+      bloc.add(TryGoogleLoginEvent());
+    });
+  });
 }

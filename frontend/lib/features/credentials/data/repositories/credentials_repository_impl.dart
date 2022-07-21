@@ -84,6 +84,16 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
               .cacheCredentials(oAuthResponse.email, oAuthResponse.accessToken,
                   oAuthResponse.refreshToken)
               .map(((_) => UserModel.fromOAuthResponse(oAuthResponse)));
+        })
+        .onErrorResume((error, stackTrace) {
+          if (error is DioError) {
+            if (error.response?.statusCode == HttpStatus.unauthorized) {
+              return Stream.error(EmailAlreadyUsed());
+            } else {
+              return Stream.error(ServerFailure());
+            }
+          }
+          return Stream.error(error);
         });
   }
 }

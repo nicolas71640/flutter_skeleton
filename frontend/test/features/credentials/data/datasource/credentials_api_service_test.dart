@@ -110,7 +110,8 @@ void main() {
   });
 
   group("oauth", () {
-    test("should return a AuthenticationResponse when no error is thrown ", () async {
+    test("should return a AuthenticationResponse when no error is thrown ",
+        () async {
       final jsonResponse = fixtureJson("credentials/oauth_ok.json");
       when(mockDio.post(any, data: anyNamed("data"))).thenAnswer(
           (realInvocation) async => Response(

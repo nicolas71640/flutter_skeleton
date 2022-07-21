@@ -9,48 +9,53 @@
             "type": "dart",
             "request": "launch",
             "program": "./frontend/test/",
-            "args":[
-				"--dart-define=BASE_URL=http://192.168.43.199:3000/api"
-			]
+            "args": [
+                "--dart-define=FIREBASE_ENABLED=false",
+                "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+            ]
         },
         {
             "name": "Dart: Run Integration Tests",
             "type": "dart",
             "request": "launch",
             "program": "./frontend/integration_test/",
-            "args":[
+            "args": [
                 "-v",
-				"--dart-define=BASE_URL=http://192.168.43.199:3000/api"
-			]
+                "--dart-define=FIREBASE_ENABLED=false",
+                "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+            ]
         },
         {
             "name": "frontend (dev)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
-            "args":[
+            "args": [
                 "-v",
-				"--dart-define=BASE_URL=http://192.168.43.199:3000/api"
-			]
+                "--dart-define=FIREBASE_ENABLED=true",
+                "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+            ]
         },
         {
             "name": "frontend (ci)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
-            "args":[
+            "args": [
                 "-v",
-				"--dart-define=BASE_URL=http://10.0.2.2:3000/api"
-			]
+                "--dart-define=FIREBASE_ENABLED=false",
+                "--dart-define=BASE_URL=http://10.0.2.2:3000/api"
+            ]
         },
         {
             "name": "frontend (prod)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
-            "args":[
-				"--dart-define=BASE_URL=http://10.0.2.2:3000/api"
-			]
+            "args": [
+                "--dart-define=FIREBASE_ENABLED=true",
+                "--dart-define=BASE_URL=http://10.0.2.2:3000/api"
+            ]
         }
     ]
 }

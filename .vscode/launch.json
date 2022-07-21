@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Dart: Run Unit Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./frontend/test/",
+            "args":[
+				"--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+			]
+        },
+        {
             "name": "Dart: Run Integration Tests",
             "type": "dart",
             "request": "launch",

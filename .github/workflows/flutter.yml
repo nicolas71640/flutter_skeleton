@@ -192,6 +192,8 @@ jobs:
         with:
           channel: "stable"
 
+      - run: flutter build apk -v
+
       # Setup Server
       - name: Install Server
         uses: ./.github/actions/install-server-action

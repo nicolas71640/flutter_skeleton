@@ -5,17 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Backend: Run Unit Tests",
+            "command": "npx nyc --reporter=lcov npm run test",
+            "request": "launch",
+            "cwd": "${fileDirname}/../backend/",
+            "type": "node-terminal"
+        },
+        {
             "name": "Dart: Run Unit Tests",
             "type": "dart",
             "request": "launch",
             "program": "./frontend/test/",
             "args": [
+                "--coverage",
                 "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
             ]
         },
         {
-            "name": "Dart: Run Integration Tests",
+            "name": "Frontend: Run Integration Tests",
             "type": "dart",
             "request": "launch",
             "program": "./frontend/integration_test/",
@@ -26,7 +34,7 @@
             ]
         },
         {
-            "name": "frontend (dev)",
+            "name": "Frontend (dev)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
@@ -37,7 +45,7 @@
             ]
         },
         {
-            "name": "frontend (ci)",
+            "name": "Frontend (ci)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",
@@ -48,7 +56,7 @@
             ]
         },
         {
-            "name": "frontend (prod)",
+            "name": "Frontend (prod)",
             "cwd": "frontend",
             "request": "launch",
             "type": "dart",

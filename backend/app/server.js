@@ -3,7 +3,8 @@ const apiErrorHandler = require('./error/api-error-handler');
 const mongoose = require('mongoose');
 
 //setup();
-const router = require('./routes/user');
+const UserRoutes = require('./routes/user');
+const StuffRoutes = require('./routes/stuff');
 
 class Server {
   constructor() {
@@ -20,7 +21,9 @@ class Server {
       next();
     });
 
-    this.app.use('/api/auth', router);
+    this.app.use('/api/auth', UserRoutes);
+    this.app.use('/api/stuff',StuffRoutes);
+
     this.app.use(apiErrorHandler);
 
     mongoose.connect('mongodb://localhost:27017/myapp',

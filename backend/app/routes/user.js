@@ -1,14 +1,15 @@
 const express = require("express");
+const UserController = require("../controllers/user");
+
 const router = express.Router();
-const UserCtrl = require("../controllers/user");
+const userController = new UserController();
 
-router.post("/signup",UserCtrl.signUp);
-router.post("/login",UserCtrl.login);
-router.post("/oauth",UserCtrl.oauth);
-
-router.post("/refreshToken",UserCtrl.refreshToken);
+router.post("/signup",userController.signUp);
+router.post("/login",userController.login);
+router.post("/oauth",userController.oauth);
+router.post("/refreshToken",userController.refreshToken);
 
 if(process.env.DEV){
-    router.post("/devDelete",UserCtrl.devDelete);
+    router.post("/devDelete",userController.devDelete);
 }
 module.exports = router;

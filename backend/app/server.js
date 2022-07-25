@@ -1,49 +1,46 @@
-const http = require('http');
-const app = require('./app');
+const express = require('express');
+const apiErrorHandler = require('./error/api-error-handler');
+const mongoose = require('mongoose');
 
-const normalizePort = val => {
-  const port = parseInt(val, 10);
+//setup();
+const router = require('./routes/user');
 
-  if (isNaN(port)) {
-    return val;
+class Server {
+  constructor() {
+    this.app = express();
+    this.setup();
   }
-  if (port >= 0) {
-    return port;
+
+  setup() {
+    this.app.use(express.json());
+    this.app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+      next();
+    });
+
+    this.app.use('/api/auth', router);
+    this.app.use(apiErrorHandler);
+
+    mongoose.connect('mongodb://localhost:27017/myapp',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      })
+      .then(() => console.log('Connexion à MongoDB réussie !'))
+      .catch(() => console.log('Connexion à MongoDB échouée !'));
   }
-  return false;
-};
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
 
-const errorHandler = error => {
-  if (error.syscall !== 'listen') {
-    throw error;
+  run(port) {
+    this.server = this.app.listen(port, () => {
+      console.log(`server running on port ${port}`);
+    });
   }
-  const address = server.address();
-  const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges.');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use.');
-      process.exit(1);
-      break;
-    default:
-      throw error;
+
+  stop(done) {
+    this.server.close(done);
   }
-};
+}
 
-const server = http.createServer(app);
-
-server.on('error', errorHandler);
-server.on('listening', () => {
-  const address = server.address();
-  const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
-  console.log('Listening on ' + bind);
-});
-
-server.listen(port);
-
-module.exports = server;
+module.exports = Server;

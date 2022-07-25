@@ -12,7 +12,13 @@
             "type": "node-terminal"
         },
         {
-            "name": "Dart: Run Unit Tests",
+            "name": "Frontend: Launch App",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "Frontend: Run Unit Tests",
             "type": "dart",
             "request": "launch",
             "program": "./frontend/test/",
@@ -27,42 +33,44 @@
             "type": "dart",
             "request": "launch",
             "program": "./frontend/integration_test/",
-            "args": [
+            "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
             ]
         },
         {
-            "name": "Frontend (dev)",
-            "cwd": "frontend",
-            "request": "launch",
+            "name": "Run",
             "type": "dart",
-            "args": [
+            "request": "launch",
+            "program": "./frontend/integration_test/",
+            "codeLens": {
+                "for": [
+                    "run-test",
+                    "run-test-file"
+                ]
+            },
+            "toolArgs": [
                 "-v",
-                "--dart-define=FIREBASE_ENABLED=true",
+                "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
             ]
         },
         {
-            "name": "Frontend (ci)",
-            "cwd": "frontend",
-            "request": "launch",
+            "name": "Debug",
             "type": "dart",
-            "args": [
+            "request": "launch",
+            "program": "./frontend/integration_test/",
+            "codeLens": {
+                "for": [
+                    "debug-test",
+                    "debug-test-file"
+                ]
+            },
+            "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://10.0.2.2:3000/api"
-            ]
-        },
-        {
-            "name": "Frontend (prod)",
-            "cwd": "frontend",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--dart-define=FIREBASE_ENABLED=true",
-                "--dart-define=BASE_URL=http://10.0.2.2:3000/api"
+                "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
             ]
         }
     ]

@@ -2,12 +2,30 @@ import 'package:avecpaulette/injection_container.dart';
 import 'package:avecpaulette/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import '../test/features/credentials/data/repositories/credentials_repository_impl_test.mocks.dart';
 import 'utils/api_utils.dart';
 
+@GenerateMocks([
+  GoogleSignIn,
+  GoogleSignInAccount,
+  GoogleSignInAuthentication,
+])
 void main() {
+  late MockGoogleSignIn mockGoogleSignIn;
+  late MockGoogleSignInAccount mockGoogleSignInAccount;
+  late MockGoogleSignInAuthentication mockGoogleSignInAuthentication;
+
   setUp(() async {
     init();
+    sl.unregister<GoogleSignIn>();
+    mockGoogleSignIn = MockGoogleSignIn();
+    mockGoogleSignInAccount = MockGoogleSignInAccount();
+    mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
+    sl.registerLazySingleton<GoogleSignIn>(() => mockGoogleSignIn);
     await sl.allReady();
     await ApiUtils().deleteUser("bbb").first;
   });
@@ -44,6 +62,26 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("Stuff Title"), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should go to the next page when google signin success",
+    (WidgetTester tester) async {
+      when(mockGoogleSignIn.signIn())
+          .thenAnswer((_) => Future.value(mockGoogleSignInAccount));
+      when(mockGoogleSignInAccount.authentication)
+          .thenAnswer((_) => Future.value(mockGoogleSignInAuthentication));
+      when(mockGoogleSignInAuthentication.idToken).thenAnswer((_) => "idToken");
+      
+      await tester.pumpWidget(const MyApp());
+      await tester.enterText(find.byKey(const Key("login_email")), "bbb");
+      await tester.enterText(
+          find.byKey(const Key("login_password")), "password");
+      await tester.tap(find.text("Sign in with Google"));
+      await tester.pumpAndSettle();
+
+      expect(find.text("Wrong Ids"), findsOneWidget);
     },
   );
 }

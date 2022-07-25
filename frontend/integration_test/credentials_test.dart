@@ -73,7 +73,7 @@ void main() {
       when(mockGoogleSignInAccount.authentication)
           .thenAnswer((_) => Future.value(mockGoogleSignInAuthentication));
       when(mockGoogleSignInAuthentication.idToken).thenAnswer((_) => "idToken");
-      
+
       await tester.pumpWidget(const MyApp());
       await tester.enterText(find.byKey(const Key("login_email")), "bbb");
       await tester.enterText(

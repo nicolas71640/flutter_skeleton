@@ -5,17 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Backend: Run Unit Tests",
-            "command": "npx nyc --reporter=lcov npm run test",
-            "request": "launch",
-            "cwd": "${fileDirname}/../backend/",
-            "type": "node-terminal"
-        },
-        {
             "name": "Frontend: Launch App",
             "type": "dart",
             "request": "launch",
-            "program": "lib/main.dart"
+            "program": "lib/main.dart",
+            "toolArgs": [
+                "-v",
+                "--dart-define=FIREBASE_ENABLED=false",
+                "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+            ]
         },
         {
             "name": "Frontend: Run Unit Tests",

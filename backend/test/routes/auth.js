@@ -7,11 +7,7 @@ let chaiHttp = require('chai-http');
 let app = require('../../app/app');
 let should = chai.should();
 
-
-
 chai.use(chaiHttp);
-
-
 
 describe('SignUp', function () {
 
@@ -90,7 +86,7 @@ describe('Login', function () {
                 res.should.have.status(401);
                 done();
             });
-    });   
+    });
 })
 
 

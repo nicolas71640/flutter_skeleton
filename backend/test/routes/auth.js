@@ -5,16 +5,18 @@ const awilix = require('awilix');
 
 //Other
 const { OAuth2Client } = require('google-auth-library');
+const { LoginTicket } = require('google-auth-library');
+
 let User = require('../../app/models/User');
 
 
 class AuthTest extends TestHelper {
     setup() {
-        const client = new OAuth2Client("CLIENT_ID");
-        var stub = sinon.stub(client, "verifyIdToken");
+        this.client = new OAuth2Client("CLIENT_ID");
+        this.ticket = new LoginTicket();
 
         this.register({
-            oauthClient: awilix.asValue(client)
+            oauthClient: awilix.asValue(this.client)
         });
     }
 
@@ -100,25 +102,93 @@ class AuthTest extends TestHelper {
 
         describe('OAuth', () => {
 
+
             beforeEach((done) => {
                 User.remove({}, (err) => {
                     done();
                 });
             });
 
-            it('should return error 500 when the user does not exist', (done) => {
+
+            afterEach(() => {
+                this.clearStub(this.client.verifyIdToken);
+                this.clearStub(this.ticket.getPayload);
+            });
+
+            it('should return error 500 when an error is thrown by google signin', (done) => {
+                sinon.stub(this.client, "verifyIdToken").throws(Error())
+
                 this.chai.request(this.app)
                     .post('/api/auth/oauth')
                     .send({
                         'idToken': 'myIdToken',
                     })
                     .end((err, res) => {
-                        res.should.have.status(401);
+                        res.should.have.status(500);
                         done();
                     });
             });
-        })
 
+            it('should return 200 when the user does not exists', (done) => {
+                sinon.stub(this.ticket, "getPayload").returns({ sub: 'userId', email: 'test@gmail.com' });
+                sinon.stub(this.client, "verifyIdToken").returns(this.ticket);
+
+                this.chai.request(this.app)
+                    .post('/api/auth/oauth')
+                    .send({
+                        'idToken': 'myIdToken',
+                    })
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        done();
+                    });
+            });
+
+            it('should return 200 when the user does exists', (done) => {
+                sinon.stub(this.ticket, "getPayload").returns({ sub: 'userId', email: 'test@gmail.com' });
+                sinon.stub(this.client, "verifyIdToken").returns(this.ticket);
+
+                this.chai.request(this.app)
+                    .post('/api/auth/oauth')
+                    .send({
+                        'idToken': 'myIdToken',
+                    })
+                    .end((err, res) => {
+                        this.chai.request(this.app)
+                            .post('/api/auth/oauth')
+                            .send({
+                                'idToken': 'myIdToken',
+                            })
+                            .end((err, res) => {
+                                res.should.have.status(200);
+                                done();
+                            });
+                    });
+            });
+
+            it('should return 400 when the mail already exists in the database and is not oauth', (done) => {
+                sinon.stub(this.ticket, "getPayload").returns({ sub: 'userId', email: 'tester@gmail.com' });
+                sinon.stub(this.client, "verifyIdToken").returns(this.ticket);
+
+                this.chai.request(this.app)
+                    .post('/api/auth/signup')
+                    .send({
+                        'email': 'tester@gmail.com',
+                        'password': 'tester'
+                    })
+                    .end((err, res) => {
+                        this.chai.request(this.app)
+                            .post('/api/auth/oauth')
+                            .send({
+                                'idToken': 'myIdToken',
+                            })
+                            .end((err, res) => {
+                                res.should.have.status(400);
+                                done();
+                            });
+                    });
+            });
+        })
     }
 }
 

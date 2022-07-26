@@ -90,6 +90,7 @@ class UserController {
             User.findOne({ email: email, userId: userId })
                 .then((user) => {
                     if (user) {
+                        console.log("OAuth User Already Exists");
                         res.status(200).json({
                             email: user.email,
                             accessToken: this.#generateAccessToken(user),

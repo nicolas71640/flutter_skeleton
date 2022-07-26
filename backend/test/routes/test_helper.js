@@ -15,18 +15,17 @@ class TestHelper {
         this.launch();
     }
 
-    getApp()
-    {
-        return this.server.app;
+    clearStub(stub) {
+        try {
+            stub.restore();
+        } catch (error) { }
     }
 
-    register(nameAndRegistrationPair)
-    {
+    register(nameAndRegistrationPair) {
         container.register(nameAndRegistrationPair)
     }
 
-    setup()
-    {
+    setup() {
 
     }
 

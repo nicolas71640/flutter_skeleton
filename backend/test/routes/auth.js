@@ -15,11 +15,14 @@ class AuthTest extends TestHelper {
         this.client = new OAuth2Client("CLIENT_ID");
         this.ticket = new LoginTicket();
         this.crypto = new Crypto();
+        this.User = User;
 
         this.register({
             oauthClient: awilix.asValue(this.client),
-            crypto: awilix.asValue(this.crypto)
+            crypto: awilix.asValue(this.crypto),
+            User: awilix.asValue(User)
         });
+
     }
 
     run() {
@@ -110,6 +113,7 @@ class AuthTest extends TestHelper {
 
             afterEach(() => {
                 this.clearStub(this.crypto.compare);
+                this.clearStub(this.User.findOne);
             });
 
             it('should return error 500 when the user does not exist', (done) => {
@@ -152,6 +156,29 @@ class AuthTest extends TestHelper {
             it('should fail with error 500 when the crypto throws an error', (done) => {
 
                 sinon.stub(this.crypto, "compare").rejects('Error when comparing');
+                this.chai.request(this.app)
+                    .post('/api/auth/signup')
+                    .send({
+                        'email': 'tester@gmail.com',
+                        'password': 'tester'
+                    })
+                    .end((err, res) => {
+                        this.chai.request(this.app)
+                            .post('/api/auth/login')
+                            .send({
+                                'email': 'tester@gmail.com',
+                                'password': 'tester'
+                            })
+                            .end((err, res) => {
+                                res.should.have.status(500);
+                                done();
+                            })
+                    });
+            })
+
+            it('should fail with error 500 when mongoose return an error', (done) => {
+
+                sinon.stub(this.User, "findOne").rejects('Error when comparing');
                 this.chai.request(this.app)
                     .post('/api/auth/signup')
                     .send({

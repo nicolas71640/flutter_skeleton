@@ -1,10 +1,11 @@
-const User = require("../models/User")
 const jwt = require("jsonwebtoken");
 
+
 class UserController {
-    constructor({ oauthClient, crypto }) {    
+    constructor({ oauthClient, crypto, User}) {    
         this.oauthClient = oauthClient;
         this.crypto = crypto;
+        this.User = User;
 
         this.signUp = this.signUp.bind(this);
         this.login = this.login.bind(this);
@@ -27,7 +28,7 @@ class UserController {
 
         this.crypto.hash(req.body.password, 10)
             .then(hash => {
-                const user = new User({
+                const user = new this.User({
                     email: req.body.email,
                     password: hash
                 });
@@ -48,7 +49,7 @@ class UserController {
     async login(req, res, next) {
         console.log("login")
 
-        User.findOne({ email: req.body.email })
+        this.User.findOne({ email: req.body.email })
             .then((user) => {
                 if (!user) {
                     return res.status(401).json({ error: 'utilisateur non trouvé' });
@@ -86,7 +87,7 @@ class UserController {
     async oauth(req, res, next) {
         try {
             const [userId, email] = await this.#verify(req.body.idToken).catch(console.error);
-            User.findOne({ email: email, userId: userId })
+            this.User.findOne({ email: email, userId: userId })
                 .then((user) => {
                     if (user) {
                         console.log("OAuth User Already Exists");
@@ -97,7 +98,7 @@ class UserController {
                         });
                     }
                     else {
-                        const user = new User({
+                        const user = new this.User({
                             email: email,
                             userId: userId
                         });

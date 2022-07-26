@@ -1,10 +1,10 @@
 const User = require("../models/User")
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 class UserController {
-    constructor({ oauthClient }) {    
+    constructor({ oauthClient, crypto }) {    
         this.oauthClient = oauthClient;
+        this.crypto = crypto;
 
         this.signUp = this.signUp.bind(this);
         this.login = this.login.bind(this);
@@ -25,7 +25,7 @@ class UserController {
         console.log("Signup")
         console.log(req.body)
 
-        bcrypt.hash(req.body.password, 10)
+        this.crypto.hash(req.body.password, 10)
             .then(hash => {
                 const user = new User({
                     email: req.body.email,
@@ -53,7 +53,7 @@ class UserController {
                 if (!user) {
                     return res.status(401).json({ error: 'utilisateur non trouvé' });
                 }
-                bcrypt.compare(req.body.password, user.password)
+                this.crypto.compare(req.body.password, user.password)
                     .then(valid => {
                         if (!valid) {
                             return res.status(401).json({ error: 'Mot de passe incorrect' });
@@ -67,7 +67,6 @@ class UserController {
                     })
                     .catch((error) => {
                         console.log(error);
-
                         res.status(500).json({ error })
                     });
             })

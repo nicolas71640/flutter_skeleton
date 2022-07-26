@@ -6,7 +6,7 @@ const awilix = require('awilix');
 //Other
 const { OAuth2Client } = require('google-auth-library');
 const { LoginTicket } = require('google-auth-library');
-
+const Crypto = require('../../app/controllers/utils/crypto');
 let User = require('../../app/models/User');
 
 
@@ -14,9 +14,11 @@ class AuthTest extends TestHelper {
     setup() {
         this.client = new OAuth2Client("CLIENT_ID");
         this.ticket = new LoginTicket();
+        this.crypto = new Crypto();
 
         this.register({
-            oauthClient: awilix.asValue(this.client)
+            oauthClient: awilix.asValue(this.client),
+            crypto: awilix.asValue(this.crypto)
         });
     }
 
@@ -28,7 +30,11 @@ class AuthTest extends TestHelper {
                 });
             });
 
-            it('should Register user and then login', (done) => {
+            afterEach(() => {
+                this.clearStub(this.crypto.hash);
+            });
+
+            it('should Register user and then login without error', (done) => {
                 this.chai.request(this.app)
                     .post('/api/auth/signup')
                     .send({
@@ -76,6 +82,22 @@ class AuthTest extends TestHelper {
                             });
                     })
             })
+
+            it('should fail with error 500 when the crypto throws an error', (done) => {
+
+                sinon.stub(this.crypto, "hash").rejects('Error when hashing');
+
+                this.chai.request(this.app)
+                    .post('/api/auth/signup')
+                    .send({
+                        'email': 'tester@gmail.com',
+                        'password': 'tester'
+                    })
+                    .end((err, res) => {
+                        res.should.have.status(500);
+                        done();
+                    })
+            })
         });
 
         describe('Login', () => {
@@ -84,6 +106,10 @@ class AuthTest extends TestHelper {
                 User.remove({}, (err) => {
                     done();
                 });
+            });
+
+            afterEach(() => {
+                this.clearStub(this.crypto.compare);
             });
 
             it('should return error 500 when the user does not exist', (done) => {
@@ -98,6 +124,53 @@ class AuthTest extends TestHelper {
                         done();
                     });
             });
+
+            it('should fail with error 401 when password is wrong', (done) => {
+                this.chai.request(this.app)
+                    .post('/api/auth/signup')
+                    .send({
+                        'email': 'tester@gmail.com',
+                        'password': 'tester'
+                    })
+                    .end((err, res) => {
+                        res.should.have.status(201);
+
+                        // follow up with login
+                        this.chai.request(this.app)
+                            .post('/api/auth/login')
+                            .send({
+                                'email': 'tester@gmail.com',
+                                'password': 'wrong_password'
+                            })
+                            .end((err, res) => {
+                                res.should.have.status(401);
+                                done();
+                            });
+                    })
+            })
+
+            it('should fail with error 500 when the crypto throws an error', (done) => {
+
+                sinon.stub(this.crypto, "compare").rejects('Error when comparing');
+                this.chai.request(this.app)
+                    .post('/api/auth/signup')
+                    .send({
+                        'email': 'tester@gmail.com',
+                        'password': 'tester'
+                    })
+                    .end((err, res) => {
+                        this.chai.request(this.app)
+                            .post('/api/auth/login')
+                            .send({
+                                'email': 'tester@gmail.com',
+                                'password': 'tester'
+                            })
+                            .end((err, res) => {
+                                res.should.have.status(500);
+                                done();
+                            })
+                    });
+            })
         })
 
         describe('OAuth', () => {

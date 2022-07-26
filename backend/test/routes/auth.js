@@ -1,36 +1,33 @@
-let mongoose = require("mongoose");
-let User = require('../../app/models/User');
-const awilix = require('awilix');
-const { testHelper } = require('./test_helper');
-
-
-
 //Require the dev-dependencies
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let should = chai.should();
+const TestHelper = require('./test_helper');
 const sinon = require("sinon");
-chai.use(chaiHttp);
+const awilix = require('awilix');
 
-//DI
+//Other
 const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client("CLIENT_ID");
-var stub = sinon.stub(client, "verifyIdToken");
-testHelper.setup({
-    oauthClient: awilix.asValue(client)
-});
+let User = require('../../app/models/User');
 
-class AuthTest{
+
+class AuthTest extends TestHelper {
+    setup() {
+        const client = new OAuth2Client("CLIENT_ID");
+        var stub = sinon.stub(client, "verifyIdToken");
+
+        this.register({
+            oauthClient: awilix.asValue(client)
+        });
+    }
+
     run() {
-        describe('SignUp', function () {
+        describe('SignUp', () => {
             beforeEach((done) => {
                 User.remove({}, (err) => {
                     done();
                 });
             });
 
-            it('should Register user and then login', function (done) {
-                chai.request(testHelper.app)
+            it('should Register user and then login', (done) => {
+                this.chai.request(this.app)
                     .post('/api/auth/signup')
                     .send({
                         'email': 'tester@gmail.com',
@@ -40,7 +37,7 @@ class AuthTest{
                         res.should.have.status(201);
 
                         // follow up with login
-                        chai.request(testHelper.app)
+                        this.chai.request(this.app)
                             .post('/api/auth/login')
                             .send({
                                 'email': 'tester@gmail.com',
@@ -55,8 +52,8 @@ class AuthTest{
                     })
             })
 
-            it('should fail to register user when a user already exists', function (done) {
-                chai.request(testHelper.app)
+            it('should fail to register user when a user already exists', (done) => {
+                this.chai.request(this.app)
                     .post('/api/auth/signup')
                     .send({
                         'email': 'tester@gmail.com',
@@ -65,7 +62,7 @@ class AuthTest{
                     .end((err, res) => {
                         res.should.have.status(201);
 
-                        chai.request(testHelper.app)
+                        this.chai.request(this.app)
                             .post('/api/auth/signup')
                             .send({
                                 'email': 'tester@gmail.com',
@@ -79,7 +76,7 @@ class AuthTest{
             })
         });
 
-        describe('Login', function () {
+        describe('Login', () => {
 
             beforeEach((done) => {
                 User.remove({}, (err) => {
@@ -87,8 +84,8 @@ class AuthTest{
                 });
             });
 
-            it('should return error 500 when the user does not exist', function (done) {
-                chai.request(testHelper.app)
+            it('should return error 500 when the user does not exist', (done) => {
+                this.chai.request(this.app)
                     .post('/api/auth/login')
                     .send({
                         'email': 'tester@gmail.com',
@@ -101,7 +98,7 @@ class AuthTest{
             });
         })
 
-        describe('OAuth', function () {
+        describe('OAuth', () => {
 
             beforeEach((done) => {
                 User.remove({}, (err) => {
@@ -109,8 +106,8 @@ class AuthTest{
                 });
             });
 
-            it('should return error 500 when the user does not exist', function (done) {
-                chai.request(testHelper.app)
+            it('should return error 500 when the user does not exist', (done) => {
+                this.chai.request(this.app)
                     .post('/api/auth/oauth')
                     .send({
                         'idToken': 'myIdToken',

@@ -1,22 +1,36 @@
 const { setup, container } = require('../../app/di-setup');
 
-
-
-
-
 class TestHelper {
     constructor() {
         this.login = this.login.bind(this);
-        this.setup = this.setup.bind(this);
+        //this.setup = this.setup.bind(this);
 
+        let chaiHttp = require('chai-http');
         this.chai = require('chai');
+        this.should = this.chai.should();
+        this.chai.use(chaiHttp);
+
+        setup();
+        this.setup();
+        this.launch();
     }
 
-    setup(nameAndRegistrationPair) {
-        setup();
-        if (nameAndRegistrationPair != null) {
-            container.register(nameAndRegistrationPair)
-        }
+    getApp()
+    {
+        return this.server.app;
+    }
+
+    register(nameAndRegistrationPair)
+    {
+        container.register(nameAndRegistrationPair)
+    }
+
+    setup()
+    {
+
+    }
+
+    launch() {
         let Server = require('../../app/server');
         this.server = new Server("3000");
         this.app = this.server.app;
@@ -46,8 +60,4 @@ class TestHelper {
     }
 }
 
-const testHelper = new TestHelper();
-
-
-
-module.exports = { testHelper };
+module.exports = TestHelper;

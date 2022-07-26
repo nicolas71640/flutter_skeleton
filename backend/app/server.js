@@ -1,5 +1,4 @@
 const express = require('express');
-const { setup } = require('./di-setup');
 const apiErrorHandler = require('./error/api-error-handler');
 const mongoose = require('mongoose');
 
@@ -36,7 +35,7 @@ class Server {
   }
 
   run(port) {
-    this.server = this.app.listen(process.env.PORT ||  port, () => {
+    this.server = this.app.listen(port, () => {
       console.log(`server running on port ${port}`);
     });
   }

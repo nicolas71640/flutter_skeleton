@@ -199,7 +199,7 @@ jobs:
         uses: ./.github/actions/install-server-action
       - name: Start Server
         working-directory: ./backend
-        run: DEV=1 node ./app/server.js &
+        run: DEV=1 node ./app/index.js &
 
       # Launch Tests and screenshots
       - name: run tests
@@ -257,7 +257,7 @@ jobs:
         uses: ./.github/actions/install-server-action
       - name: Start Server
         working-directory: ./backend
-        run: DEV=1 node ./app/server.js &
+        run: DEV=1 node ./app/index.js &
 
       # Launch tests
       - name: "Run Flutter Driver tests"

@@ -3,7 +3,6 @@ const { setup } = require('./di-setup');
 const apiErrorHandler = require('./error/api-error-handler');
 const mongoose = require('mongoose');
 
-setup();
 const UserRoutes = require('./routes/user');
 const StuffRoutes = require('./routes/stuff');
 

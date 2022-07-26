@@ -13,17 +13,10 @@ function setup() {
   container.register({
     userController: awilix.asClass(UserController),
     oauthClient: awilix.asValue(client)
-    // services
-    
-    // DAOs
-
-    // inject knexjs object with database connection pooling
-    // support
-    // db: awilix.asValue(db),
   });
 }
 
 module.exports = {
   container,
-  setup,
+  setup
 };

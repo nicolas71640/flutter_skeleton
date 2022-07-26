@@ -4,11 +4,11 @@ let chaiHttp = require('chai-http');
 let app = require('../../app/app');
 let should = chai.should();
 let User = require('../../app/models/User');
-let Testhelper = require('./test_helper');
+const {testHelper} = require('./test_helper');
 const { login } = require("../../app/controllers/user");
-
 chai.use(chaiHttp);
 
+testHelper.setup();
 
 //Our parent block
 describe('Thing', () => {
@@ -31,7 +31,7 @@ describe('Thing', () => {
     */
   describe('/GET stuff', () => {
     it('it should GET all the things', async () => {
-      token = await Testhelper.login();
+      token = await testHelper.login();
       chai.request(app)
         .get('/api/stuff')
         .set('authorization', 'bearer ' + token)

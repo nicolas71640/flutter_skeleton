@@ -3,13 +3,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 class UserController {
-    constructor() {    
+    constructor({ oauthClient }) {    
+        this.oauthClient = oauthClient;
+
         this.signUp = this.signUp.bind(this);
         this.login = this.login.bind(this);
         this.oauth = this.oauth.bind(this);
         this.refreshToken = this.refreshToken.bind(this);
         this.devDelete = this.devDelete.bind(this);
-
       }
 
     #generateRefreshToken(user) {
@@ -75,12 +76,9 @@ class UserController {
 
 
     async #verify(idToken) {
-        const CLIENT_ID = "133956385153-foniq2v586hk016ld1ms49r8kls1krca.apps.googleusercontent.com"
-        const { OAuth2Client } = require('google-auth-library');
-        const client = new OAuth2Client(CLIENT_ID);
-        const ticket = await client.verifyIdToken({
+        const ticket = await this.oauthClient.verifyIdToken({
             idToken: idToken,
-            requiredAudience: CLIENT_ID,
+            requiredAudience: this.oauthClient._clientId,
         });
         const payload = ticket.getPayload();
         return [payload['sub'], payload['email']];
@@ -150,8 +148,6 @@ class UserController {
             });
         }
         );
-
-
     }
 
 }

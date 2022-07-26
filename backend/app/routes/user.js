@@ -1,8 +1,8 @@
 const express = require("express");
-const UserController = require("../controllers/user");
+const { container } = require('../di-setup');
 
 const router = express.Router();
-const userController = new UserController();
+const userController = container.resolve('userController');
 
 router.post("/signup",userController.signUp);
 router.post("/login",userController.login);

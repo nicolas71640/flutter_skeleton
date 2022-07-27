@@ -26,6 +26,16 @@ class StuffTest extends TestHelper {
                             res.body.length.should.be.eql(0);
                         });
                 });
+
+                it('it should return error 401 if accessToken is wrong', async () => {
+                    const [,refreshToken] = await this.login();
+                    this.chai.request(this.app)
+                        .get('/api/stuff')
+                        .set('authorization', 'bearer ' + refreshToken)
+                        .end((err, res) => {
+                            res.should.have.status(401);
+                        });
+                });
             });
 
         });

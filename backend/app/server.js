@@ -24,7 +24,9 @@ class Server {
     this.app.use('/api/stuff',StuffRoutes);
 
     this.app.use(apiErrorHandler);
-
+    //const port = normalizePort(process.env.PORT || '3000');
+    this.app.set('port', 3000);
+    
     mongoose.connect('mongodb://localhost:27017/myapp',
       {
         useNewUrlParser: true,

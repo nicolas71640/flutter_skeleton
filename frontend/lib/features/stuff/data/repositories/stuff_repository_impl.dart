@@ -1,5 +1,5 @@
 import 'package:avecpaulette/core/error/failures.dart';
-import 'package:avecpaulette/core/network/credentials_local_data_source.dart';
+import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart';
 import 'package:avecpaulette/features/stuff/data/datasources/stuff_api_service.dart';
 import 'package:avecpaulette/features/stuff/domain/entities/stuff.dart';
 import 'package:avecpaulette/features/stuff/domain/repositories/stuff_repository.dart';

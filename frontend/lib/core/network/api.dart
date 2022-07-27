@@ -1,4 +1,4 @@
-import 'package:avecpaulette/core/network/credentials_local_data_source.dart';
+import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart';
 import 'package:avecpaulette/core/network/network_utils.dart';
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:dio/dio.dart';

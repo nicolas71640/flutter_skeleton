@@ -24,7 +24,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/network/credentials_local_data_source.dart';
+import 'core/local_data_source/credentials_local_data_source.dart';
 import 'core/util/input_converter.dart';
 import 'features/departmentsViewer/presentation/bloc/number_trivia_bloc.dart';
 import 'package:http/http.dart' as http;

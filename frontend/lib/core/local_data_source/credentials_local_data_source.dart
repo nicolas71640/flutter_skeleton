@@ -45,7 +45,9 @@ class CredentialsLocalDataSourceImpl implements CredentialsLocalDataSource {
         .write(key: REFRESH_TOKEN, value: refreshToken)
         .then((_) =>
             flutterSecureStorage.write(key: ACCESS_TOKEN, value: accessToken))
-        .then((_) => flutterSecureStorage.write(key: EMAIL, value: userId)));
+        .then((_) => 
+        flutterSecureStorage.write(key: EMAIL, value: userId))
+        );
   }
 
   @override

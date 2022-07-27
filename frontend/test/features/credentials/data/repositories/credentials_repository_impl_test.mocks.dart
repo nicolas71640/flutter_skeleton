@@ -4,7 +4,7 @@
 
 import 'dart:async' as _i6;
 
-import 'package:avecpaulette/core/network/credentials_local_data_source.dart'
+import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart'
     as _i14;
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart'
     as _i5;

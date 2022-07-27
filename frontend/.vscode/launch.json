@@ -19,7 +19,7 @@
             "name": "Frontend: Run Unit Tests",
             "type": "dart",
             "request": "launch",
-            "program": "./frontend/test/",
+            "program": "./test/",
             "args": [
                 "--coverage",
                 "--dart-define=FIREBASE_ENABLED=false",
@@ -30,7 +30,7 @@
             "name": "Frontend: Run Integration Tests",
             "type": "dart",
             "request": "launch",
-            "program": "./frontend/integration_test/",
+            "program": "./integration_test/",
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
@@ -41,7 +41,7 @@
             "name": "Run",
             "type": "dart",
             "request": "launch",
-            "program": "./frontend/integration_test/",
+            "program": "./integration_test/",
             "codeLens": {
                 "for": [
                     "run-test",
@@ -51,14 +51,14 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
+                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
             ]
         },
         {
             "name": "Debug",
             "type": "dart",
             "request": "launch",
-            "program": "./frontend/integration_test/",
+            "program": "./integration_test/",
             "codeLens": {
                 "for": [
                     "debug-test",

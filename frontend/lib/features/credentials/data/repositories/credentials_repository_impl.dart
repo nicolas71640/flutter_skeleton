@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../../core/network/credentials_local_data_source.dart';
+import '../../../../core/local_data_source/credentials_local_data_source.dart';
 import '../models/api/login_request.dart';
 import '../models/api/signup_request.dart';
 

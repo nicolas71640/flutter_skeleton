@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:avecpaulette/core/error/failures.dart';
-import 'package:avecpaulette/core/network/credentials_local_data_source.dart';
+import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart';
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/oauth_response.dart';

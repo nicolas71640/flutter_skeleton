@@ -143,7 +143,9 @@ class UserController {
     }
 
     async devDelete(req, res, next) {
-        User.deleteOne({ email: req.body.email }).then(() => {
+        console.log("devDelete")
+
+        this.User.deleteOne({ email: req.body.email }).then(() => {
             res.status(200).json({
                 message: 'Deleted!'
             });

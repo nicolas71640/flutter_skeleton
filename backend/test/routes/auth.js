@@ -7,8 +7,7 @@ const awilix = require('awilix');
 const { OAuth2Client } = require('google-auth-library');
 const { LoginTicket } = require('google-auth-library');
 const Crypto = require('../../app/controllers/utils/crypto');
-let User = require('../../app/models/User');
-
+const User = require('../../app/models/User');
 
 class AuthTest extends TestHelper {
     setup() {
@@ -20,7 +19,7 @@ class AuthTest extends TestHelper {
         this.register({
             oauthClient: awilix.asValue(this.client),
             crypto: awilix.asValue(this.crypto),
-            User: awilix.asValue(User)
+            User: awilix.asValue(User),
         });
 
     }
@@ -288,7 +287,38 @@ class AuthTest extends TestHelper {
                             });
                     });
             });
-        })
+        });
+
+        describe('refreshToken', () => {
+            beforeEach((done) => {
+                User.remove({}, (err) => {
+                    done();
+                });
+            });
+
+            it('should return status 200 when no the refresh token is correct', async () => {
+                const [, refreshToken] = await this.login();
+
+                this.chai.request(this.app)
+                    .post('/api/auth/refreshToken')
+                    .set('authorization', 'bearer ' + refreshToken)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                    });
+            });
+
+            it('should return status 401 when then refresh token is wrong', async () => {
+                const [accessToken] = await this.login();
+
+                //Putting accessToken instead of refreshToken to throw an error
+                this.chai.request(this.app)
+                    .post('/api/auth/refreshToken')
+                    .set('authorization', 'bearer ' + accessToken)
+                    .end((err, res) => {
+                        res.should.have.status(401);
+                    });
+            });
+        });
     }
 }
 

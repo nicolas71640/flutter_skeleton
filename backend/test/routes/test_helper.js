@@ -54,8 +54,10 @@ class TestHelper {
             });
 
         res.body.should.have.property('accessToken');
+        res.body.should.have.property('refreshToken');
 
-        return Promise.resolve(res.body.accessToken);
+
+        return Promise.resolve([res.body.accessToken, res.body.refreshToken]);
     }
 }
 

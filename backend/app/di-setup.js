@@ -4,7 +4,7 @@ const Crypto = require('./controllers/utils/crypto')
 const { OAuth2Client } = require('google-auth-library');
 const CLIENT_ID = "133956385153-foniq2v586hk016ld1ms49r8kls1krca.apps.googleusercontent.com"
 const client = new OAuth2Client(CLIENT_ID);
-const UserModel = require("./models/User");
+const jwt = require("jsonwebtoken");
 
 
 const container = awilix.createContainer({
@@ -16,7 +16,7 @@ function setup() {
     userController: awilix.asClass(UserController),
     oauthClient: awilix.asValue(client),
     crypto: awilix.asClass(Crypto),
-    userModel: awilix.asValue(UserModel)
+    jwt: awilix.asValue(jwt)
   });
 
   container.loadModules([

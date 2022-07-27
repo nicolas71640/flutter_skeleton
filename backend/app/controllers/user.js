@@ -1,11 +1,9 @@
-const jwt = require("jsonwebtoken");
-
-
 class UserController {
-    constructor({ oauthClient, crypto, User}) {    
+    constructor({ oauthClient, crypto, User, jwt}) {    
         this.oauthClient = oauthClient;
         this.crypto = crypto;
         this.User = User;
+        this.jwt = jwt;
 
         this.signUp = this.signUp.bind(this);
         this.login = this.login.bind(this);
@@ -15,11 +13,11 @@ class UserController {
       }
 
     #generateRefreshToken(user) {
-        return jwt.sign({ userId: user._id }, "REFRESH_TOKEN_SECRET", { expiresIn: '1y' });
+        return this.jwt.sign({ userId: user._id }, "REFRESH_TOKEN_SECRET", { expiresIn: '1y' });
     }
 
     #generateAccessToken(user) {
-        return jwt.sign({ userId: user._id }, "ACCESS_TOKEN_SECRET", { expiresIn: '5s' });
+        return this.jwt.sign({ userId: user._id }, "ACCESS_TOKEN_SECRET", { expiresIn: '5s' });
     }
 
     async signUp(req, res, next) {
@@ -51,6 +49,7 @@ class UserController {
 
         this.User.findOne({ email: req.body.email })
             .then((user) => {
+
                 if (!user) {
                     return res.status(401).json({ error: 'utilisateur non trouvé' });
                 }
@@ -127,8 +126,9 @@ class UserController {
         console.log("refreshToken")
 
         const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, "REFRESH_TOKEN_SECRET", (err, user) => {
+        const decodedToken = this.jwt.verify(token, "REFRESH_TOKEN_SECRET", (err, user) => {
             if (err) {
+                console.log(err);
                 return res.sendStatus(401)
             }
             console.log(user.userId)

@@ -1,46 +1,36 @@
-// let Thing = require('../../app/models/Thing');
-// let chai = require('chai');
-// let chaiHttp = require('chai-http');
-// let app = require('../../app/app');
-// let should = chai.should();
-// let User = require('../../app/models/User');
-// const {testHelper} = require('./test_helper');
-// const { login } = require("../../app/controllers/user");
-// chai.use(chaiHttp);
-
-// testHelper.setup();
-
-// //Our parent block
-// describe('Thing', () => {
-//   beforeEach((done) => { //Before each test we empty the database
-//     Thing.remove({}, (err) => {
-//       done();
-//     });
-
-//   });
-
-//   beforeEach((done) => { //Before each test we empty the database
-//     User.remove({}, (err) => {
-//       done();
-//     });
-//   });
+let Thing = require('../../app/models/Thing');
+let User = require('../../app/models/User');
+const TestHelper = require('./test_helper');
 
 
-//   /*
-//     * Test the /GET route
-//     */
-//   describe('/GET stuff', () => {
-//     it('it should GET all the things', async () => {
-//       token = await testHelper.login();
-//       chai.request(testHelper.app)
-//         .get('/api/stuff')
-//         .set('authorization', 'bearer ' + token)
-//         .end((err, res) => {
-//           res.should.have.status(200);
-//           res.body.should.be.a('array');
-//           res.body.length.should.be.eql(0);
-//         });
-//     });
-//   });
+class StuffTest extends TestHelper {
+    run() {
+        describe('Thing', () => {
+            beforeEach( async () => { //Before each test we empty the database
+                await Thing.remove();
+                await User.remove();
+            });
 
-// });
+            /*
+              * Test the /GET route
+              */
+            describe('/GET stuff', () => {
+                it('it should GET all the things', async () => {
+                    const [accesstoken,] = await this.login();
+                    this.chai.request(this.app)
+                        .get('/api/stuff')
+                        .set('authorization', 'bearer ' + accesstoken)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            res.body.should.be.a('array');
+                            res.body.length.should.be.eql(0);
+                        });
+                });
+            });
+
+        });
+    }
+}
+
+new StuffTest().run();
+

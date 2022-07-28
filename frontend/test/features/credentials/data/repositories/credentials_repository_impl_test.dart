@@ -290,7 +290,8 @@ void main() {
       when(mockCredentialsApiService.forgetPassword(any))
           .thenAnswer((_) => Stream.error(error));
 
-      expect(credentialsRepositoryImpl.forgetPassword("email"), emitsError(error));
+      expect(
+          credentialsRepositoryImpl.forgetPassword("email"), emitsError(error));
     });
   });
 }

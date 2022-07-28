@@ -343,7 +343,7 @@ class AuthTest extends TestHelper {
             });
 
             it('should send status 201 and send and email if user is found', async () => {
-                var sendNewPasswordEmail = sinon.spy(this.mailer, "sendNewPasswordEmail");
+                var sendNewPasswordEmail = sinon.stub(this.mailer, "sendNewPasswordEmail");
                 
                 const user = new this.User({
                     email: "tester@gmail.com",

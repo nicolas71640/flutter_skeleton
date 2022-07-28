@@ -168,7 +168,9 @@ class UserController {
                             })
                                 .then(() => {
                                     this.mailer.sendNewPasswordEmail(req.params.email, newPassword)
-                                    return res.sendStatus(201);
+                                    return res.status(201).json({
+                                        message: "ok"
+                                    });
                                 })
                                 .catch((error) => {
                                     return res.status(500).json({ error })

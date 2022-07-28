@@ -5,9 +5,13 @@
 import 'dart:async' as _i6;
 
 import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart'
-    as _i14;
+    as _i16;
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart'
     as _i5;
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_request.dart'
+    as _i15;
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart'
+    as _i14;
 import 'package:avecpaulette/features/credentials/data/models/api/login_request.dart'
     as _i10;
 import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart'
@@ -26,7 +30,7 @@ import 'package:dio/dio.dart' as _i2;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i3;
 import 'package:google_sign_in/google_sign_in.dart' as _i4;
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart'
-    as _i15;
+    as _i17;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -80,13 +84,20 @@ class MockCredentialsApiService extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#refreshToken, [refreshToken]),
               returnValue: Stream<_i13.RefreshTokenResponse>.empty())
           as _i6.Stream<_i13.RefreshTokenResponse>);
+  @override
+  _i6.Stream<_i14.ForgetPasswordResponse> forgetPassword(
+          _i15.ForgetPasswordRequest? forgetPasswordRequest) =>
+      (super.noSuchMethod(
+              Invocation.method(#forgetPassword, [forgetPasswordRequest]),
+              returnValue: Stream<_i14.ForgetPasswordResponse>.empty())
+          as _i6.Stream<_i14.ForgetPasswordResponse>);
 }
 
 /// A class which mocks [CredentialsLocalDataSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCredentialsLocalDataSourceImpl extends _i1.Mock
-    implements _i14.CredentialsLocalDataSourceImpl {
+    implements _i16.CredentialsLocalDataSourceImpl {
   MockCredentialsLocalDataSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
@@ -129,9 +140,9 @@ class MockGoogleSignIn extends _i1.Mock implements _i4.GoogleSignIn {
   }
 
   @override
-  _i15.SignInOption get signInOption =>
+  _i17.SignInOption get signInOption =>
       (super.noSuchMethod(Invocation.getter(#signInOption),
-          returnValue: _i15.SignInOption.standard) as _i15.SignInOption);
+          returnValue: _i17.SignInOption.standard) as _i17.SignInOption);
   @override
   List<String> get scopes =>
       (super.noSuchMethod(Invocation.getter(#scopes), returnValue: <String>[])

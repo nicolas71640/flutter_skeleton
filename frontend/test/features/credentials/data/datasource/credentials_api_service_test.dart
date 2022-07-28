@@ -1,4 +1,5 @@
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_request.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/login_request.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/oauth_request.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/signup_request.dart';
@@ -127,6 +128,28 @@ void main() {
       expect(oAuthResponse.accessToken, equals(jsonResponse["accessToken"]));
       expect(oAuthResponse.refreshToken, equals(jsonResponse["refreshToken"]));
       verify(mockDio.post("/auth/oauth", data: oAuthRequest.toJson()));
+    });
+  });
+
+  group("forgetPassword", () {
+    test("should return a ForgetPasswordResponse when no error is thrown ",
+        () async {
+      final jsonResponse = fixtureJson("credentials/forget_password_ok.json");
+      when(mockDio.post(any, data: anyNamed("data"))).thenAnswer(
+          (realInvocation) async => Response(
+              requestOptions: RequestOptions(path: ""),
+              statusCode: 201,
+              data: jsonResponse));
+
+      final forgetPasswordRequest = ForgetPasswordRequest("email");
+
+      final forgetPasswordResponse = await credentialsApiService
+          .forgetPassword(forgetPasswordRequest)
+          .first;
+
+      expect(forgetPasswordResponse.message, equals(jsonResponse["message"]));
+      verify(mockDio.post("/auth/forgetPassword",
+          data: forgetPasswordRequest.toJson()));
     });
   });
 }

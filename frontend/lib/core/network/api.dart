@@ -57,8 +57,8 @@ class AppInterceptors extends Interceptor {
           .getRefreshToken()
           .flatMap((refreshToken) =>
               credentialsApiService.refreshToken(refreshToken))
-          .flatMap((accessTokenResponse) => credentialsLocalDataSource
-              .cacheAccessToken(accessTokenResponse.accessToken))
+          .flatMap((refreshTokenResponse) => credentialsLocalDataSource
+              .cacheAccessToken(refreshTokenResponse.accessToken))
           .last;
 
       try {

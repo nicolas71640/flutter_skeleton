@@ -1,4 +1,4 @@
-const { setup, container } = require('../../app/di-setup');
+const { setup, container } = require('../app/di-setup');
 
 class TestHelper {
     constructor() {
@@ -30,7 +30,7 @@ class TestHelper {
     }
 
     launch() {
-        let Server = require('../../app/server');
+        let Server = require('../app/server');
         this.server = new Server("3000");
         this.app = this.server.app;
     }

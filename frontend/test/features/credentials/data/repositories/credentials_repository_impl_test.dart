@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:avecpaulette/core/error/failures.dart';
 import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart';
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/oauth_response.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/signup_response.dart';
@@ -242,6 +243,54 @@ void main() {
           .thenAnswer((_) => Stream.error(error));
 
       expect(credentialsRepositoryImpl.googleLogin(), emitsError(error));
+    });
+  });
+
+  group("forgetPassword", () {
+    test("should complete when api service return no error", () async {
+      when(mockCredentialsApiService.forgetPassword(any))
+          .thenAnswer((_) => Stream.value(ForgetPasswordResponse("ok")));
+
+      expectLater(credentialsRepositoryImpl.forgetPassword("mail"), emitsDone);
+
+      verify(mockCredentialsApiService.forgetPassword(any));
+    });
+
+    test("should return EmailNotFound when api service return an 401 error",
+        () async {
+      when(mockCredentialsApiService.forgetPassword(any)).thenAnswer((_) =>
+          Stream.error(DioError(
+              requestOptions: RequestOptions(path: ""),
+              response: Response(
+                  requestOptions: RequestOptions(path: ""),
+                  statusCode: HttpStatus.unauthorized))));
+
+      expect(credentialsRepositoryImpl.forgetPassword("email"),
+          emitsError(const TypeMatcher<EmailNotFound>()));
+    });
+
+    test("should return ServerFailure when api service return an 500 error",
+        () async {
+      when(mockCredentialsApiService.forgetPassword(any)).thenAnswer((_) =>
+          Stream.error(DioError(
+              requestOptions: RequestOptions(path: ""),
+              response: Response(
+                  requestOptions: RequestOptions(path: ""),
+                  statusCode: HttpStatus.internalServerError))));
+
+      expect(credentialsRepositoryImpl.forgetPassword("email"),
+          emitsError(const TypeMatcher<ServerFailure>()));
+    });
+
+    test(
+        "should throw the same error when another error than a dio error is thrown ",
+        () async {
+      final error = Error();
+
+      when(mockCredentialsApiService.forgetPassword(any))
+          .thenAnswer((_) => Stream.error(error));
+
+      expect(credentialsRepositoryImpl.forgetPassword("email"), emitsError(error));
     });
   });
 }

@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:avecpaulette/core/error/exceptions.dart';
 import 'package:avecpaulette/core/local_data_source/credentials_local_data_source.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mockito/annotations.dart';
-import 'package:avecpaulette/core/network/network_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

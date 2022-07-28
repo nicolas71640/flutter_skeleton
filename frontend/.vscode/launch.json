@@ -70,6 +70,23 @@
                 "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://192.168.43.199:3000/api"
             ]
-        }
+        },
+        {
+            "name": "Run",
+            "type": "dart",
+            "request": "launch",
+            "program": "./manual_test/",
+            "codeLens": {
+                "for": [
+                    "run-test",
+                    "run-test-file"
+                ]
+            },
+            "toolArgs": [
+                "-v",
+                "--dart-define=FIREBASE_ENABLED=true",
+                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+            ]
+        },
     ]
 }

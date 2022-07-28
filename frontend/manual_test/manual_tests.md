@@ -11,3 +11,9 @@ On the test phone, add the google account "nicolas.lemble@gmail.com"
 5. Disconnect from this account
 6. Go to signup page, in the "email" field type the address "nicolas.lemble@gmail.com" and whatever you want in the password fields
 7. Click on signup, it should fail, indicating that this e-mail is already used.
+
+
+# Crashlytics
+In order to check that crashlytics works : 
+1. Run the crashlytics related test in manual_test.dart
+2. Check on crashlytics that you can see the crash

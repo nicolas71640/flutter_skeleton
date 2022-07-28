@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../test/features/credentials/data/repositories/credentials_repository_impl_test.mocks.dart';
+import 'credentials_test.mocks.dart';
 import 'utils/api_utils.dart';
 
 @GenerateMocks([

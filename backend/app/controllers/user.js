@@ -1,16 +1,21 @@
+const config = require('../config');
+
 class UserController {
-    constructor({ oauthClient, crypto, User, jwt}) {    
+    constructor({ oauthClient, crypto, User, jwt, mailer }) {
         this.oauthClient = oauthClient;
         this.crypto = crypto;
         this.User = User;
         this.jwt = jwt;
+        this.mailer = mailer;
 
         this.signUp = this.signUp.bind(this);
         this.login = this.login.bind(this);
         this.oauth = this.oauth.bind(this);
         this.refreshToken = this.refreshToken.bind(this);
+        this.forgetPassword = this.forgetPassword.bind(this);
+
         this.devDelete = this.devDelete.bind(this);
-      }
+    }
 
     #generateRefreshToken(user) {
         return this.jwt.sign({ userId: user._id }, "REFRESH_TOKEN_SECRET", { expiresIn: '1y' });
@@ -18,6 +23,10 @@ class UserController {
 
     #generateAccessToken(user) {
         return this.jwt.sign({ userId: user._id }, "ACCESS_TOKEN_SECRET", { expiresIn: '5s' });
+    }
+
+    #generateRandomPassword() {
+        return Math.random().toString(36).slice(-8).toUpperCase();
     }
 
     async signUp(req, res, next) {
@@ -77,7 +86,7 @@ class UserController {
     async #verify(idToken) {
         const ticket = await this.oauthClient.verifyIdToken({
             idToken: idToken,
-            requiredAudience: this.oauthClient._clientId,
+            audience: [config.google_config.client_id_android, config.google_config.client_id_ios],
         });
         const payload = ticket.getPayload();
         return [payload['sub'], payload['email']];
@@ -122,7 +131,7 @@ class UserController {
     }
 
 
-    async refreshToken (req, res, next) {
+    async refreshToken(req, res, next) {
         console.log("refreshToken")
 
         const token = req.headers.authorization.split(' ')[1];
@@ -140,6 +149,45 @@ class UserController {
             });
 
         });
+    }
+
+    async forgetPassword(req, res, next) {
+        console.log("forgetPassword")
+
+        this.User.findOne({ email: req.body.email })
+            .then((user) => {
+                if (user) {
+                    //  user found
+                    const newPassword = this.#generateRandomPassword();
+
+                    //Hash password
+                    this.crypto.hash(newPassword, 10)
+                        .then(hash => {
+
+                            //Update User with new password hash
+                            this.User.findOneAndUpdate({ email: req.body.email }, {
+                                password: hash
+                            })
+                                .then(() => {
+                                    this.mailer.sendNewPasswordEmail(req.params.email, newPassword)
+                                    return res.status(201).json({
+                                        message: "ok"
+                                    });
+                                })
+                                .catch((error) => {
+                                    return res.status(500).json({ error })
+                                });
+                        })
+                        .catch((error) => {
+                            return res.status(500).json({ error })
+                        });
+                }
+                else {
+                    return res.sendStatus(401)
+                }
+            }).catch((error) => {
+                return res.status(500).json({ error })
+            });
     }
 
     async devDelete(req, res, next) {

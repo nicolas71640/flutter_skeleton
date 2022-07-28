@@ -1,6 +1,6 @@
 let Thing = require('../../app/models/Thing');
 let User = require('../../app/models/User');
-const TestHelper = require('./test_helper');
+const TestHelper = require('../test_helper');
 
 
 class StuffTest extends TestHelper {

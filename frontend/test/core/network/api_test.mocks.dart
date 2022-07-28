@@ -8,6 +8,10 @@ import 'package:avecpaulette/core/local_data_source/credentials_local_data_sourc
     as _i10;
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart'
     as _i11;
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_request.dart'
+    as _i20;
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart'
+    as _i19;
 import 'package:avecpaulette/features/credentials/data/models/api/login_request.dart'
     as _i15;
 import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart'
@@ -470,6 +474,13 @@ class MockCredentialsApiService extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#refreshToken, [refreshToken]),
               returnValue: Stream<_i18.RefreshTokenResponse>.empty())
           as _i8.Stream<_i18.RefreshTokenResponse>);
+  @override
+  _i8.Stream<_i19.ForgetPasswordResponse> forgetPassword(
+          _i20.ForgetPasswordRequest? forgetPasswordRequest) =>
+      (super.noSuchMethod(
+              Invocation.method(#forgetPassword, [forgetPasswordRequest]),
+              returnValue: Stream<_i19.ForgetPasswordResponse>.empty())
+          as _i8.Stream<_i19.ForgetPasswordResponse>);
 }
 
 /// A class which mocks [RequestInterceptorHandler].

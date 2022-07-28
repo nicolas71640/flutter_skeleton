@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_request.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/oauth_request.dart';
 import 'package:avecpaulette/features/credentials/data/models/user_model.dart';
 import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
@@ -17,6 +18,8 @@ import '../models/api/signup_request.dart';
 class WrongIds extends ServerFailure {}
 
 class EmailAlreadyUsed extends ServerFailure {}
+
+class EmailNotFound extends ServerFailure {}
 
 class CredentialsRepositoryImpl implements CredentialsRepository {
   final CredentialsApiService credentialsApiService;
@@ -95,5 +98,22 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
           }
           return Stream.error(error);
         });
+  }
+
+  @override
+  Stream<void> forgetPassword(String email) {
+    return credentialsApiService
+        .forgetPassword(ForgetPasswordRequest(email))
+        .ignoreElements()
+        .onErrorResume((error, stackTrace) {
+      if (error is DioError) {
+        if (error.response?.statusCode == HttpStatus.unauthorized) {
+          return Stream.error(EmailNotFound());
+        } else {
+          return Stream.error(ServerFailure());
+        }
+      }
+      return Stream.error(error);
+    });
   }
 }

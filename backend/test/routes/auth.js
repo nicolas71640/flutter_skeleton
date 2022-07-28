@@ -1,5 +1,5 @@
 //Require the dev-dependencies
-const TestHelper = require('./test_helper');
+const TestHelper = require('../test_helper');
 const sinon = require("sinon");
 const awilix = require('awilix');
 
@@ -8,6 +8,11 @@ const { OAuth2Client } = require('google-auth-library');
 const { LoginTicket } = require('google-auth-library');
 const Crypto = require('../../app/controllers/utils/crypto');
 const User = require('../../app/models/User');
+const { expect } = require('chai');
+const Mailer = require('../../app/utils/mailer');
+const nodemailer = require('nodemailer')
+
+
 
 class AuthTest extends TestHelper {
     setup() {
@@ -15,11 +20,13 @@ class AuthTest extends TestHelper {
         this.ticket = new LoginTicket();
         this.crypto = new Crypto();
         this.User = User;
+        this.mailer = new Mailer(nodemailer);
 
         this.register({
             oauthClient: awilix.asValue(this.client),
             crypto: awilix.asValue(this.crypto),
             User: awilix.asValue(User),
+            mailer: awilix.asValue(this.mailer),
         });
 
     }
@@ -317,6 +324,109 @@ class AuthTest extends TestHelper {
                     .end((err, res) => {
                         res.should.have.status(401);
                     });
+            });
+        });
+
+        describe('forgetPassword', () => {
+
+            beforeEach((done) => {
+                this.User.remove({}, (err) => {
+                    done();
+                });
+            });
+
+            afterEach(() => {
+                this.clearStub(this.crypto.hash);
+                this.clearStub(this.User.findOne);
+                this.clearStub(this.User.findOneAndUpdate);
+
+            });
+
+            it('should send status 201 and send and email if user is found', async () => {
+                var sendNewPasswordEmail = sinon.stub(this.mailer, "sendNewPasswordEmail");
+                
+                const user = new this.User({
+                    email: "tester@gmail.com",
+                    password: "passwordHash"
+                });
+
+                await user.save();
+
+                const res = await this.chai.request(this.app)
+                    .post('/api/auth/forgetPassword')
+                    .send({
+                        'email': 'tester@gmail.com',
+                    })
+
+                res.should.have.status(201);
+
+                const updatedUser = await this.User.findOne({ email: "tester@gmail.com" })
+                expect(updatedUser.password).to.not.equal("passwordHash")
+
+                sendNewPasswordEmail.restore();
+                sinon.assert.calledOnce(sendNewPasswordEmail);
+
+
+            });
+
+            it('should send error 401 if user not found', async () => {
+                const res = await this.chai.request(this.app)
+                    .post('/api/auth/forgetPassword')
+                    .send({
+                        'email': 'tester@gmail.com',
+                    })
+
+                res.should.have.status(401);
+            });
+
+            it('should send error 500 if password hash fail', async () => {
+                sinon.stub(this.crypto, "hash").rejects('Error when hashing');
+
+                const user = new this.User({
+                    email: "tester@gmail.com",
+                    password: "passwordHash"
+                });
+
+                await user.save();
+
+                const res = await this.chai.request(this.app)
+                    .post('/api/auth/forgetPassword')
+                    .send({
+                        'email': 'tester@gmail.com',
+                    })
+
+                res.should.have.status(500);
+            });
+
+            it('should send error 500 when an error occured while trying to find the user', async () => {
+                sinon.stub(this.User, "findOne").rejects('Error when trying to find');
+
+                const res = await this.chai.request(this.app)
+                    .post('/api/auth/forgetPassword')
+                    .send({
+                        'email': 'tester@gmail.com',
+                    })
+
+                res.should.have.status(500);
+            });
+
+            it('should send error 500 when an error while trying to update the user', async () => {
+                sinon.stub(this.User, "findOneAndUpdate").rejects('Error when trying to find');
+
+                const user = new this.User({
+                    email: "tester@gmail.com",
+                    password: "passwordHash"
+                });
+
+                await user.save();
+
+                const res = await this.chai.request(this.app)
+                    .post('/api/auth/forgetPassword')
+                    .send({
+                        'email': 'tester@gmail.com',
+                    })
+
+                res.should.have.status(500);
             });
         });
     }

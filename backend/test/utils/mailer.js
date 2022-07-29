@@ -24,8 +24,8 @@ class MailerTest extends TestHelper {
                 let transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'nicolas.lemble@gmail.com',
-                        pass: 'h4Pf0Rgg83!'
+                        user: 'michel.martin6871@gmail.com',
+                        pass: 'h4Pf0Rar83'
                     }
                 });
                 var createTransport = sinon.stub(nodemailer, "createTransport").returns(transporter);
@@ -38,8 +38,8 @@ class MailerTest extends TestHelper {
                 sinon.assert.calledWith(createTransport, sinon.match({
                     service: 'gmail',
                     auth: {
-                        user: 'nicolas.lemble@gmail.com',
-                        pass: 'h4Pf0Rgg83!'
+                        user: 'michel.martin6871@gmail.com',
+                        pass: 'h4Pf0Rar83'
                     }
                 }));
 
@@ -62,8 +62,8 @@ class MailerTest extends TestHelper {
                 let transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'nicolas.lemble@gmail.com',
-                        pass: 'h4Pf0Rgg83!'
+                        user: 'michel.martin6871@gmail.com',
+                        pass: 'h4Pf0Rar83'
                     }
                 });
                 var createTransport = sinon.stub(nodemailer, "createTransport").returns(transporter);

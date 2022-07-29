@@ -10,8 +10,8 @@ class Mailer {
         var transporter = this.nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'nicolas.lemble@gmail.com',
-                pass: 'h4Pf0Rgg83!'
+                user: 'michel.martin6871@gmail.com',
+                pass: 'h4Pf0Rar83'
             }
         });
 

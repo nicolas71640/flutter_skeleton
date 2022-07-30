@@ -5,44 +5,61 @@ const TestHelper = require('../test_helper');
 
 const Mailer = require('../../app/utils/mailer');
 const nodemailer = require('nodemailer');
-const SMTPTransport = require("nodemailer/lib/smtp-transport");
+const config = require('../../app/config');
+const { OAuth2Client } = require('google-auth-library');
+
 
 
 class MailerTest extends TestHelper {
     run() {
         afterEach(() => {
             this.clearStub(nodemailer.createTransport);
+            this.clearStub(oauthClient.getAccessToken);
         });
 
-        describe('Mailer', () => {
-            it('should send a mail with the expected parameters', () => {
-                const email = "email@test.com"
-                const newPassword = "newPassword"
+        describe('Mailer', async () => {
+            it('should send a mail with the expected parameters', async () => {
+                const email = "email@test.com";
+                const newPassword = "newPassword";
+                const accessToken = "accessToken";
+                const oauthClient = new OAuth2Client()
+                const mailer = new Mailer(nodemailer, oauthClient);
 
-                let transporter = nodemailer.createTransport({
+                const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'michel.martin6871@gmail.com',
-                        pass: 'h4Pf0Rar83'
+                        type: "OAuth2",
+                        user: "nicolas.lemble@gmail.com",
+                        clientId: config.google_config.client_id,
+                        clientSecret: config.google_config.client_secret,
+                        refreshToken: config.google_config.refresh_token,
+                        accessToken: accessToken,
                     }
                 });
+
+                var getAccessToken = sinon.stub(oauthClient, "getAccessToken").resolves("accessToken");
                 var createTransport = sinon.stub(nodemailer, "createTransport").returns(transporter);
                 var sendMail = sinon.stub(transporter, "sendMail");
 
-                const mailer = new Mailer(nodemailer);
 
-                mailer.sendNewPasswordEmail(email, newPassword);
+                await mailer.sendNewPasswordEmail(email, newPassword);
 
+                sinon.assert.calledOnce(getAccessToken);
+                sinon.assert.calledOnce(createTransport);
                 sinon.assert.calledWith(createTransport, sinon.match({
                     service: 'gmail',
                     auth: {
-                        user: 'michel.martin6871@gmail.com',
-                        pass: 'h4Pf0Rar83'
+                        type: "OAuth2",
+                        user: "nicolas.lemble@gmail.com",
+                        clientId: config.google_config.client_id,
+                        clientSecret: config.google_config.client_secret,
+                        refreshToken: config.google_config.refresh_token,
+                        accessToken: accessToken,
                     }
                 }));
 
                 var mailOptions = {
-                    from: 'sender mail address',
+                    from: 'nicolas.lemble@gmail.com',
                     to: email,
                     subject: 'New password created successfully',
                     text: newPassword
@@ -53,23 +70,29 @@ class MailerTest extends TestHelper {
                 sendMail.getCall(0).args[1](null, { response: "email" });
             });
 
-            it('should throw an error if could not send the email', () => {
+            it('should throw an error if could not send the email', async () => {
                 const email = "email@test.com"
                 const newPassword = "newPassword"
+                const oauthClient = new OAuth2Client()
+                const mailer = new Mailer(nodemailer, oauthClient);
 
-                let transporter = nodemailer.createTransport({
+                const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'michel.martin6871@gmail.com',
-                        pass: 'h4Pf0Rar83'
+                        type: "OAuth2",
+                        user: "nicolas.lemble@gmail.com",
+                        clientId: config.google_config.client_id,
+                        clientSecret: config.google_config.client_secret,
+                        refreshToken: config.google_config.refresh_token,
+                        accessToken: "accessToken",
                     }
                 });
-                var createTransport = sinon.stub(nodemailer, "createTransport").returns(transporter);
+
+                sinon.stub(oauthClient, "getAccessToken")
+                sinon.stub(nodemailer, "createTransport").returns(transporter);
                 var sendMail = sinon.stub(transporter, "sendMail");
 
-                const mailer = new Mailer(nodemailer);
-
-                mailer.sendNewPasswordEmail(email, newPassword);
+                await mailer.sendNewPasswordEmail(email, newPassword);
 
                 let error = Error();
 

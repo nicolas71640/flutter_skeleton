@@ -9,7 +9,6 @@ class Mailer {
         this.sendNewPasswordEmail = this.sendNewPasswordEmail.bind(this);
     }
 
-
     async sendNewPasswordEmail(email, newPassword) {
         const accessToken = await this.oauthClient.getAccessToken();
 
@@ -27,7 +26,7 @@ class Mailer {
 
         var mailOptions = {
             from: 'nicolas.lemble@gmail.com',
-            to: 'nicolas.lemble@gmail.com',
+            to: email,
             subject: 'New password created successfully',
             text: newPassword
         };

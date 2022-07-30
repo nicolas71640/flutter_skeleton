@@ -12,8 +12,6 @@ class MailerTest extends TestHelper {
     run() {
         afterEach(() => {
             this.clearStub(nodemailer.createTransport);
-            this.clearStub(nodemailer.createTransport);
-
         });
 
         describe('Mailer', () => {
@@ -76,6 +74,29 @@ class MailerTest extends TestHelper {
                 let error = Error();
 
                 this.chai.expect(function () { sendMail.getCall(0).args[1](error, null) }).to.throw(error);
+            });
+
+            //Test to try that sending an email really works
+            it('should send an email', async () => {
+                const { OAuth2Client } = require('google-auth-library');
+                const config = require('../../app/config')
+
+                const oauthClient = new OAuth2Client(
+                    config.google_config.client_id,
+                    config.google_config.client_secret
+                )
+                oauthClient.setCredentials({
+                    refresh_token: config.google_config.refresh_token
+                });
+
+                const email = "nicolas.lemble@gmail.com"
+                const newPassword = "newPassword"
+
+                const mailer = new Mailer(nodemailer, oauthClient);
+
+                mailer.sendNewPasswordEmail(email, newPassword);
+
+                // Check your gmail account to see if you've received an email
             });
         });
     }

@@ -2,8 +2,12 @@ const awilix = require('awilix');
 const UserController = require('./controllers/user');
 const Crypto = require('./controllers/utils/crypto')
 const { OAuth2Client } = require('google-auth-library');
-const CLIENT_ID = "133956385153-foniq2v586hk016ld1ms49r8kls1krca.apps.googleusercontent.com"
-const client = new OAuth2Client(CLIENT_ID);
+const config = require('./config');
+
+const client = new OAuth2Client(
+  config.google_config.client_id,
+  config.google_config.client_secret
+)
 const jwt = require("jsonwebtoken");
 const Mailer = require('./utils/mailer');
 const nodemailer = require('nodemailer');
@@ -14,6 +18,10 @@ const container = awilix.createContainer({
 });
 
 function setup() {
+  client.setCredentials({
+    refresh_token: config.google_config.refresh_token
+  });
+
   container.register({
     userController: awilix.asClass(UserController),
     oauthClient: awilix.asValue(client),

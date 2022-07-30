@@ -1,3 +1,5 @@
+const config = require('../config');
+
 class UserController {
     constructor({ oauthClient, crypto, User, jwt, mailer }) {
         this.oauthClient = oauthClient;
@@ -84,7 +86,7 @@ class UserController {
     async #verify(idToken) {
         const ticket = await this.oauthClient.verifyIdToken({
             idToken: idToken,
-            requiredAudience: this.oauthClient._clientId,
+            audience: [config.google_config.client_id_android, config.google_config.client_id_ios],
         });
         const payload = ticket.getPayload();
         return [payload['sub'], payload['email']];

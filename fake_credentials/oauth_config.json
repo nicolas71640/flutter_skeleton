@@ -1,4 +1,5 @@
 {
+    "user": "fake.user@gmail.com",
     "backend": "fake_backend_client_id",
     "android": "fake_backend_client_id_android",
     "ios": "fake_backend_client_id_ios"

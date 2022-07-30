@@ -3,7 +3,7 @@ const credentials = require(`${process.env.CREDENTIALS_FOLDER}/credentials.json`
 const { client_secret, client_id} = credentials.installed;
 const tokens = require(`${process.env.CREDENTIALS_FOLDER}/token.json`);
 const { refresh_token } = tokens;
-const client_ids = require(`${process.env.CREDENTIALS_FOLDER}/client_ids.json`);
+const oauth_config = require(`${process.env.CREDENTIALS_FOLDER}/oauth_config.json`);
 
 const config = convict({
     port: {
@@ -13,8 +13,9 @@ const config = convict({
       env: 'PORT',
     },
     google_config: {
-      client_id_android: client_ids.android,
-      client_id_ios: client_ids.ios,
+      user: oauth_config.user,
+      client_id_android: oauth_config.android,
+      client_id_ios: oauth_config.ios,
       client_id: client_id,
       client_secret: client_secret,
       refresh_token: refresh_token

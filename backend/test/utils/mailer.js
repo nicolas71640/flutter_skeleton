@@ -14,7 +14,6 @@ class MailerTest extends TestHelper {
     run() {
         afterEach(() => {
             this.clearStub(nodemailer.createTransport);
-            this.clearStub(oauthClient.getAccessToken);
         });
 
         describe('Mailer', async () => {
@@ -29,7 +28,7 @@ class MailerTest extends TestHelper {
                     service: 'gmail',
                     auth: {
                         type: "OAuth2",
-                        user: "nicolas.lemble@gmail.com",
+                        user: config.google_config.user,
                         clientId: config.google_config.client_id,
                         clientSecret: config.google_config.client_secret,
                         refreshToken: config.google_config.refresh_token,
@@ -50,7 +49,7 @@ class MailerTest extends TestHelper {
                     service: 'gmail',
                     auth: {
                         type: "OAuth2",
-                        user: "nicolas.lemble@gmail.com",
+                        user: config.google_config.user,
                         clientId: config.google_config.client_id,
                         clientSecret: config.google_config.client_secret,
                         refreshToken: config.google_config.refresh_token,
@@ -59,7 +58,7 @@ class MailerTest extends TestHelper {
                 }));
 
                 var mailOptions = {
-                    from: 'nicolas.lemble@gmail.com',
+                    from: config.google_config.user,
                     to: email,
                     subject: 'New password created successfully',
                     text: newPassword
@@ -80,7 +79,7 @@ class MailerTest extends TestHelper {
                     service: 'gmail',
                     auth: {
                         type: "OAuth2",
-                        user: "nicolas.lemble@gmail.com",
+                        user: config.google_config.user,
                         clientId: config.google_config.client_id,
                         clientSecret: config.google_config.client_secret,
                         refreshToken: config.google_config.refresh_token,
@@ -112,7 +111,7 @@ class MailerTest extends TestHelper {
             //         refresh_token: config.google_config.refresh_token
             //     });
 
-            //     const email = "nicolas.lemble@gmail.com"
+            //     const email = config.google_config.user
             //     const newPassword = "newPassword"
 
             //     const mailer = new Mailer(nodemailer, oauthClient);

@@ -16,7 +16,7 @@ class Mailer {
             service: "gmail",
             auth: {
                 type: "OAuth2",
-                user: "nicolas.lemble@gmail.com",
+                user: config.google_config.user,
                 clientId: config.google_config.client_id,
                 clientSecret: config.google_config.client_secret,
                 refreshToken: config.google_config.refresh_token,
@@ -25,7 +25,7 @@ class Mailer {
         });
 
         var mailOptions = {
-            from: 'nicolas.lemble@gmail.com',
+            from: config.google_config.user,
             to: email,
             subject: 'New password created successfully',
             text: newPassword

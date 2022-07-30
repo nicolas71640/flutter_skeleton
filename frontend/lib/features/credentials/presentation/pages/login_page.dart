@@ -1,5 +1,6 @@
-import 'package:avecpaulette/features/credentials/presentation/bloc/bloc/login_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/login_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/pages/signup_page.dart';
+import 'package:avecpaulette/features/credentials/presentation/widgets/forgotten_password_dialog.dart';
 import 'package:flutter/scheduler.dart';
 import '../../../stuff/presentation/page/stuff_page.dart';
 import "../widgets/widgets.dart";
@@ -60,6 +61,19 @@ class LoginPage extends StatelessWidget {
                       });
                     },
                     child: const Text('SignUp'),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const ForgottenPasswordDialog();
+                          });
+                    },
+                    child: const Text('ForgottenPassword'),
                   ),
                 )
               ],

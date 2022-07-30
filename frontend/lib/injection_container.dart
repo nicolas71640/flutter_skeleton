@@ -3,10 +3,12 @@ import 'package:avecpaulette/core/network/network_info.dart';
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:avecpaulette/features/credentials/data/repositories/credentials_repository_impl.dart';
 import 'package:avecpaulette/features/credentials/domain/repositories/credentials_repository.dart';
+import 'package:avecpaulette/features/credentials/domain/usecases/forgotten_password_usecase.dart';
 import 'package:avecpaulette/features/credentials/domain/usecases/login_usecase.dart';
 import 'package:avecpaulette/features/credentials/domain/usecases/signup_usecase.dart';
-import 'package:avecpaulette/features/credentials/presentation/bloc/bloc/login_bloc.dart';
-import 'package:avecpaulette/features/credentials/presentation/bloc/bloc/signup_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/forgotten_password_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/login_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:avecpaulette/features/departmentsViewer/data/datasources/number_trivia_local_data_source.dart';
 import 'package:avecpaulette/features/departmentsViewer/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:avecpaulette/features/departmentsViewer/data/repositories/number_trivia_repository_impl.dart';
@@ -50,6 +52,7 @@ void initFeatures() {
       getRandomNumberTriviaUseCase: sl(),
       inputConverter: sl()));
   sl.registerFactory(() => LoginBloc(sl()));
+  sl.registerFactory(() => ForgottenPasswordBloc(sl()));
   sl.registerFactory(() => SignupBloc(sl()));
   sl.registerFactory(() => StuffBloc(sl()));
 
@@ -59,6 +62,7 @@ void initFeatures() {
   sl.registerLazySingleton(() => LoginUseCase(sl()));
   sl.registerLazySingleton(() => SignupUseCase(sl()));
   sl.registerLazySingleton(() => GetStuffUseCase(sl()));
+  sl.registerLazySingleton(() => ForgottenPasswordUseCase(sl()));
 
   // Repositories
   sl.registerLazySingleton<NumberTriviaRepository>(

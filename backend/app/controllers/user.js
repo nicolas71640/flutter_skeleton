@@ -154,7 +154,7 @@ class UserController {
     async forgetPassword(req, res, next) {
         console.log("forgetPassword")
 
-        this.User.findOne({ email: req.body.email })
+        this.User.findOne({ email: req.body.email, userId: null })
             .then((user) => {
                 if (user) {
                     //  user found
@@ -169,7 +169,8 @@ class UserController {
                                 password: hash
                             })
                                 .then(() => {
-                                    this.mailer.sendNewPasswordEmail(req.params.email, newPassword)
+                                    console.log("Found the user, sending an email with new password")
+                                    this.mailer.sendNewPasswordEmail(req.body.email, newPassword)
                                     return res.status(201).json({
                                         message: "ok"
                                     });
@@ -183,6 +184,7 @@ class UserController {
                         });
                 }
                 else {
+                    console.log("Couldn't find any user with this email")
                     return res.sendStatus(401)
                 }
             }).catch((error) => {

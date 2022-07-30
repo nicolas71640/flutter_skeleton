@@ -1,7 +1,7 @@
 import 'package:avecpaulette/features/credentials/data/repositories/credentials_repository_impl.dart';
 import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/domain/usecases/signup_usecase.dart';
-import 'package:avecpaulette/features/credentials/presentation/bloc/bloc/signup_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

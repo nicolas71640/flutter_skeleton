@@ -3,7 +3,7 @@ import 'package:avecpaulette/features/credentials/domain/usecases/login_usecase.
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/user.dart';
+import '../../domain/entities/user.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

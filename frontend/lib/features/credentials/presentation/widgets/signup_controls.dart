@@ -1,4 +1,4 @@
-import 'package:avecpaulette/features/credentials/presentation/bloc/bloc/signup_bloc.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

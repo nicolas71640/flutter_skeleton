@@ -27,7 +27,7 @@ function setup() {
     oauthClient: awilix.asValue(client),
     crypto: awilix.asClass(Crypto),
     jwt: awilix.asValue(jwt),
-    mailer: awilix.asValue(new Mailer(nodemailer)),
+    mailer: awilix.asValue(new Mailer(nodemailer,client)),
   });
 
   container.loadModules([

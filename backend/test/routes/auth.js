@@ -343,10 +343,11 @@ class AuthTest extends TestHelper {
             });
 
             it('should send status 201 and send and email if user is found', async () => {
+                const email = 'tester@gmail.com';
                 var sendNewPasswordEmail = sinon.stub(this.mailer, "sendNewPasswordEmail");
                 
                 const user = new this.User({
-                    email: "tester@gmail.com",
+                    email: email,
                     password: "passwordHash"
                 });
 
@@ -355,7 +356,7 @@ class AuthTest extends TestHelper {
                 const res = await this.chai.request(this.app)
                     .post('/api/auth/forgetPassword')
                     .send({
-                        'email': 'tester@gmail.com',
+                        'email': email,
                     })
 
                 res.should.have.status(201);
@@ -363,9 +364,8 @@ class AuthTest extends TestHelper {
                 const updatedUser = await this.User.findOne({ email: "tester@gmail.com" })
                 expect(updatedUser.password).to.not.equal("passwordHash")
 
-                sendNewPasswordEmail.restore();
-                sinon.assert.calledOnce(sendNewPasswordEmail);
-
+                //sendNewPasswordEmail.restore();
+                sinon.assert.calledWith(sendNewPasswordEmail,email)
 
             });
 

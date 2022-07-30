@@ -1,7 +1,7 @@
 import 'package:avecpaulette/features/credentials/presentation/widgets/credentials_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/bloc/login_bloc.dart';
+import '../bloc/login_bloc.dart';
 
 class LoginControls extends StatefulWidget {
   const LoginControls({Key? key}) : super(key: key);

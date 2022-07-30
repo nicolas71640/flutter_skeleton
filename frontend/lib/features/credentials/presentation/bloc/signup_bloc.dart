@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../domain/entities/user.dart';
+import '../../domain/entities/user.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';

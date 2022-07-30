@@ -21,9 +21,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Run Tests
-        run: npx nyc --reporter=lcov npm run test
         env:
           CI: true
+          CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
+        run: npx nyc --reporter=lcov npm run test
+
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3

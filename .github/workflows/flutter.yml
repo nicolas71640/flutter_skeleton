@@ -3,7 +3,7 @@ name: Flutter CI
 on:
   push:
     branches:
-      - main
+      - unsecure_branch_squash
 
 jobs:
   backend-unit-test:

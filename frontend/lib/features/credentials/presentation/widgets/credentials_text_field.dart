@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CredentialsTextField extends StatelessWidget {
   final String hint;
   final String? error;
   final IconData? prefixIcon;
+  final List<TextInputFormatter> inputFormatters;
 
   final ValueChanged<String>? onChanged;
 
@@ -13,6 +15,7 @@ class CredentialsTextField extends StatelessWidget {
     this.onChanged,
     Key? key,
     this.prefixIcon,
+    this.inputFormatters = const [],
   }) : super(key: key);
 
   @override
@@ -20,6 +23,7 @@ class CredentialsTextField extends StatelessWidget {
     return Column(
       children: [
         TextField(
+          inputFormatters: inputFormatters,
           key: key,
           decoration: InputDecoration(
             border:

@@ -1,4 +1,5 @@
 import 'package:avecpaulette/features/credentials/presentation/widgets/credentials_text_field.dart';
+import 'package:avecpaulette/features/credentials/presentation/widgets/rounded_buttond.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login_bloc.dart';
@@ -42,22 +43,12 @@ class _LoginControlsState extends State<LoginControls> {
             children: [
               Align(
                   alignment: Alignment.center,
-                  child: TextButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ))),
+                  child: RoundedButton(
+                    text: "Login",
                     onPressed: () {
                       BlocProvider.of<LoginBloc>(context)
                           .add(TryLoginEvent(email, password));
                     },
-                    child: const Text('Login'),
                   )),
               if (state is Loading) ...{
                 const Positioned.fill(

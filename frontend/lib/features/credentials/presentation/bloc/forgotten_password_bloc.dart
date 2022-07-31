@@ -16,12 +16,15 @@ class ForgottenPasswordBloc
       : super(ForgottenPasswordInitial()) {
     on<TrySendForgottenPasswordEmail>((event, emit) async {
       emit(Loading());
-
-      await emit.forEach<void>(
-        forgottenPasswordUseCase.call(event.mail),
-        onData: (users) => Success(),
-        onError: (_, __) => Error(message: EMAIL_NOT_FOUND_MESSAGE),
-      );
+      try {
+        await forgottenPasswordUseCase
+            .call(event.mail)
+            .listen((_) => {})
+            .asFuture();
+        emit(Success());
+      } catch (error) {
+        emit(Error(message: EMAIL_NOT_FOUND_MESSAGE));
+      }
     });
   }
 }

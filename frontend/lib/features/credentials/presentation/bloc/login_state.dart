@@ -9,12 +9,23 @@ class LoginInitial extends LoginState {}
 
 class Empty extends LoginState {}
 
-class Loading extends LoginState {}
+class SignInLoading extends LoginState {}
 
-class Error extends LoginState {
+class GoogleSignInLoading extends LoginState {}
+
+class SignInError extends LoginState {
   final String message;
 
-  Error({required this.message});
+  SignInError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class GoogleSignInError extends LoginState {
+  final String message;
+
+  GoogleSignInError({required this.message});
 
   @override
   List<Object> get props => [message];

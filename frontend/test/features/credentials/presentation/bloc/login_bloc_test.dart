@@ -3,6 +3,7 @@ import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/domain/usecases/login_usecase.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/login_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -32,7 +33,7 @@ void main() {
       expectLater(
           bloc.stream,
           emitsInOrder([
-            Loading(),
+            SignInLoading(),
             Logged(),
           ]));
 
@@ -48,8 +49,8 @@ void main() {
       expectLater(
           bloc.stream,
           emitsInOrder([
-            Loading(),
-            Error(message: WRONG_ID_MESSAGE),
+            SignInLoading(),
+            SignInError(message: WRONG_ID_MESSAGE),
           ]));
 
       bloc.add(TryLoginEvent("username", "password"));
@@ -66,7 +67,7 @@ void main() {
       expectLater(
           bloc.stream,
           emitsInOrder([
-            Loading(),
+            GoogleSignInLoading(),
             Logged(),
           ]));
 
@@ -83,8 +84,8 @@ void main() {
       expectLater(
           bloc.stream,
           emitsInOrder([
-            Loading(),
-            Error(message: WRONG_ID_MESSAGE),
+            GoogleSignInLoading(),
+            GoogleSignInError(message: GOOGLE_SIGNIN_ERROR),
           ]));
 
       bloc.add(TryGoogleLoginEvent());

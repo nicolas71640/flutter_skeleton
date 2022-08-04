@@ -1,6 +1,5 @@
 import 'package:avecpaulette/features/credentials/presentation/bloc/login_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/pages/signup_page.dart';
-import 'package:avecpaulette/features/credentials/presentation/widgets/forgotten_password_dialog.dart';
 import 'package:flutter/scheduler.dart';
 import '../../../stuff/presentation/page/stuff_page.dart';
 import "../widgets/widgets.dart";
@@ -16,9 +15,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text('Login Title'),
-      ),
       body: Container(child: buildBody(context)),
     );
   }
@@ -29,18 +25,19 @@ class LoginPage extends StatelessWidget {
       child: SizedBox(
         height: double.infinity,
         child: Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.only(left: 30.0, right: 30, top: 30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const FlutterLogo(size: 300),
                 const Spacer(),
                 const Align(
                     alignment: Alignment.center, child: LoginControls()),
                 BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
                   if (state is Empty) {
                     return Container();
-                  } else if (state is Loading) {
+                  } else if (state is SignInLoading) {
                     return Container();
                   } else if (state is Logged) {
                     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -50,32 +47,25 @@ class LoginPage extends StatelessWidget {
                   }
                   return Container();
                 }),
-                const Spacer(),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: TextButton(
+                const SizedBox(
+                  height: 40,
+                ),
+                TextButton(
                     onPressed: () {
                       SchedulerBinding.instance.addPostFrameCallback((_) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const SignupPage()));
                       });
                     },
-                    child: const Text('SignUp'),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: TextButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const ForgottenPasswordDialog();
-                          });
-                    },
-                    child: const Text('ForgottenPassword'),
-                  ),
-                )
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Text("Don't have an accout? ",
+                              style: TextStyle(fontWeight: FontWeight.w400)),
+                          Text("Sign up now",
+                              style: TextStyle(fontWeight: FontWeight.bold))
+                        ]))
               ],
             )),
       ),

@@ -81,7 +81,7 @@ void main() {
       await tester.tap(find.text("Sign in with Google"));
       await tester.pumpAndSettle();
 
-      expect(find.text("Wrong Ids"), findsOneWidget);
+      expect(find.text("Stuff Title"), findsOneWidget);
     },
   );
 }

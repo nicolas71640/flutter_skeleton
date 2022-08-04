@@ -1,5 +1,6 @@
 import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'credentials_text_field.dart';
@@ -29,16 +30,19 @@ class SignupControlsState extends State<SignupControls> {
               email = value;
             },
             key: const Key("signup_email"),
+            inputFormatters: [FilteringTextInputFormatter.deny(" ")],
           ),
           const SizedBox(height: 10),
           CredentialsTextField(
             hint: 'Password',
+            passwordType: true,
             prefixIcon: Icons.lock,
             error: (state is Error) ? state.message : null,
             onChanged: (value) {
               password = value;
             },
             key: const Key("signup_password"),
+            inputFormatters: [FilteringTextInputFormatter.deny(" ")],
           ),
           const SizedBox(height: 10.0),
           Stack(

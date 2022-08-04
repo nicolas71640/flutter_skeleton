@@ -24,17 +24,18 @@ class _ForgottenPasswordDialogState extends State<ForgottenPasswordDialog> {
         child: Dialog(
           child: BlocBuilder<ForgottenPasswordBloc, ForgottenPasswordState>(
               builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: SizedBox(
-                height: 300,
+            if (state is! Success) {
+              return Padding(
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
                       "Forgotten password ? ",
                       style: TextStyle(fontSize: 20),
                     ),
+                    const SizedBox(height: 20),
                     CredentialsTextField(
                       hint: 'Email',
                       prefixIcon: Icons.email,
@@ -45,6 +46,7 @@ class _ForgottenPasswordDialogState extends State<ForgottenPasswordDialog> {
                       key: const Key("mailForgottenPassword"),
                       inputFormatters: [FilteringTextInputFormatter.deny(" ")],
                     ),
+                    const SizedBox(height: 20),
                     Stack(
                       children: [
                         Align(
@@ -74,8 +76,30 @@ class _ForgottenPasswordDialogState extends State<ForgottenPasswordDialog> {
                     if (state is Success) ...{const Text("Email Sent")}
                   ],
                 ),
-              ),
-            );
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "A new password has been send to your email address",
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                        alignment: Alignment.center,
+                        child: RoundedButton(
+                          text: "Ok",
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                        )),
+                  ],
+                ),
+              );
+            }
           }),
         ));
   }

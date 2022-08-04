@@ -17,3 +17,8 @@ On the test phone, add the google account (must be present in the google api tes
 In order to check that crashlytics works : 
 1. Run the crashlytics related test in manual_test.dart
 2. Check on crashlytics that you can see the crash
+
+# Forgotten Password
+In order to check that the forgotten password feature works :
+1. Run the Forgotten password related test in manual_test.dart
+2. Follow the instructions in the comments

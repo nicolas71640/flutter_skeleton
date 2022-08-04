@@ -13,13 +13,8 @@ import 'manual_test.mocks.dart';
 
 @GenerateMocks([LoginUseCase])
 void main() {
-  late MockLoginUseCase mockLoginUseCase;
-
   setUp(() async {
     init();
-    mockLoginUseCase = MockLoginUseCase();
-    sl.unregister<LoginUseCase>();
-    sl.registerLazySingleton<LoginUseCase>(() => mockLoginUseCase);
     await sl.allReady();
   });
 
@@ -31,6 +26,9 @@ void main() {
   testWidgets(
     "should crash when clicking on login button",
     (WidgetTester tester) async {
+      MockLoginUseCase mockLoginUseCase = MockLoginUseCase();
+      sl.unregister<LoginUseCase>();
+      sl.registerLazySingleton<LoginUseCase>(() => mockLoginUseCase);
       when(mockLoginUseCase.call(any, any)).thenAnswer((realInvocation) {
         FirebaseCrashlytics.instance.crash();
         return Stream.value(const User(mail: ""));
@@ -44,6 +42,24 @@ void main() {
 
       await tester.tap(find.text("Login"));
       await tester.pumpAndSettle();
+    },
+  );
+
+  //TODO Make code lens works for manual tests
+  testWidgets(
+    "should crash when clicking on login button",
+    (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+
+      await tester.tap(find.text("Sign up now"));
+
+      //Sign up with a valid email address
+      //Go back to the login page, and click on the forgotten password button
+      //Enter the same email address
+      //Check your emails, go back to the app and try to login with this password
+      //It should succeed
+
+      await Future.delayed(const Duration(minutes: 10));
     },
   );
 }

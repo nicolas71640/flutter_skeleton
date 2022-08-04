@@ -1,3 +1,7 @@
+import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/oauth_response.dart';
+import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:avecpaulette/injection_container.dart';
 import 'package:avecpaulette/main.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +17,7 @@ import 'utils/api_utils.dart';
   GoogleSignIn,
   GoogleSignInAccount,
   GoogleSignInAuthentication,
+  CredentialsApiService,
 ])
 void main() {
   late MockGoogleSignIn mockGoogleSignIn;
@@ -27,7 +32,7 @@ void main() {
     mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
     sl.registerLazySingleton<GoogleSignIn>(() => mockGoogleSignIn);
     await sl.allReady();
-    await ApiUtils().deleteUser("bbb").first;
+    await ApiUtils().deleteUser("test@test.com").first;
   });
 
   tearDown(() {
@@ -35,12 +40,45 @@ void main() {
   });
 
   testWidgets(
-    "should fail to login when clicking on login button with wrong ids",
+    "should success to login when clicking on login button",
+    (WidgetTester tester) async {
+      User user = await ApiUtils().createUser(password: "myPassword").first;
+
+      await tester.pumpWidget(const MyApp());
+      await tester.enterText(find.byKey(const Key("login_email")), user.mail);
+      await tester.enterText(
+          find.byKey(const Key("login_password")), "myPassword");
+      await tester.tap(find.text("Login"));
+      await tester.pumpAndSettle();
+
+      expect(find.text("Stuff Title"), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should fail to login when clicking on login button when user doesn't exist",
     (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
-      await tester.enterText(find.byKey(const Key("login_email")), "bbb");
+      await tester.enterText(
+          find.byKey(const Key("login_email")), "test@test.com");
       await tester.enterText(
           find.byKey(const Key("login_password")), "password");
+      await tester.tap(find.text("Login"));
+      await tester.pumpAndSettle();
+
+      expect(find.text("Wrong Ids"), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should fail to login when password is wrong",
+    (WidgetTester tester) async {
+      User user = await ApiUtils().createUser(password: "myPassword").first;
+
+      await tester.pumpWidget(const MyApp());
+      await tester.enterText(find.byKey(const Key("login_email")), user.mail);
+      await tester.enterText(
+          find.byKey(const Key("login_password")), "wrongPassword");
       await tester.tap(find.text("Login"));
       await tester.pumpAndSettle();
 
@@ -52,10 +90,11 @@ void main() {
     "should go to next page when clicking signup",
     (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
-      await tester.tap(find.text("SignUp"));
+      await tester.tap(find.text("Sign up now"));
       await tester.pumpAndSettle();
 
-      await tester.enterText(find.byKey(const Key("signup_email")), "bbb");
+      await tester.enterText(
+          find.byKey(const Key("signup_email")), "test@test.com");
       await tester.enterText(
           find.byKey(const Key("signup_password")), "password");
       await tester.tap(find.text("SignUp"));
@@ -66,8 +105,38 @@ void main() {
   );
 
   testWidgets(
+    "should fail to sign up when email already exists",
+    (WidgetTester tester) async {
+      User user = await ApiUtils().createUser().first;
+
+      await tester.pumpWidget(const MyApp());
+      await tester.tap(find.text("Sign up now"));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byKey(const Key("signup_email")), user.mail);
+      await tester.enterText(
+          find.byKey(const Key("signup_password")), "whatever");
+      await tester.tap(find.text("SignUp"));
+      await tester.pumpAndSettle();
+
+      expect(find.text(COULD_NOT_SIGNUP_MESSAGE), findsOneWidget);
+    },
+  );
+
+  testWidgets(
     "should go to the next page when google signin success",
     (WidgetTester tester) async {
+      MockCredentialsApiService mockCredentialsApiService =
+          MockCredentialsApiService();
+      sl.unregister<CredentialsApiService>();
+      sl.registerSingleton<CredentialsApiService>(mockCredentialsApiService);
+
+      when(mockCredentialsApiService.oauth(any))
+          .thenAnswer((_) => Stream.value(OAuthResponse(
+                "email",
+                "accessToken",
+                "refreshToken",
+              )));
       when(mockGoogleSignIn.signIn())
           .thenAnswer((_) => Future.value(mockGoogleSignInAccount));
       when(mockGoogleSignInAccount.authentication)
@@ -75,9 +144,6 @@ void main() {
       when(mockGoogleSignInAuthentication.idToken).thenAnswer((_) => "idToken");
 
       await tester.pumpWidget(const MyApp());
-      await tester.enterText(find.byKey(const Key("login_email")), "bbb");
-      await tester.enterText(
-          find.byKey(const Key("login_password")), "password");
       await tester.tap(find.text("Sign in with Google"));
       await tester.pumpAndSettle();
 

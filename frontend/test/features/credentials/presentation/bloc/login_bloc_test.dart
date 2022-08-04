@@ -3,7 +3,6 @@ import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/domain/usecases/login_usecase.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/login_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

@@ -30,42 +30,59 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const FlutterLogo(size: 300),
-                const Spacer(),
-                const Align(
-                    alignment: Alignment.center, child: LoginControls()),
-                BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-                  if (state is Empty) {
-                    return Container();
-                  } else if (state is SignInLoading) {
-                    return Container();
-                  } else if (state is Logged) {
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const StuffPage()));
-                    });
-                  }
-                  return Container();
-                }),
-                const SizedBox(
-                  height: 40,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30, bottom: 30),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: const FlutterLogo(),
+                    ),
+                  ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SignupPage()));
-                      });
-                    },
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          Text("Don't have an accout? ",
-                              style: TextStyle(fontWeight: FontWeight.w400)),
-                          Text("Sign up now",
-                              style: TextStyle(fontWeight: FontWeight.bold))
-                        ]))
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const LoginControls(),
+                      BlocBuilder<LoginBloc, LoginState>(
+                          builder: (context, state) {
+                        if (state is Empty) {
+                          return Container();
+                        } else if (state is SignInLoading) {
+                          return Container();
+                        } else if (state is Logged) {
+                          SchedulerBinding.instance.addPostFrameCallback((_) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const StuffPage()));
+                          });
+                        }
+                        return Container();
+                      }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            SchedulerBinding.instance.addPostFrameCallback((_) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SignupPage()));
+                            });
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Text("Don't have an account? ",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w400)),
+                                Text("Sign up now",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold))
+                              ]))
+                    ],
+                  ),
+                ),
               ],
             )),
       ),

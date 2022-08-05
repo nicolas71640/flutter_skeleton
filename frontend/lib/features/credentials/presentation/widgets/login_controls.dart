@@ -83,7 +83,7 @@ class _LoginControlsState extends State<LoginControls> {
               }
             ],
           ),
-          const SizedBox(height: 40.0),
+          const SizedBox(height: 30.0),
           Row(children: const [
             Expanded(
                 child: Divider(
@@ -99,7 +99,7 @@ class _LoginControlsState extends State<LoginControls> {
               thickness: 1,
             )),
           ]),
-          const SizedBox(height: 40.0),
+          const SizedBox(height: 30.0),
           Column(
             children: [
               Stack(children: [

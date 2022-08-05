@@ -1,6 +1,7 @@
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/oauth_response.dart';
 import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
+import 'package:avecpaulette/features/credentials/presentation/bloc/forgotten_password_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:avecpaulette/injection_container.dart';
 import 'package:avecpaulette/main.dart';
@@ -148,6 +149,41 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("Stuff Title"), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should succeed to send an email to get another password",
+    (WidgetTester tester) async {
+      User user = await ApiUtils().createUser().first;
+
+      await tester.pumpWidget(const MyApp());
+      await tester.tap(find.text("Have you forgotten your password ?"));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+          find.byKey(const Key("mailForgottenPassword")), user.mail);
+      await tester.tap(find.text("Send me an email"));
+      await tester.pumpAndSettle();
+
+      expect(find.text("A new password has been send to your email address"),
+          findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should fail to send an email to get another passord if the user doesn't exist",
+    (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.tap(find.text("Have you forgotten your password ?"));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+          find.byKey(const Key("mailForgottenPassword")), "whatever@test.com");
+      await tester.tap(find.text("Send me an email"));
+      await tester.pumpAndSettle();
+
+      expect(find.text(EMAIL_NOT_FOUND_MESSAGE), findsOneWidget);
     },
   );
 }

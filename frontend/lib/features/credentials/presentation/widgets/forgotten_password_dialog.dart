@@ -73,7 +73,6 @@ class _ForgottenPasswordDialogState extends State<ForgottenPasswordDialog> {
                         }
                       ],
                     ),
-                    if (state is Success) ...{const Text("Email Sent")}
                   ],
                 ),
               );

@@ -1,7 +1,7 @@
 import 'package:avecpaulette/features/credentials/presentation/bloc/login_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/pages/signup_page.dart';
 import 'package:flutter/scheduler.dart';
-import '../../../stuff/presentation/page/stuff_page.dart';
+import '../../../home/presentation/pages/home_page.dart';
 import "../widgets/widgets.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                         } else if (state is Logged) {
                           SchedulerBinding.instance.addPostFrameCallback((_) {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const StuffPage()));
+                                builder: (context) => const HomePage()));
                           });
                         }
                         return Container();

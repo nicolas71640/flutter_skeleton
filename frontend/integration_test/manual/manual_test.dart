@@ -1,7 +1,6 @@
 import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/domain/usecases/login_usecase.dart';
 import 'package:avecpaulette/injection_container.dart';
-import 'package:avecpaulette/main.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../utils/test_utils.dart';
 import 'manual_test.mocks.dart';
 
 @GenerateMocks([LoginUseCase])
@@ -38,18 +38,17 @@ void main() {
       FlutterError.onError =
           FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
 
       await tester.tap(find.text("Login"));
       await tester.pumpAndSettle();
     },
   );
 
-  //TODO Make code lens works for manual tests
   testWidgets(
-    "should crash when clicking on login button",
+    "should send an email to reset password",
     (WidgetTester tester) async {
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
 
       await tester.tap(find.text("Sign up now"));
 

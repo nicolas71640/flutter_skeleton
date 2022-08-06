@@ -439,6 +439,10 @@ class MockCredentialsLocalDataSource extends _i1.Mock
           Invocation.method(
               #cacheCredentials, [email, accessToken, refreshToken]),
           returnValue: Stream<void>.empty()) as _i8.Stream<void>);
+  @override
+  _i8.Stream<void> cleanCredentials() =>
+      (super.noSuchMethod(Invocation.method(#cleanCredentials, []),
+          returnValue: Stream<void>.empty()) as _i8.Stream<void>);
 }
 
 /// A class which mocks [CredentialsApiService].

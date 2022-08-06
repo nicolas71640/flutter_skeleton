@@ -1,4 +1,4 @@
-import 'package:avecpaulette/features/stuff/presentation/page/stuff_page.dart';
+import 'package:avecpaulette/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/scheduler.dart';
 import '../bloc/signup_bloc.dart';
 import "../widgets/widgets.dart";
@@ -36,7 +36,7 @@ class SignupPage extends StatelessWidget {
                   if (currState is Logged) {
                     SchedulerBinding.instance.addPostFrameCallback((_) {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const StuffPage()));
+                          builder: (context) => const HomePage()));
                     });
                   }
                   return currState is! Logged;

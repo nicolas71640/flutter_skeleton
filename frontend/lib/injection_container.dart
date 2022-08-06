@@ -17,6 +17,15 @@ import 'package:avecpaulette/features/departmentsViewer/data/repositories/number
 import 'package:avecpaulette/features/departmentsViewer/domain/repositories/number_trivia_repository.dart';
 import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_concrete_number_trivia_usecase.dart';
 import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
+import 'package:avecpaulette/features/home/data/datasources/itinerary_api_service.dart';
+import 'package:avecpaulette/features/home/data/datasources/location_service.dart';
+import 'package:avecpaulette/features/home/data/repositories/itinerary_repository_impl.dart';
+import 'package:avecpaulette/features/home/data/repositories/location_repository_impl.dart';
+import 'package:avecpaulette/features/home/domain/repositories/itinerary_repository.dart';
+import 'package:avecpaulette/features/home/domain/repositories/location_repository.dart';
+import 'package:avecpaulette/features/home/domain/usecases/itinerary_usecase.dart';
+import 'package:avecpaulette/features/home/domain/usecases/location_usecase.dart';
+import 'package:avecpaulette/features/home/presentation/bloc/home_bloc.dart';
 import 'package:avecpaulette/features/stuff/data/datasources/stuff_api_service.dart';
 import 'package:avecpaulette/features/stuff/domain/repositories/stuff_repository.dart';
 import 'package:avecpaulette/features/stuff/domain/usecases/get_stuff_usecase.dart';
@@ -26,6 +35,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/local_data_source/credentials_local_data_source.dart';
@@ -58,6 +68,7 @@ void initFeatures() {
   sl.registerFactory(() => ForgottenPasswordBloc(sl()));
   sl.registerFactory(() => SignupBloc(sl()));
   sl.registerFactory(() => StuffBloc(sl()));
+  sl.registerFactory(() => HomeBloc(sl(), sl()));
 
   //UseCases, Lazy = only created when called, Regular = created when the app starts
   sl.registerLazySingleton(() => GetConcreteNumberTriviaUseCase(sl()));
@@ -67,6 +78,8 @@ void initFeatures() {
   sl.registerLazySingleton(() => SignupUseCase(sl()));
   sl.registerLazySingleton(() => GetStuffUseCase(sl()));
   sl.registerLazySingleton(() => ForgottenPasswordUseCase(sl()));
+  sl.registerLazySingleton(() => ItineraryUseCase(sl()));
+  sl.registerLazySingleton(() => LocationUseCase(sl()));
 
   // Repositories
   sl.registerLazySingleton<NumberTriviaRepository>(
@@ -79,6 +92,10 @@ void initFeatures() {
       () => CredentialsRepositoryImpl(sl(), sl(), sl()));
   sl.registerLazySingleton<StuffRepository>(
       () => StuffRepositoryImpl(sl(), sl()));
+  sl.registerLazySingleton<ItineraryRepository>(
+      () => ItineraryRepositoryImpl(sl()));
+  sl.registerLazySingleton<LocationRepository>(
+      () => LocationRepositoryImpl(sl()));
 
   //Data Sources
   sl.registerLazySingleton<NumberTriviaRemoteDataSource>(
@@ -102,6 +119,10 @@ void initFeatures() {
   sl.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn(
         scopes: ['email'],
       ));
+  sl.registerLazySingleton<ItineraryApiService>(
+      () => ItineraryApiService(sl(instanceName: "Dio")));
+  sl.registerLazySingleton<LocationService>(() => LocationService(sl()));
+  sl.registerLazySingleton<Location>(() => Location());
 }
 
 void initCore() {

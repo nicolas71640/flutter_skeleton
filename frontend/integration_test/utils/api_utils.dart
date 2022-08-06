@@ -15,7 +15,7 @@ class ApiUtils {
   late CredentialsLocalDataSource credentialsLocalDataSource =
       CredentialsLocalDataSourceImpl(const FlutterSecureStorage());
 
-  Stream<void> deleteUser(String email) {
+  Stream<void> deleteUser({String email = "test@test.com"}) {
     return Stream.fromFuture(dio.post(
       '/auth/devDelete',
       data: {"email": email},

@@ -129,6 +129,10 @@ class MockCredentialsLocalDataSourceImpl extends _i1.Mock
   _i6.Stream<void> cacheAccessToken(String? accessToken) =>
       (super.noSuchMethod(Invocation.method(#cacheAccessToken, [accessToken]),
           returnValue: Stream<void>.empty()) as _i6.Stream<void>);
+  @override
+  _i6.Stream<void> cleanCredentials() =>
+      (super.noSuchMethod(Invocation.method(#cleanCredentials, []),
+          returnValue: Stream<void>.empty()) as _i6.Stream<void>);
 }
 
 /// A class which mocks [GoogleSignIn].

@@ -6,25 +6,30 @@ import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.
 import 'package:avecpaulette/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart';
 
+import '../utils/api_utils.dart';
+import '../utils/test_utils.dart';
 import 'credentials_test.mocks.dart';
-import 'utils/api_utils.dart';
-import 'utils/test_utils.dart';
+import 'package:location/location.dart';
 
 @GenerateMocks([
   GoogleSignIn,
   GoogleSignInAccount,
   GoogleSignInAuthentication,
   CredentialsApiService,
+  Location,
+  LocationData
 ])
 void main() {
   late MockGoogleSignIn mockGoogleSignIn;
   late MockGoogleSignInAccount mockGoogleSignInAccount;
   late MockGoogleSignInAuthentication mockGoogleSignInAuthentication;
+  late MockLocation mockLocation;
 
   setUp(() async {
     init();
@@ -33,9 +38,19 @@ void main() {
     mockGoogleSignInAccount = MockGoogleSignInAccount();
     mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
     sl.registerLazySingleton<GoogleSignIn>(() => mockGoogleSignIn);
+
+    sl.unregister<Location>();
+    mockLocation = MockLocation();
+    final locationData = MockLocationData();
+    when(locationData.latitude).thenReturn(0.0);
+    when(locationData.longitude).thenReturn(0.0);
+    when(mockLocation.getLocation())
+        .thenAnswer((_) => Future.value(locationData));
+    sl.registerLazySingleton<Location>(() => mockLocation);
+
     await sl.allReady();
     await ApiUtils().cleanLocalDb().first;
-    await ApiUtils().deleteUser("test@test.com").first;
+    await ApiUtils().deleteUser(email: "test@test.com").first;
   });
 
   tearDown(() {
@@ -55,7 +70,7 @@ void main() {
       await tester.tap(find.text("Login"));
       await tester.pumpAndSettle();
 
-      expect(find.text("Stuff Title"), findsOneWidget);
+      expect(find.byType(GoogleMap), findsOneWidget);
     },
   );
 
@@ -104,7 +119,7 @@ void main() {
       await tester.tap(find.text("SignUp"));
       await tester.pumpAndSettle();
 
-      expect(find.text("Stuff Title"), findsOneWidget);
+      expect(find.byType(GoogleMap), findsOneWidget);
     },
   );
 
@@ -134,7 +149,6 @@ void main() {
           MockCredentialsApiService();
       sl.unregister<CredentialsApiService>();
       sl.registerSingleton<CredentialsApiService>(mockCredentialsApiService);
-
       when(mockCredentialsApiService.oauth(any))
           .thenAnswer((_) => Stream.value(OAuthResponse(
                 "email",
@@ -151,7 +165,7 @@ void main() {
       await tester.tap(find.text("Sign in with Google"));
       await tester.pumpAndSettle();
 
-      expect(find.text("Stuff Title"), findsOneWidget);
+      expect(find.byType(GoogleMap), findsOneWidget);
     },
   );
 
@@ -201,9 +215,9 @@ void main() {
     (WidgetTester tester) async {
       await ApiUtils().signupUser().first;
 
-      await TestUtils.startApp(tester, keyToFind: "stuff_title");
+      await TestUtils.startApp(tester, keyToFind: "home_map");
 
-      expect(find.text("Stuff Title"), findsOneWidget);
+      expect(find.byType(GoogleMap), findsOneWidget);
     },
   );
 }

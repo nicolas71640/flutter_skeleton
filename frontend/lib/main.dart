@@ -10,7 +10,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'features/stuff/presentation/page/stuff_page.dart';
+import 'features/home/presentation/pages/home_page.dart';
 
 void main() async {
   if (const bool.fromEnvironment('FIREBASE_ENABLED', defaultValue: true)) {
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
               if (state is Authenticated) {
-                return const StuffPage();
+                return const HomePage();
               } else if (state is NotAuthenticated) {
                 return const LoginPage();
               } else {

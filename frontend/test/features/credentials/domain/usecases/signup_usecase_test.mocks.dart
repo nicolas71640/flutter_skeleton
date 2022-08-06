@@ -45,4 +45,8 @@ class MockCredentialsRepository extends _i1.Mock
   _i3.Stream<void> forgetPassword(String? email) =>
       (super.noSuchMethod(Invocation.method(#forgetPassword, [email]),
           returnValue: Stream<void>.empty()) as _i3.Stream<void>);
+  @override
+  _i3.Stream<_i4.User> getCurrentUser() =>
+      (super.noSuchMethod(Invocation.method(#getCurrentUser, []),
+          returnValue: Stream<_i4.User>.empty()) as _i3.Stream<_i4.User>);
 }

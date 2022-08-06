@@ -3,7 +3,7 @@ name: Flutter CI
 on:
   push:
     branches:
-      - main
+      - '**'        # matches every branch
 
 jobs:
   backend-unit-test:
@@ -222,8 +222,8 @@ jobs:
           api-level: 29
           profile: ${{ matrix.device }}
           script: | 
-            flutter test integration_test --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
-            flutter drive --driver=test_driver/integration_test.dart --target=screenshots_test/screenshots_test.dart --dart-define=FIREBASE_ENABLED=false -d "emulator-5554"
+            flutter test integration_test/tests --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
+            flutter drive --driver=test_driver/integration_test.dart --target=integration_test/screenshot/screenshots_test.dart --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"
       - uses: actions/upload-artifact@v1
         with:
           name: screenshots
@@ -279,5 +279,5 @@ jobs:
 
       # Launch tests
       - name: "Run Flutter Driver tests"
-        run: flutter test integration_test --dart-define=BASE_URL=http://localhost:3000/api --dart-define=FIREBASE_ENABLED=false
+        run: flutter test integration_test/tests --dart-define=BASE_URL=http://localhost:3000/api --dart-define=FIREBASE_ENABLED=false
         working-directory: ./frontend

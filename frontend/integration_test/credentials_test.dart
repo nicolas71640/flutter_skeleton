@@ -10,6 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart';
 
 import 'credentials_test.mocks.dart';
 import 'utils/api_utils.dart';
@@ -155,14 +156,20 @@ void main() {
   testWidgets(
     "should succeed to send an email to get another password",
     (WidgetTester tester) async {
-      User user = await ApiUtils().createUser().first;
+      MockCredentialsApiService mockCredentialsApiService =
+          MockCredentialsApiService();
+      sl.unregister<CredentialsApiService>();
+      sl.registerSingleton<CredentialsApiService>(mockCredentialsApiService);
+
+      when(mockCredentialsApiService.forgetPassword(any))
+          .thenAnswer((_) => Stream.value(ForgetPasswordResponse("ok")));
 
       await tester.pumpWidget(const MyApp());
       await tester.tap(find.text("Have you forgotten your password ?"));
       await tester.pumpAndSettle();
 
       await tester.enterText(
-          find.byKey(const Key("mailForgottenPassword")), user.mail);
+          find.byKey(const Key("mailForgottenPassword")), "ail@mail.com");
       await tester.tap(find.text("Send me an email"));
       await tester.pumpAndSettle();
 

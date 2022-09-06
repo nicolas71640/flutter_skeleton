@@ -5,4 +5,5 @@ abstract class CredentialsRepository {
   Stream<User> googleLogin();
   Stream<User> signup(String mail, String password);
   Stream<void> forgetPassword(String email);
+  Stream<User> getCurrentUser();
 }

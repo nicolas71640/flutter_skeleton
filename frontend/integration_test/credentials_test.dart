@@ -14,6 +14,8 @@ import 'package:avecpaulette/features/credentials/data/models/api/forget_passwor
 
 import 'credentials_test.mocks.dart';
 import 'utils/api_utils.dart';
+import 'utils/db_utils.dart';
+import 'utils/test_utils.dart';
 
 @GenerateMocks([
   GoogleSignIn,
@@ -34,6 +36,7 @@ void main() {
     mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
     sl.registerLazySingleton<GoogleSignIn>(() => mockGoogleSignIn);
     await sl.allReady();
+    await DbUtils().cleanDb().first;
     await ApiUtils().deleteUser("test@test.com").first;
   });
 
@@ -46,7 +49,8 @@ void main() {
     (WidgetTester tester) async {
       User user = await ApiUtils().createUser(password: "myPassword").first;
 
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
+
       await tester.enterText(find.byKey(const Key("login_email")), user.mail);
       await tester.enterText(
           find.byKey(const Key("login_password")), "myPassword");
@@ -60,7 +64,7 @@ void main() {
   testWidgets(
     "should fail to login when clicking on login button when user doesn't exist",
     (WidgetTester tester) async {
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.enterText(
           find.byKey(const Key("login_email")), "test@test.com");
       await tester.enterText(
@@ -77,7 +81,7 @@ void main() {
     (WidgetTester tester) async {
       User user = await ApiUtils().createUser(password: "myPassword").first;
 
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.enterText(find.byKey(const Key("login_email")), user.mail);
       await tester.enterText(
           find.byKey(const Key("login_password")), "wrongPassword");
@@ -91,7 +95,7 @@ void main() {
   testWidgets(
     "should go to next page when clicking signup",
     (WidgetTester tester) async {
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.tap(find.text("Sign up now"));
       await tester.pumpAndSettle();
 
@@ -111,7 +115,7 @@ void main() {
     (WidgetTester tester) async {
       User user = await ApiUtils().createUser().first;
 
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.tap(find.text("Sign up now"));
       await tester.pumpAndSettle();
 
@@ -145,7 +149,7 @@ void main() {
           .thenAnswer((_) => Future.value(mockGoogleSignInAuthentication));
       when(mockGoogleSignInAuthentication.idToken).thenAnswer((_) => "idToken");
 
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.tap(find.text("Sign in with Google"));
       await tester.pumpAndSettle();
 
@@ -164,7 +168,7 @@ void main() {
       when(mockCredentialsApiService.forgetPassword(any))
           .thenAnswer((_) => Stream.value(ForgetPasswordResponse("ok")));
 
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.tap(find.text("Have you forgotten your password ?"));
       await tester.pumpAndSettle();
 
@@ -181,7 +185,7 @@ void main() {
   testWidgets(
     "should fail to send an email to get another passord if the user doesn't exist",
     (WidgetTester tester) async {
-      await tester.pumpWidget(const MyApp());
+      await TestUtils.startApp(tester);
       await tester.tap(find.text("Have you forgotten your password ?"));
       await tester.pumpAndSettle();
 
@@ -191,6 +195,15 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(EMAIL_NOT_FOUND_MESSAGE), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should start in home page if user already logged",
+    (WidgetTester tester) async {
+      await TestUtils.startApp(tester);
+
+      //TODO
     },
   );
 }

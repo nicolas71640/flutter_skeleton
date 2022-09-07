@@ -12,7 +12,7 @@ class StuffPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stuff Title'),
+        title: const Text('Stuff Title', key: Key("stuff_title")),
       ),
       body: SingleChildScrollView(child: buildBody(context)),
     );

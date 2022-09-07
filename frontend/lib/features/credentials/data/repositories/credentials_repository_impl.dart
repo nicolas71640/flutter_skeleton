@@ -116,9 +116,11 @@ class CredentialsRepositoryImpl implements CredentialsRepository {
       return Stream.error(error);
     });
   }
-  
+
   @override
   Stream<User> getCurrentUser() {
-    return credentialsLocalDataSource.getEmail().map((email) => User(mail: email));
+    return credentialsLocalDataSource
+        .getEmail()
+        .map((email) => User(mail: email));
   }
 }

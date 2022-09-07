@@ -199,9 +199,11 @@ void main() {
   testWidgets(
     "should start in home page if user already logged",
     (WidgetTester tester) async {
-      await TestUtils.startApp(tester);
+      await ApiUtils().signupUser().first;
 
-      //TODO
+      await TestUtils.startApp(tester, keyToFind: "stuff_title");
+
+      expect(find.text("Stuff Title"), findsOneWidget);
     },
   );
 }

@@ -4,7 +4,6 @@ import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/forgotten_password_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:avecpaulette/injection_container.dart';
-import 'package:avecpaulette/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,7 +13,6 @@ import 'package:avecpaulette/features/credentials/data/models/api/forget_passwor
 
 import 'credentials_test.mocks.dart';
 import 'utils/api_utils.dart';
-import 'utils/db_utils.dart';
 import 'utils/test_utils.dart';
 
 @GenerateMocks([
@@ -36,7 +34,7 @@ void main() {
     mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
     sl.registerLazySingleton<GoogleSignIn>(() => mockGoogleSignIn);
     await sl.allReady();
-    await DbUtils().cleanDb().first;
+    await ApiUtils().cleanLocalDb().first;
     await ApiUtils().deleteUser("test@test.com").first;
   });
 

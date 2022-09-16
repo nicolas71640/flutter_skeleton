@@ -1,0 +1,10 @@
+    [
+        {
+            "title": "MyFirstCottage",
+            "description": "This is my first cottage",
+            "imageUrl": "",
+            "price": "100",
+            "latitude": "48.894189",
+            "longitude": "2.355578"
+        }
+    ]

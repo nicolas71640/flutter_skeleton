@@ -4,15 +4,14 @@
 
 import 'dart:async' as _i5;
 
-import 'package:avecpaulette/features/home/domain/entities/itinerary.dart'
-    as _i6;
+import 'package:avecpaulette/features/home/domain/entities/cottage.dart' as _i6;
 import 'package:avecpaulette/features/home/domain/entities/location_entity.dart'
     as _i8;
-import 'package:avecpaulette/features/home/domain/repositories/itinerary_repository.dart'
+import 'package:avecpaulette/features/home/domain/repositories/cottage_repository.dart'
     as _i2;
 import 'package:avecpaulette/features/home/domain/repositories/location_repository.dart'
     as _i3;
-import 'package:avecpaulette/features/home/domain/usecases/itinerary_usecase.dart'
+import 'package:avecpaulette/features/home/domain/usecases/cottage_usecase.dart'
     as _i4;
 import 'package:avecpaulette/features/home/domain/usecases/location_usecase.dart'
     as _i7;
@@ -28,29 +27,29 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeItineraryRepository_0 extends _i1.Fake
-    implements _i2.ItineraryRepository {}
+class _FakeCottageRepository_0 extends _i1.Fake
+    implements _i2.CottageRepository {}
 
 class _FakeLocationRepository_1 extends _i1.Fake
     implements _i3.LocationRepository {}
 
-/// A class which mocks [ItineraryUseCase].
+/// A class which mocks [CottageUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockItineraryUseCase extends _i1.Mock implements _i4.ItineraryUseCase {
-  MockItineraryUseCase() {
+class MockCottageUseCase extends _i1.Mock implements _i4.CottageUseCase {
+  MockCottageUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.ItineraryRepository get repository => (super.noSuchMethod(
-      Invocation.getter(#repository),
-      returnValue: _FakeItineraryRepository_0()) as _i2.ItineraryRepository);
+  _i2.CottageRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+          returnValue: _FakeCottageRepository_0()) as _i2.CottageRepository);
   @override
-  _i5.Stream<_i6.Itinerary> call(String? from, String? to) =>
-      (super.noSuchMethod(Invocation.method(#call, [from, to]),
-              returnValue: Stream<_i6.Itinerary>.empty())
-          as _i5.Stream<_i6.Itinerary>);
+  _i5.Stream<List<_i6.Cottage>> call() =>
+      (super.noSuchMethod(Invocation.method(#call, []),
+              returnValue: Stream<List<_i6.Cottage>>.empty())
+          as _i5.Stream<List<_i6.Cottage>>);
 }
 
 /// A class which mocks [LocationUseCase].

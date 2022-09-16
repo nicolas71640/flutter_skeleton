@@ -17,13 +17,13 @@ import 'package:avecpaulette/features/departmentsViewer/data/repositories/number
 import 'package:avecpaulette/features/departmentsViewer/domain/repositories/number_trivia_repository.dart';
 import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_concrete_number_trivia_usecase.dart';
 import 'package:avecpaulette/features/departmentsViewer/domain/usecases/get_random_number_trivia_usecase.dart';
-import 'package:avecpaulette/features/home/data/datasources/itinerary_api_service.dart';
+import 'package:avecpaulette/features/home/data/datasources/cottage_api_service.dart';
 import 'package:avecpaulette/features/home/data/datasources/location_service.dart';
-import 'package:avecpaulette/features/home/data/repositories/itinerary_repository_impl.dart';
+import 'package:avecpaulette/features/home/data/repositories/cottage_repository_impl.dart';
 import 'package:avecpaulette/features/home/data/repositories/location_repository_impl.dart';
-import 'package:avecpaulette/features/home/domain/repositories/itinerary_repository.dart';
+import 'package:avecpaulette/features/home/domain/repositories/cottage_repository.dart';
 import 'package:avecpaulette/features/home/domain/repositories/location_repository.dart';
-import 'package:avecpaulette/features/home/domain/usecases/itinerary_usecase.dart';
+import 'package:avecpaulette/features/home/domain/usecases/cottage_usecase.dart';
 import 'package:avecpaulette/features/home/domain/usecases/location_usecase.dart';
 import 'package:avecpaulette/features/home/presentation/bloc/home_bloc.dart';
 import 'package:avecpaulette/features/stuff/data/datasources/stuff_api_service.dart';
@@ -78,7 +78,7 @@ void initFeatures() {
   sl.registerLazySingleton(() => SignupUseCase(sl()));
   sl.registerLazySingleton(() => GetStuffUseCase(sl()));
   sl.registerLazySingleton(() => ForgottenPasswordUseCase(sl()));
-  sl.registerLazySingleton(() => ItineraryUseCase(sl()));
+  sl.registerLazySingleton(() => CottageUseCase(sl()));
   sl.registerLazySingleton(() => LocationUseCase(sl()));
 
   // Repositories
@@ -92,8 +92,8 @@ void initFeatures() {
       () => CredentialsRepositoryImpl(sl(), sl(), sl()));
   sl.registerLazySingleton<StuffRepository>(
       () => StuffRepositoryImpl(sl(), sl()));
-  sl.registerLazySingleton<ItineraryRepository>(
-      () => ItineraryRepositoryImpl(sl()));
+  sl.registerLazySingleton<CottageRepository>(
+      () => CottageRepositoryImpl(sl()));
   sl.registerLazySingleton<LocationRepository>(
       () => LocationRepositoryImpl(sl()));
 
@@ -119,8 +119,8 @@ void initFeatures() {
   sl.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn(
         scopes: ['email'],
       ));
-  sl.registerLazySingleton<ItineraryApiService>(
-      () => ItineraryApiService(sl(instanceName: "Dio")));
+  sl.registerLazySingleton<CottageApiService>(
+      () => CottageApiService(sl(instanceName: "Dio")));
   sl.registerLazySingleton<LocationService>(() => LocationService(sl()));
   sl.registerLazySingleton<Location>(() => Location());
 }

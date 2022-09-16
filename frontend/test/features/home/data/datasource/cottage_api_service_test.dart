@@ -1,4 +1,4 @@
-import 'package:avecpaulette/features/home/data/datasources/itinerary_api_service.dart';
+import 'package:avecpaulette/features/home/data/datasources/cottage_api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

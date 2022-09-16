@@ -8,3 +8,4 @@ abstract class HomeEvent extends Equatable {
 }
 
 class GetLocation extends HomeEvent {}
+class GetCottages extends HomeEvent {}

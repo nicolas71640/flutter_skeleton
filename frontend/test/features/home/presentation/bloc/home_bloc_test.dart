@@ -1,5 +1,5 @@
 import 'package:avecpaulette/features/home/domain/entities/location_entity.dart';
-import 'package:avecpaulette/features/home/domain/usecases/itinerary_usecase.dart';
+import 'package:avecpaulette/features/home/domain/usecases/cottage_usecase.dart';
 import 'package:avecpaulette/features/home/domain/usecases/location_usecase.dart';
 import 'package:avecpaulette/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,16 +8,16 @@ import 'package:mockito/mockito.dart';
 
 import 'home_bloc_test.mocks.dart';
 
-@GenerateMocks([ItineraryUseCase, LocationUseCase])
+@GenerateMocks([CottageUseCase, LocationUseCase])
 void main() {
   late HomeBloc bloc;
-  late MockItineraryUseCase mockItineraryUseCase;
+  late MockCottageUseCase mockcottageUseCase;
   late MockLocationUseCase mockLocationUseCase;
 
   setUp(() {
-    mockItineraryUseCase = MockItineraryUseCase();
+    mockcottageUseCase = MockCottageUseCase();
     mockLocationUseCase = MockLocationUseCase();
-    bloc = HomeBloc(mockLocationUseCase, mockItineraryUseCase);
+    bloc = HomeBloc(mockLocationUseCase, mockcottageUseCase);
   });
 
   group("GetLocationEvent", () {

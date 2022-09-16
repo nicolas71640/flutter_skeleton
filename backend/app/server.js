@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const UserRoutes = require('./routes/user');
 const StuffRoutes = require('./routes/stuff');
+const CottageRoutes = require('./routes/cottage');
 
 class Server {
   constructor() {
@@ -22,7 +23,8 @@ class Server {
 
     this.app.use('/api/auth', UserRoutes);
     this.app.use('/api/stuff',StuffRoutes);
-    
+    this.app.use('/api/cottage',CottageRoutes);
+
     this.app.use(apiErrorHandler);
     
     mongoose.connect('mongodb://localhost:27017/myapp',

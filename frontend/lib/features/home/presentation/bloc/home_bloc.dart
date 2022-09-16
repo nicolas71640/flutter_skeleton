@@ -1,10 +1,11 @@
 import 'package:avecpaulette/features/home/domain/entities/location_entity.dart';
-import 'package:avecpaulette/features/home/domain/usecases/itinerary_usecase.dart';
+import 'package:avecpaulette/features/home/domain/usecases/cottage_usecase.dart';
 import 'package:avecpaulette/features/home/domain/usecases/location_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../domain/usecases/itinerary_usecase.dart';
+import '../../domain/entities/cottage.dart';
+import '../../domain/usecases/cottage_usecase.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -14,17 +15,26 @@ const String COULD_NOT_GET_CURRENT_LOCATION = "Couldn't get current location";
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final LocationUseCase locationUseCase;
-  final ItineraryUseCase itineraryUseCase;
+  final CottageUseCase cottageUseCase;
 
-  HomeBloc(this.locationUseCase, this.itineraryUseCase) : super(HomeInitial()) {
+  HomeBloc(this.locationUseCase, this.cottageUseCase) : super(HomeInitial()) {
     on<GetLocation>((event, emit) async {
-      locationUseCase();
       await emit.forEach<LocationEntity>(
         locationUseCase(),
         onData: (locationEntity) =>
             LocationReceived(locationEntity: locationEntity),
         onError: (_, __) =>
             const LocationError(message: COULD_NOT_GET_CURRENT_LOCATION),
+      );
+    });
+    on<GetCottages>((event, emit) async {
+      await emit.forEach<List<Cottage>>(
+        cottageUseCase(),
+        onData: (cottages) {
+            return CottagesUpdate(cottages: cottages);
+        },
+        onError: (_, __) =>
+            const CottagesUpdateError(message: COULD_NOT_GET_CURRENT_LOCATION),
       );
     });
   }

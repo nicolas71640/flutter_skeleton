@@ -1,10 +1,10 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'itinerary_response.dart';
+part of 'cottage_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ItineraryResponse _$ItineraryResponseFromJson(Map<String, dynamic> json) =>
-    ItineraryResponse();
+Map<String, dynamic> _$CottageRequestToJson(CottageRequest instance) =>
+    <String, dynamic>{};

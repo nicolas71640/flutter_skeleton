@@ -44,6 +44,7 @@ class AppInterceptors extends Interceptor {
     Response response,
     ResponseInterceptorHandler handler,
   ) {
+    handler.next(response);
     retries = 0;
   }
 

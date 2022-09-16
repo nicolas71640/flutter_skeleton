@@ -26,3 +26,21 @@ class LocationError extends HomeState {
   @override
   List<Object> get props => [message];
 }
+
+class CottagesUpdate extends HomeState {
+  final List<Cottage> cottages;
+
+  const CottagesUpdate({required this.cottages});
+
+  @override
+  List<Object> get props => [cottages];
+}
+
+class CottagesUpdateError extends HomeState {
+  final String message;
+
+  const CottagesUpdateError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

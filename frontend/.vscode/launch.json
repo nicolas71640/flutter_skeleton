@@ -21,6 +21,7 @@
             "request": "launch",
             "program": "./test/",
             "args": [
+                "-v",
                 "--coverage",
                 "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
@@ -71,6 +72,24 @@
                 "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
             ]
-        }
+        },
+
+        {
+            "name": "Run",
+            "type": "dart",
+            "request": "launch",
+            "program": "test",
+            "codeLens": {
+                "path": "test/",
+                "for": [
+                    "run-test",
+                    "run-test-file"
+                ]
+            },
+            "toolArgs": [
+                "-v",
+                "--coverage",
+            ]
+        },
     ]
 }

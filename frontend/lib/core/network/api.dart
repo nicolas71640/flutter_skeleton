@@ -63,7 +63,7 @@ class AppInterceptors extends Interceptor {
           .last;
 
       try {
-        await _retry(err.requestOptions);
+        handler.resolve(await _retry(err.requestOptions));
       } on DioError catch (dioError) {
         handler.next(dioError);
       }

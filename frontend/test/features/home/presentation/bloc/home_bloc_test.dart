@@ -51,11 +51,11 @@ void main() {
     });
   });
 
-    group("GetCottages", () {
+  group("GetCottages", () {
     test(
         "should call cottage usecase to get cottages and emit a CottagesUpdate state",
         () async {
-            final List<Cottage> cottages = {
+      final List<Cottage> cottages = {
         const Cottage(
             title: "First",
             description: "",
@@ -71,13 +71,10 @@ void main() {
             latitude: 0,
             longitude: 0),
       }.toList();
-      when(mockcottageUseCase.call())
-          .thenAnswer((_) => Stream.value(cottages));
+      when(mockcottageUseCase.call()).thenAnswer((_) => Stream.value(cottages));
 
       expectLater(
-          bloc.stream,
-          emitsInOrder(
-              [CottagesUpdate(cottages: cottages)]));
+          bloc.stream, emitsInOrder([CottagesUpdate(cottages: cottages)]));
 
       bloc.add(GetCottages());
       await untilCalled(mockcottageUseCase.call());

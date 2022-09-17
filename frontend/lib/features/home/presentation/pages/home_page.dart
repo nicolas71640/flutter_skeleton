@@ -20,8 +20,7 @@ class HomePage extends StatelessWidget {
     final Set<Marker> mapMarkers = {};
 
     return BlocProvider(
-      create: (_) => sl<HomeBloc>()
-        ..add(GetLocation()),
+      create: (_) => sl<HomeBloc>()..add(GetLocation()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is HomeInitial) {

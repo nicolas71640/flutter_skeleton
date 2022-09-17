@@ -44,8 +44,7 @@ void main() {
     test("shoud throw a DioError when an error is thrown", () async {
       final dioError = DioError(requestOptions: RequestOptions(path: ""));
 
-      when(mockDio.get(any))
-          .thenAnswer((_) async => throw dioError);
+      when(mockDio.get(any)).thenAnswer((_) async => throw dioError);
 
       expect(cottageApiService.getCottages(CottageRequest()),
           emitsError(dioError));

@@ -33,7 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       await emit.forEach<List<Cottage>>(
         cottageUseCase(),
         onData: (cottages) {
-            return CottagesUpdate(cottages: cottages);
+          return CottagesUpdate(cottages: cottages);
         },
         onError: (_, __) =>
             const CottagesUpdateError(message: COULD_NOT_GET_COTTAGES),

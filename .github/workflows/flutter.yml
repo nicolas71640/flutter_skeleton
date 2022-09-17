@@ -211,7 +211,9 @@ jobs:
         working-directory: ./backend
         env:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
-        run: DEV=1 node ./app/index.js &
+        run: |
+          mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
+          DEV=1 node ./app/index.js &
 
       # Launch Tests and screenshots
       - name: run tests
@@ -275,7 +277,9 @@ jobs:
         working-directory: ./backend
         env:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
-        run: DEV=1 node ./app/index.js &
+        run: |
+          mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
+          DEV=1 node ./app/index.js &
 
       # Launch tests
       - name: "Run Flutter Driver tests"

@@ -33,10 +33,10 @@ class TestUtils {
 
   static Future<T?> pumpUntilMatch<T>(WidgetTester tester,
       Future<T> Function() getValue, bool Function(T) predicate,
-      {Duration timeout = const Duration(seconds: 30)}) async {
+      {Duration timeout = const Duration(seconds: 100)}) async {
     bool timerDone = false;
     final timer = Timer(
-        timeout, () => throw TimeoutException("Pump until has timed out"));
+        timeout, () => throw TimeoutException("Pump until match has timed out"));
     while (timerDone != true) {
       final T value = await getValue();
       if (predicate(value)) {

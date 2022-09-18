@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:avecpaulette/injection_container.dart';
-import 'package:avecpaulette/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:location/location.dart';
@@ -80,7 +78,6 @@ takeScreenshot(dynamic tester, dynamic binding, String name) async {
     await binding.takeScreenshot(name);
     return;
   } else if (Platform.isAndroid) {
-    await Future.delayed(Duration(milliseconds: 2000));
     await binding.convertFlutterSurfaceToImage();
     await tester.pumpAndSettle();
   }

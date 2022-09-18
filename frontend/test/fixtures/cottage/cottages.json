@@ -1,0 +1,26 @@
+[
+    {
+        "title": "MyFirstCottage",
+        "description": "This is my first cottage",
+        "imageUrl": "image/url/of/first/cottage",
+        "price": 100,
+        "latitude": 48.894189,
+        "longitude": 2.355578
+    },
+    {
+        "title": "MySecondCottage",
+        "description": "This is my second cottage",
+        "imageUrl": "image/url/of/second/cottage",
+        "price": 200,
+        "latitude": 48.848714,
+        "longitude": 2.406003
+    },
+    {
+        "title": "MyThirdCottage",
+        "description": "This is my third cottage",
+        "imageUrl": "image/url/of/third/cottage",
+        "price": 200,
+        "latitude": 48.845554,
+        "longitude": 2.297208
+    }
+]

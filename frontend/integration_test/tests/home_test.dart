@@ -14,6 +14,7 @@ import '../utils/test_utils.dart';
 import 'credentials_test.mocks.dart';
 import 'package:location/location.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:avecpaulette/core/util/asset_utils.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -83,20 +84,57 @@ void main() {
 
       await TestUtils.startApp(tester, keyToFind: "home_map");
 
+      //Check if the map is visible
       expect(find.byType(GoogleMap), findsOneWidget);
 
-      final googleMap = tester.widget(find.byType(GoogleMap)) as GoogleMap;
-
+      //Wait for and check that markers are visible and at the right position
       final actualMarkers = (await TestUtils.pumpUntilMatch<Set<Marker>>(
               tester,
-              () => Future.value(googleMap.markers),
+              () => Future.value(
+                  (tester.widget(find.byType(GoogleMap)) as GoogleMap).markers),
               (markers) => markers.isNotEmpty))
           ?.toList();
 
       actualMarkers?.sort(
           (a, b) => a.markerId.toString().compareTo(b.markerId.toString()));
 
-      expect(actualMarkers, expectedMarkers);
+      BitmapDescriptor smallMarker =
+          await AssetUtils.getBitmapDescriptorFromAssetBytes(
+              "assets/small_cottage_marker.png", 50);
+
+      for (int i = 0; i < expectedMarkers.length; i++) {
+        expect(actualMarkers![i].markerId, equals(expectedMarkers[i].markerId));
+        expect(actualMarkers[i].position.latitude,
+            equals(expectedMarkers[i].position.latitude));
+        expect(actualMarkers[i].position.longitude,
+            equals(expectedMarkers[i].position.longitude));
+        expect(
+            actualMarkers[i].icon.toString(), equals(smallMarker.toString()));
+      }
+
+      //Simulate a tap on one of the marker
+      (tester.widget(find.byType(GoogleMap)) as GoogleMap)
+          .markers
+          .firstWhere((marker) => marker.markerId.value == "MySecondCottage")
+          .onTap
+          ?.call();
+
+      //Check that the marker icon size increased
+      BitmapDescriptor bigMarker =
+          await AssetUtils.getBitmapDescriptorFromAssetBytes(
+              "assets/big_cottage_marker.png", 50);
+
+      await TestUtils.pumpUntilMatch<Set<Marker>>(
+          tester,
+          () => Future.value(
+              (tester.widget(find.byType(GoogleMap)) as GoogleMap).markers),
+          (markers) =>
+              markers
+                  .firstWhere(
+                      (marker) => marker.markerId.value == "MySecondCottage")
+                  .icon
+                  .toString() ==
+              bigMarker.toString());
     },
   );
 }

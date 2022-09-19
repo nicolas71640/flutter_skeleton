@@ -35,8 +35,8 @@ class TestUtils {
       Future<T> Function() getValue, bool Function(T) predicate,
       {Duration timeout = const Duration(seconds: 100)}) async {
     bool timerDone = false;
-    final timer = Timer(
-        timeout, () => throw TimeoutException("Pump until match has timed out"));
+    final timer = Timer(timeout,
+        () => throw TimeoutException("Pump until match has timed out"));
     while (timerDone != true) {
       final T value = await getValue();
       if (predicate(value)) {

@@ -12,7 +12,6 @@ abstract class InfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => print("clicked : $id"),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(

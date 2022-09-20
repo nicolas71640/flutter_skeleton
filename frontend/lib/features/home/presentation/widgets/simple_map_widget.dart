@@ -5,22 +5,30 @@ import '../../domain/entities/cottage.dart';
 import '../bloc/home_bloc.dart';
 import '../../../../core/util/asset_utils.dart';
 
-class MainMap extends StatefulWidget {
-  const MainMap({
-    Key? key,
-    required this.cottages,
-    required this.target,
-  }) : super(key: key);
+typedef OnCottageSelected = void Function(Cottage cottage);
+
+class SimpleMap extends StatefulWidget {
+  const SimpleMap(
+      {Key? key,
+      required this.cottages,
+      required this.target,
+      this.onCottageSelected,
+      required this.simpleMapController})
+      : super(key: key);
 
   final Set<Cottage> cottages;
   final LatLng target;
+  final OnCottageSelected? onCottageSelected;
+  final SimpleMapController simpleMapController;
 
   @override
-  State<MainMap> createState() => _MainMapState();
+  State<SimpleMap> createState() => _SimpleMapState();
 }
 
-class _MainMapState extends State<MainMap> {
+class _SimpleMapState extends State<SimpleMap> {
   var selectedkey = "";
+
+  _SimpleMapState();
 
   Future<Set<Marker>> _generateMarkerList(String selectedKey) async {
     BitmapDescriptor smallMarker =
@@ -33,7 +41,10 @@ class _MainMapState extends State<MainMap> {
         .map((cottage) => Marker(
               position: LatLng(cottage.latitude, cottage.longitude),
               markerId: MarkerId(cottage.title.toString()),
-              onTap: () => setState(() => selectedkey = cottage.title),
+              onTap: () => setState(() {
+                widget.onCottageSelected?.call(cottage);
+                selectedkey = cottage.title;
+              }),
               icon: selectedKey == cottage.title ? bigMarker : smallMarker,
             ))
         .toSet();
@@ -41,6 +52,12 @@ class _MainMapState extends State<MainMap> {
 
   @override
   Widget build(BuildContext context) {
+    widget.simpleMapController.addListener(() {
+      setState(() {
+        selectedkey = widget.simpleMapController.markerId;
+      });
+    });
+
     return FutureBuilder(
         future: _generateMarkerList(selectedkey),
         builder: (context, snapshot) {
@@ -50,7 +67,6 @@ class _MainMapState extends State<MainMap> {
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
               myLocationEnabled: true,
-              key: const Key("home_map"),
               mapType: MapType.normal,
               markers: markers,
               onMapCreated: (_) =>
@@ -60,5 +76,14 @@ class _MainMapState extends State<MainMap> {
                 zoom: 11.0,
               ));
         });
+  }
+}
+
+class SimpleMapController extends ChangeNotifier {
+  String markerId = "";
+
+  void selectMarker(String markerId) {
+    this.markerId = markerId;
+    notifyListeners();
   }
 }

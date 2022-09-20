@@ -1,3 +1,4 @@
+import 'package:avecpaulette/features/home/presentation/widgets/main_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
@@ -5,7 +6,7 @@ import '../../domain/entities/cottage.dart';
 import '../bloc/home_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../widgets/main_map_widget.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,24 +25,27 @@ class HomePage extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => sl<HomeBloc>()..add(GetLocation()),
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state is HomeInitial) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            if (state is LocationReceived) {
-              target = LatLng(state.locationEntity.latitude,
-                  state.locationEntity.longitude);
-            } else if (state is CottagesUpdate) {
-              cottages.addAll(state.cottages);
-            }
+      child: Stack(
+        children: [
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeInitial) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                if (state is LocationReceived) {
+                  target = LatLng(state.locationEntity.latitude,
+                      state.locationEntity.longitude);
+                } else if (state is CottagesUpdate) {
+                  cottages.addAll(state.cottages);
+                }
 
-            return Center(
-              child: MainMap(cottages: cottages, target: target),
-            );
-          }
-        },
+                return MainMap(cottages: cottages,target: target);
+              }
+            },
+          ),
+        ],
       ),
     );
   }
 }
+

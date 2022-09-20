@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'draggable_line.dart';
+
 abstract class InfoTile extends StatelessWidget {
   final String id;
-  
+
   const InfoTile({
-    Key? key, required this.id,
+    Key? key,
+    required this.id,
   }) : super(key: key);
 
   Widget buildContent();
@@ -21,8 +24,20 @@ abstract class InfoTile extends StatelessWidget {
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20)),
             child: Container(
-                color: Colors.amber,
-                child: buildContent())),
+              color: Colors.grey.shade50,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomPaint(
+                      size: const Size(20, 1),
+                      painter: DraggableLine(),
+                    ),
+                  ),
+                  Expanded(child: buildContent()),
+                ],
+              ),
+            )),
       ),
     );
   }

@@ -7,8 +7,8 @@ import '../../../../core/util/asset_utils.dart';
 
 typedef OnCottageSelected = void Function(Cottage cottage);
 
-class SimpleMap extends StatefulWidget {
-  const SimpleMap(
+class MapWidget extends StatefulWidget {
+  const MapWidget(
       {Key? key,
       required this.cottages,
       required this.target,
@@ -22,13 +22,13 @@ class SimpleMap extends StatefulWidget {
   final SimpleMapController simpleMapController;
 
   @override
-  State<SimpleMap> createState() => _SimpleMapState();
+  State<MapWidget> createState() => _MapWidgetState();
 }
 
-class _SimpleMapState extends State<SimpleMap> {
+class _MapWidgetState extends State<MapWidget> {
   var selectedkey = "";
 
-  _SimpleMapState();
+  _MapWidgetState();
 
   Future<Set<Marker>> _generateMarkerList(String selectedKey) async {
     BitmapDescriptor smallMarker =
@@ -42,8 +42,8 @@ class _SimpleMapState extends State<SimpleMap> {
               position: LatLng(cottage.latitude, cottage.longitude),
               markerId: MarkerId(cottage.title.toString()),
               onTap: () => setState(() {
-                widget.onCottageSelected?.call(cottage);
                 selectedkey = cottage.title;
+                widget.onCottageSelected?.call(cottage);
               }),
               icon: selectedKey == cottage.title ? bigMarker : smallMarker,
             ))

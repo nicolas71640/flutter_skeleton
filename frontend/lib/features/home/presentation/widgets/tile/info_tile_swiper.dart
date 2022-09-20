@@ -1,7 +1,7 @@
 import 'package:avecpaulette/core/util/ui_utils.dart';
 import 'package:flutter/material.dart';
 
-import 'map_tile.dart';
+import 'info_tile.dart';
 
 typedef OnTileSelected = void Function(int index);
 
@@ -13,7 +13,7 @@ class TileSwiper extends StatefulWidget {
     this.onTileSelected,
   }) : super(key: key);
 
-  final List<MapTile> mapTiles;
+  final List<InfoTile> mapTiles;
   final TileSwiperController tileSwiperController;
   final OnTileSelected? onTileSelected;
 
@@ -39,7 +39,12 @@ class _TileSwiperState extends State<TileSwiper> {
 }
 
 class TileSwiperController {
-  final PageController pageController = PageController(viewportFraction: 0.9);
+  final int initialPage; 
+  late PageController pageController;
+
+  TileSwiperController({this.initialPage = 0}){
+    pageController = PageController(viewportFraction: 0.9, initialPage: initialPage);
+  }
 
   void jumpToPage(int page) {
     pageController.animateToPage(page,

@@ -6,7 +6,8 @@ import 'info_tile.dart';
 class CottageInfoTile extends InfoTile {
   final Cottage cottage;
 
-  CottageInfoTile(this.cottage, {Key? key}) : super(key: key, id: cottage.title);
+  CottageInfoTile(this.cottage, {Key? key})
+      : super(key: key, id: cottage.title);
 
   @override
   Widget buildContent() {

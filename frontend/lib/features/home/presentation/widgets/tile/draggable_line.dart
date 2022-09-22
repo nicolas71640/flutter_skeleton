@@ -8,7 +8,6 @@ class DraggableLine extends CustomPainter {
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
 
-
     Offset start = Offset(0, size.height / 2);
     Offset end = Offset(size.width, size.height / 2);
 

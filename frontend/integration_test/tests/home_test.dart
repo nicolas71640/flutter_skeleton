@@ -1,13 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
+import 'package:avecpaulette/features/home/presentation/widgets/tile/info_tile_swiper.dart';
 import 'package:avecpaulette/injection_container.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../utils/api_utils.dart';
 import '../utils/test_utils.dart';
@@ -135,6 +139,31 @@ void main() {
                   .icon
                   .toString() ==
               bigMarker.toString());
+
+      //Check that the tile swiper is displayed
+      await TestUtils.pumpUntilFound(tester, find.byType(TileSwiper));
+
+      await tester.dragUntilVisible(
+        find.text("MyThirdCottage"),
+        find.byType(PageView),
+        const Offset(-250, 0),
+      );
+
+      //Check that the marker corresponding to the third cottage has been marked as selected
+      expect(
+          (tester.widget(find.byType(GoogleMap)) as GoogleMap)
+              .markers
+              .firstWhere((marker) => marker.markerId.value == "MyThirdCottage")
+              .icon
+              .toString(),
+          bigMarker.toString());
+
+      expect(
+          (tester.widget(find.byType(GoogleMap)) as GoogleMap)
+              .markers
+              .where((marker) => marker.markerId.value != "MyThirdCottage")
+              .map((marker) => marker.icon.toString()),
+          {smallMarker.toString(), smallMarker.toString()});
     },
   );
 }

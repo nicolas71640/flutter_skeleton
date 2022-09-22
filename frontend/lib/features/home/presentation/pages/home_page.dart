@@ -6,8 +6,6 @@ import '../../domain/entities/cottage.dart';
 import '../bloc/home_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -39,7 +37,10 @@ class HomePage extends StatelessWidget {
                   cottages.addAll(state.cottages);
                 }
 
-                return MainMap(cottages: cottages,target: target);
+                return MainMap(
+                    key: const Key("home_map"),
+                    cottages: cottages,
+                    target: target);
               }
             },
           ),
@@ -48,4 +49,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-

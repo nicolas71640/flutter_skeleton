@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ExpandableWidget extends StatefulWidget {
@@ -43,7 +42,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                       widget.maxHeight -
                           (widget.maxHeight - widget.minHeight) * 0.2) {
                     currentHeight = widget.maxHeight;
-                  } 
+                  }
                   //Else go back to the maximum height
                   else {
                     currentHeight = widget.minHeight;

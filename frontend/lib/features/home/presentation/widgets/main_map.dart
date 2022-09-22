@@ -10,7 +10,7 @@ class MainMap extends StatefulWidget {
   final Set<Cottage> cottages;
   final LatLng target;
 
-  MainMap({
+  const MainMap({
     Key? key,
     required this.cottages,
     required this.target,

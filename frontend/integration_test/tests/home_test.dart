@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart';
 import 'package:avecpaulette/features/home/presentation/widgets/tile/info_tile_swiper.dart';
@@ -11,7 +10,6 @@ import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platf
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../utils/api_utils.dart';
 import '../utils/test_utils.dart';
@@ -45,6 +43,8 @@ Future<T?> waitForValueMatchingPredicate<T>(WidgetTester tester,
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+
   GoogleMapsFlutterPlatform.instance.enableDebugInspection();
 
   late MockLocation mockLocation;

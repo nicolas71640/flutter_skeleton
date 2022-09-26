@@ -11,6 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart';
+import 'package:integration_test/integration_test.dart';
 
 import '../utils/api_utils.dart';
 import '../utils/test_utils.dart';
@@ -26,6 +27,9 @@ import 'package:location/location.dart';
   LocationData
 ])
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  
   late MockGoogleSignIn mockGoogleSignIn;
   late MockGoogleSignInAccount mockGoogleSignInAccount;
   late MockGoogleSignInAuthentication mockGoogleSignInAuthentication;

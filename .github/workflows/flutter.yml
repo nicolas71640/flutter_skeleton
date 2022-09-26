@@ -224,7 +224,7 @@ jobs:
           api-level: 29
           profile: ${{ matrix.device }}
           script: | 
-            flutter test integration_test/tests --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
+            flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
             flutter drive --driver=test_driver/integration_test.dart --target=integration_test/screenshot/screenshots_test.dart --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"
       - uses: actions/upload-artifact@v1
         with:

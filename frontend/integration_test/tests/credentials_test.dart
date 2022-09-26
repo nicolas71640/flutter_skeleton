@@ -29,7 +29,7 @@ import 'package:location/location.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   late MockGoogleSignIn mockGoogleSignIn;
   late MockGoogleSignInAccount mockGoogleSignInAccount;
   late MockGoogleSignInAuthentication mockGoogleSignInAuthentication;

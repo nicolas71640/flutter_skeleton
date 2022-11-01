@@ -1,3 +1,4 @@
+import 'package:avecpaulette/features/home/presentation/widgets/filter_widget.dart';
 import 'package:avecpaulette/features/home/presentation/widgets/map_widget.dart';
 import 'package:avecpaulette/features/home/presentation/widgets/tile/info_tile_swiper.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class _MainMapState extends State<MainMap> {
   }
 
   void _onCottageTapped(Cottage cottage) {
+    FocusScope.of(context).requestFocus(FocusNode());
     int? cottageIndex = _getIndexOfCottage(cottage);
     if (!_isTileSwiperVisible) {
       tileSwiperController =
@@ -64,16 +66,20 @@ class _MainMapState extends State<MainMap> {
           simpleMapController.selectMarker("");
           _isTileSwiperVisible = false;
         });
-        return Future.value(false);
+        return Future.value(true);
       },
       child: Stack(children: [
         Center(
-          child: MapWidget(
-              simpleMapController: simpleMapController,
-              cottages: widget.cottages,
-              target: widget.target,
-              onCottageSelected: _onCottageTapped),
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: MapWidget(
+                simpleMapController: simpleMapController,
+                cottages: widget.cottages,
+                target: widget.target,
+                onCottageSelected: _onCottageTapped),
+          ),
         ),
+        const FilterWidget(),
         Visibility(
           visible: _isTileSwiperVisible,
           child: TileSwiper(

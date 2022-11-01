@@ -63,6 +63,8 @@ class _MapWidgetState extends State<MapWidget> {
         builder: (context, snapshot) {
           final markers = (snapshot.data as Set<Marker>?) ?? {};
           return GoogleMap(
+              onTap: (argument) =>
+                  FocusScope.of(context).requestFocus(FocusNode()),
               mapToolbarEnabled: false,
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,

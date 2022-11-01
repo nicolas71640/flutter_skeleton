@@ -213,7 +213,7 @@ jobs:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
         run: |
           mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
-          DEV=1 node ./app/index.js &
+          ((DEV=1 node ./app/index.js) &> backend.log) &
 
       # Launch Tests and screenshots
       - name: run tests
@@ -230,6 +230,11 @@ jobs:
         with:
           name: screenshots
           path: frontend/screenshots
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: backend.log
+          path: backend/backend.log
           
   frontend-ios-integration-test:
     needs: frontend-setup

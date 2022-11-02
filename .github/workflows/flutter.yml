@@ -224,13 +224,14 @@ jobs:
           profile: ${{ matrix.device }}
           target: google_apis
           script: | 
-            flutter drive 
-              --driver=test_driver/integration_test.dart 
-              --target=integration_test/tests/credentials_test.dart 
+            ./scripts/run_tests.sh integration_test/tests
               --dart-define=FIREBASE_ENABLED=false 
               --dart-define=BASE_URL=http://10.0.2.2:3000/api 
               -d "emulator-5554"
-            flutter drive --driver=test_driver/integration_test.dart --target=integration_test/screenshot/screenshots_test.dart --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"
+            ./scripts/run_tests.sh integration_test/screenshot
+              --dart-define=FIREBASE_ENABLED=false 
+              --dart-define=BASE_URL=http://10.0.2.2:3000/api 
+              -d "emulator-5554"      
       - uses: actions/upload-artifact@v1
         with:
           name: screenshots
@@ -291,11 +292,10 @@ jobs:
       # Launch tests
       - name: "Run Flutter Driver tests"
         working-directory: ./frontend
-        run: flutter drive 
-              --driver=test_driver/integration_test.dart 
-              --target=integration_test/tests 
+        run: |
+          ./scripts/run_tests.sh integration_test/tests 
               --dart-define=FIREBASE_ENABLED=false 
-              --dart-define=BASE_URL=http://localhost:3000/api
+              --dart-define=BASE_URL=http://10.0.2.2:3000/api 
 
       #Upload Artifacts
       - uses: actions/upload-artifact@v1

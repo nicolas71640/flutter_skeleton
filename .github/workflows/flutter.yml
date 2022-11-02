@@ -134,7 +134,6 @@ jobs:
 
   frontend-unit-test:
     needs: frontend-setup
-    name: run unit test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -213,7 +212,7 @@ jobs:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
         run: |
           mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
-          ((DEV=1 node ./app/index.js) &> backend.log) &
+          ((DEV=1 node ./app/index.js) &> backend_${{ github.job }}.log) &
 
       # Launch Tests and screenshots
       - name: run tests
@@ -223,6 +222,7 @@ jobs:
           working-directory: ./frontend
           api-level: 29
           profile: ${{ matrix.device }}
+          target: google_apis
           script: | 
             flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
             flutter drive --driver=test_driver/integration_test.dart --target=integration_test/screenshot/screenshots_test.dart --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"
@@ -230,6 +230,8 @@ jobs:
         with:
           name: screenshots
           path: frontend/screenshots
+
+      #Upload Artifacts
       - uses: actions/upload-artifact@v1
         if: always()
         with:
@@ -244,7 +246,6 @@ jobs:
       matrix:
         device:
           - "iPhone 8 Simulator (15.2)"
-          - "iPhone 11 Simulator (15.2)"
       #When set to true, GitHub cancels all in progress jobs if any of the matrix jobs fail.
       fail-fast: false
     runs-on: macos-latest
@@ -284,9 +285,16 @@ jobs:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
         run: |
           mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
-          DEV=1 node ./app/index.js &
+          ((DEV=1 node ./app/index.js) &> backend_${{ github.job }}.log) &
 
       # Launch tests
       - name: "Run Flutter Driver tests"
         run: flutter test integration_test/tests --dart-define=BASE_URL=http://localhost:3000/api --dart-define=FIREBASE_ENABLED=false
         working-directory: ./frontend
+
+      #Upload Artifacts
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: backend.log
+          path: backend/backend.log

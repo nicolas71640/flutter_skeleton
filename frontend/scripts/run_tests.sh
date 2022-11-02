@@ -11,7 +11,6 @@ do
     flutter drive \
       --driver=test_driver/integration_test.dart \
       --target=$testPath \
-      --verbose \
       "${@:2}"
   fi
 done

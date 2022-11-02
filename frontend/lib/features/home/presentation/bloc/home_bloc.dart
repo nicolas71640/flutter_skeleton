@@ -7,7 +7,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../domain/entities/cottage.dart';
-import '../../domain/usecases/cottage_usecase.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

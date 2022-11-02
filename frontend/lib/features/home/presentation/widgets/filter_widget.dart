@@ -1,4 +1,3 @@
-import 'package:avecpaulette/features/home/presentation/widgets/tile/expandable_widget.dart';
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -37,7 +36,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                 focused: _focused,
                 onTap: () => onFocusChanged(true),
                 hintText: "From",
-                icon: const Icon(size: 17,Icons.circle_outlined, color: Colors.grey),
+                icon: const Icon(
+                    size: 17, Icons.circle_outlined, color: Colors.grey),
               ),
               const SizedBox(height: 10),
               SearchField(
@@ -47,8 +47,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 hintText: "To",
                 icon: const Icon(Icons.place, color: Colors.grey),
               ),
-              if (_focused)
-                SearchResult()
+              if (_focused) const SearchResult()
             ],
           ),
         ),
@@ -67,7 +66,7 @@ class SearchResult extends StatelessWidget {
     return Expanded(
       child: SizedBox(
         width: double.infinity,
-        child: Column(children: [Text("Yo")]),
+        child: Column(children: const [Text("Yo")]),
       ),
     );
   }
@@ -79,7 +78,11 @@ class SearchField extends StatelessWidget {
   final bool focused;
   final Icon icon;
   const SearchField(
-      {super.key, required this.hintText, this.onTap, required this.focused, required this.icon});
+      {super.key,
+      required this.hintText,
+      this.onTap,
+      required this.focused,
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {

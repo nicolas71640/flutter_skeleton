@@ -212,7 +212,7 @@ jobs:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
         run: |
           mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
-          ((DEV=1 node ./app/index.js) &> backend_${{ github.job }}.log) &
+          ((DEV=1 node ./app/index.js) &> backend.log) &
 
       # Launch Tests and screenshots
       - name: run tests
@@ -235,7 +235,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         if: always()
         with:
-          name: backend.log
+          name: backend_${{ github.job }}.log
           path: backend/backend.log
           
   frontend-ios-integration-test:
@@ -272,10 +272,6 @@ jobs:
         with:
           channel: 'stable'
 
-      # Cache gradle
-      - name: Gradle cache
-        uses: gradle/gradle-build-action@v2
-
       # Setup Server
       - name: Install Server
         uses: ./.github/actions/install-server-action
@@ -285,7 +281,7 @@ jobs:
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
         run: |
           mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
-          ((DEV=1 node ./app/index.js) &> backend_${{ github.job }}.log) &
+          ((DEV=1 node ./app/index.js) &> backend.log) &
 
       # Launch tests
       - name: "Run Flutter Driver tests"
@@ -296,5 +292,5 @@ jobs:
       - uses: actions/upload-artifact@v1
         if: always()
         with:
-          name: backend.log
+          name: backend_${{ github.job }}.log
           path: backend/backend.log

@@ -10,7 +10,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ApiUtils {
-  final Dio dio = Dio(BaseOptions(baseUrl: NetworkUtils.BASE_URL, connectTimeout: 3000));
+  final Dio dio = Dio(BaseOptions(baseUrl: NetworkUtils.BASE_URL));
   late CredentialsApiService credentialsApiService = CredentialsApiService(dio);
   late CredentialsLocalDataSource credentialsLocalDataSource =
       CredentialsLocalDataSourceImpl(const FlutterSecureStorage());

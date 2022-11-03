@@ -13,4 +13,4 @@ do
       --target=$testPath \
       "${@:2}"
   fi
-done
+done || exit 1

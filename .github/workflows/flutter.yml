@@ -201,8 +201,6 @@ jobs:
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
 
-      - run: flutter build apk -v
-
       # Setup Server
       - name: Install Server
         uses: ./.github/actions/install-server-action

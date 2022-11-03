@@ -60,17 +60,17 @@ main() {
     await takeScreenshot(tester, binding, "signup");
   });
 
-//   // Seems to not working because of google map widget. Test timed out.
-//   testWidgets('Home Screenshots', (WidgetTester tester) async {
-//     await ApiUtils().signupUser().first;
+  // Seems to not working because of google map widget. Test timed out.
+  // testWidgets('Home Screenshots', (WidgetTester tester) async {
+  //   await ApiUtils().signupUser().first;
 
-//     // Render the UI of the app
-//     await TestUtils.startApp(tester, keyToFind: "home_map");
+  //   // Render the UI of the app
+  //   await TestUtils.startApp(tester, keyToFind: "home_map");
 
-//     expect(find.byType(GoogleMap), findsOneWidget);
+  //   expect(find.byType(GoogleMap), findsOneWidget);
 
-//     await takeScreenshot(tester, binding, "home");
-//   });
+  //   await takeScreenshot(tester, binding, "home");
+  // });
 }
 
 takeScreenshot(dynamic tester, dynamic binding, String name) async {

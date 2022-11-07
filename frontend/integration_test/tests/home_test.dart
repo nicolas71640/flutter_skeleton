@@ -13,7 +13,7 @@ import 'package:mockito/mockito.dart';
 
 import '../utils/api_utils.dart';
 import '../utils/test_utils.dart';
-import 'credentials_test.mocks.dart';
+import 'home_test.mocks.dart';
 import 'package:location/location.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:avecpaulette/core/util/asset_utils.dart';

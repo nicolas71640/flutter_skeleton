@@ -13,6 +13,9 @@ import 'package:mockito/mockito.dart';
 import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart';
 import 'package:integration_test/integration_test.dart';
 
+import '../robots/app_robot.dart';
+import '../robots/login_robot.dart';
+import '../robots/signup_robot.dart';
 import '../utils/api_utils.dart';
 import '../utils/test_utils.dart';
 import 'credentials_test.mocks.dart';
@@ -64,15 +67,14 @@ void main() {
   testWidgets(
     "should success to login when clicking on login button",
     (WidgetTester tester) async {
+      final credentialsRobot = LoginRobot(tester);
       User user = await ApiUtils().createUser(password: "myPassword").first;
 
-      await TestUtils.startApp(tester);
+      await AppRobot(tester).startApp();
 
-      await tester.enterText(find.byKey(const Key("login_email")), user.mail);
-      await tester.enterText(
-          find.byKey(const Key("login_password")), "myPassword");
-      await tester.tap(find.text("Login"));
-      await tester.pumpAndSettle();
+      await credentialsRobot.email(user.mail);
+      await credentialsRobot.password("myPassword");
+      await credentialsRobot.login();
 
       expect(find.byType(GoogleMap), findsOneWidget);
     },
@@ -81,13 +83,13 @@ void main() {
   testWidgets(
     "should fail to login when clicking on login button when user doesn't exist",
     (WidgetTester tester) async {
-      await TestUtils.startApp(tester);
-      await tester.enterText(
-          find.byKey(const Key("login_email")), "test@test.com");
-      await tester.enterText(
-          find.byKey(const Key("login_password")), "password");
-      await tester.tap(find.text("Login"));
-      await tester.pumpAndSettle();
+      final credentialsRobot = LoginRobot(tester);
+
+      await AppRobot(tester).startApp();
+
+      await credentialsRobot.email("test@test.com");
+      await credentialsRobot.password("");
+      await credentialsRobot.login();
 
       expect(find.text("Wrong Ids"), findsOneWidget);
     },
@@ -96,14 +98,14 @@ void main() {
   testWidgets(
     "should fail to login when password is wrong",
     (WidgetTester tester) async {
+      final credentialsRobot = LoginRobot(tester);
       User user = await ApiUtils().createUser(password: "myPassword").first;
 
-      await TestUtils.startApp(tester);
-      await tester.enterText(find.byKey(const Key("login_email")), user.mail);
-      await tester.enterText(
-          find.byKey(const Key("login_password")), "wrongPassword");
-      await tester.tap(find.text("Login"));
-      await tester.pumpAndSettle();
+      await AppRobot(tester).startApp();
+
+      await credentialsRobot.email(user.mail);
+      await credentialsRobot.password("wrongPassword");
+      await credentialsRobot.login();
 
       expect(find.text("Wrong Ids"), findsOneWidget);
     },
@@ -112,16 +114,15 @@ void main() {
   testWidgets(
     "should go to next page when clicking signup",
     (WidgetTester tester) async {
-      await TestUtils.startApp(tester);
-      await tester.tap(find.text("Sign up now"));
-      await tester.pumpAndSettle();
+      final loginRobot = LoginRobot(tester);
+      final signupRobot = SignupRobot(tester);
 
-      await tester.enterText(
-          find.byKey(const Key("signup_email")), "test@test.com");
-      await tester.enterText(
-          find.byKey(const Key("signup_password")), "password");
-      await tester.tap(find.text("SignUp"));
-      await tester.pumpAndSettle();
+      await AppRobot(tester).startApp();
+
+      await loginRobot.goToSignup();
+      await signupRobot.email("test@test.com");
+      await signupRobot.password("password");
+      await signupRobot.signup();
 
       expect(find.byType(GoogleMap), findsOneWidget);
     },
@@ -130,17 +131,16 @@ void main() {
   testWidgets(
     "should fail to sign up when email already exists",
     (WidgetTester tester) async {
+      final loginRobot = LoginRobot(tester);
+      final signupRobot = SignupRobot(tester);
       User user = await ApiUtils().createUser().first;
 
-      await TestUtils.startApp(tester);
-      await tester.tap(find.text("Sign up now"));
-      await tester.pumpAndSettle();
+      await AppRobot(tester).startApp();
 
-      await tester.enterText(find.byKey(const Key("signup_email")), user.mail);
-      await tester.enterText(
-          find.byKey(const Key("signup_password")), "whatever");
-      await tester.tap(find.text("SignUp"));
-      await tester.pumpAndSettle();
+      await loginRobot.goToSignup();
+      await signupRobot.email(user.mail);
+      await signupRobot.password("whatever");
+      await signupRobot.signup();
 
       expect(find.text(COULD_NOT_SIGNUP_MESSAGE), findsOneWidget);
     },
@@ -149,8 +149,8 @@ void main() {
   testWidgets(
     "should go to the next page when google signin success",
     (WidgetTester tester) async {
-      MockCredentialsApiService mockCredentialsApiService =
-          MockCredentialsApiService();
+      final loginRobot = LoginRobot(tester);
+      final mockCredentialsApiService = MockCredentialsApiService();
       sl.unregister<CredentialsApiService>();
       sl.registerSingleton<CredentialsApiService>(mockCredentialsApiService);
       when(mockCredentialsApiService.oauth(any))
@@ -165,9 +165,8 @@ void main() {
           .thenAnswer((_) => Future.value(mockGoogleSignInAuthentication));
       when(mockGoogleSignInAuthentication.idToken).thenAnswer((_) => "idToken");
 
-      await TestUtils.startApp(tester);
-      await tester.tap(find.text("Sign in with Google"));
-      await tester.pumpAndSettle();
+      await AppRobot(tester).startApp();
+      await loginRobot.signInWithGoogle();
 
       expect(find.byType(GoogleMap), findsOneWidget);
     },
@@ -176,17 +175,16 @@ void main() {
   testWidgets(
     "should succeed to send an email to get another password",
     (WidgetTester tester) async {
-      MockCredentialsApiService mockCredentialsApiService =
-          MockCredentialsApiService();
+      final loginRobot = LoginRobot(tester);
+      final mockCredentialsApiService = MockCredentialsApiService();
       sl.unregister<CredentialsApiService>();
       sl.registerSingleton<CredentialsApiService>(mockCredentialsApiService);
 
       when(mockCredentialsApiService.forgetPassword(any))
           .thenAnswer((_) => Stream.value(ForgetPasswordResponse("ok")));
 
-      await TestUtils.startApp(tester);
-      await tester.tap(find.text("Have you forgotten your password ?"));
-      await tester.pumpAndSettle();
+      await AppRobot(tester).startApp();
+      await loginRobot.goToForgottenPassword();
 
       await tester.enterText(
           find.byKey(const Key("mailForgottenPassword")), "ail@mail.com");
@@ -201,14 +199,12 @@ void main() {
   testWidgets(
     "should fail to send an email to get another passord if the user doesn't exist",
     (WidgetTester tester) async {
-      await TestUtils.startApp(tester);
-      await tester.tap(find.text("Have you forgotten your password ?"));
-      await tester.pumpAndSettle();
+      final loginRobot = LoginRobot(tester);
+      await AppRobot(tester).startApp();
 
-      await tester.enterText(
-          find.byKey(const Key("mailForgottenPassword")), "whatever@test.com");
-      await tester.tap(find.text("Send me an email"));
-      await tester.pumpAndSettle();
+      await loginRobot.goToForgottenPassword();
+      await loginRobot.fogottenPasswordEmail("whatever@test.com");
+      await loginRobot.fogottenPasswordSend();
 
       expect(find.text(EMAIL_NOT_FOUND_MESSAGE), findsOneWidget);
     },
@@ -219,7 +215,7 @@ void main() {
     (WidgetTester tester) async {
       await ApiUtils().signupUser().first;
 
-      await TestUtils.startApp(tester, keyToFind: "home_map");
+      await AppRobot(tester).startApp(keyToFind: "home_map");
 
       expect(find.byType(GoogleMap), findsOneWidget);
     },

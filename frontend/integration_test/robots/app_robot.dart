@@ -5,8 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../utils/test_utils.dart';
 import 'robot.dart';
 
-class AppRobot extends Robot
-{
+class AppRobot extends Robot {
   AppRobot(super.tester);
 
   Future startApp({String keyToFind = "login_email"}) async {

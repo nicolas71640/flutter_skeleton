@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rxdart/rxdart.dart';
-
 import 'robot.dart';
 
 class LoginRobot extends Robot {
@@ -41,7 +39,7 @@ class LoginRobot extends Robot {
   }
 
   Future fogottenPasswordSend() async {
-      await tester.tap(find.text("Send me an email"));
-      await tester.pumpAndSettle();
+    await tester.tap(find.text("Send me an email"));
+    await tester.pumpAndSettle();
   }
 }

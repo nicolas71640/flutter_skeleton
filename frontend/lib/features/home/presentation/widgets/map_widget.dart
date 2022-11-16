@@ -71,8 +71,11 @@ class _MapWidgetState extends State<MapWidget> {
               // myLocationEnabled: true,
               mapType: MapType.normal,
               markers: markers,
-              onMapCreated: (_) =>
-                  BlocProvider.of<HomeBloc>(context).add(GetCottages()),
+              onMapCreated: (controller) {
+                if (mounted) {
+                  BlocProvider.of<HomeBloc>(context).add(GetCottages());
+                }
+              },
               initialCameraPosition: CameraPosition(
                 target: widget.target,
                 zoom: 11.0,

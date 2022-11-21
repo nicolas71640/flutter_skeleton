@@ -243,7 +243,7 @@ jobs:
       #Set up different configurations for a set of virtual environments
       matrix:
         device:
-          - "iPhone 8 Simulator (15.2)"
+          - "iPhone 8 Simulator"
       #When set to true, GitHub cancels all in progress jobs if any of the matrix jobs fail.
       fail-fast: false
     runs-on: macos-latest

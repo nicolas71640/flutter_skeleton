@@ -6,8 +6,6 @@ runs:
   steps:      
     - name: Start MongoDB
       uses: ankane/setup-mongodb@v1
-      with:
-        mongodb-version: 5.0
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:

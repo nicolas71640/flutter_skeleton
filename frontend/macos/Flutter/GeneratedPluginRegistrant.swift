@@ -10,7 +10,7 @@ import firebase_core
 import firebase_crashlytics
 import flutter_secure_storage_macos
 import location
-import shared_preferences_macos
+import shared_preferences_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseAnalyticsPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAnalyticsPlugin"))

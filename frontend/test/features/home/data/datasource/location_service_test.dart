@@ -9,7 +9,7 @@ import 'location_service_test.mocks.dart';
 @GenerateMocks([
   Location
 ], customMocks: [
-  MockSpec<LocationData>(returnNullOnMissingStub: true),
+  MockSpec<LocationData>(onMissingStub: OnMissingStub.returnDefault),
 ])
 void main() {
   late MockLocation mockLocation;

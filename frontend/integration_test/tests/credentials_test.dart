@@ -18,6 +18,7 @@ import '../robots/signup_robot.dart';
 import '../utils/api_utils.dart';
 import 'credentials_test.mocks.dart';
 import 'package:location/location.dart';
+import '../robots/home_robot.dart';
 
 @GenerateMocks([
   GoogleSignIn,
@@ -47,8 +48,8 @@ void main() {
     sl.unregister<Location>();
     mockLocation = MockLocation();
     final locationData = MockLocationData();
-    when(locationData.latitude).thenReturn(0.0);
-    when(locationData.longitude).thenReturn(0.0);
+    when(locationData.latitude).thenReturn(48.853543);
+    when(locationData.longitude).thenReturn(2.337553);
     when(mockLocation.getLocation())
         .thenAnswer((_) => Future.value(locationData));
     sl.registerLazySingleton<Location>(() => mockLocation);
@@ -216,6 +217,35 @@ void main() {
       await AppRobot(tester).startApp(keyToFind: "home_map");
 
       expect(find.byType(GoogleMap), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "should display google map with markers",
+    (WidgetTester tester) async {
+      final homeRobot = HomeRobot(tester);
+
+      await ApiUtils().signupUser().first;
+
+      await AppRobot(tester).startApp(keyToFind: "home_map");
+
+      //Wait for and check that markers are visible and at the right position
+      final expectedMarkers =
+          await homeRobot.getMarkersFromFile("assets/cottages.json");
+      final actualMarkers = await homeRobot.markers();
+      await homeRobot.compareMarkers(actualMarkers!, expectedMarkers,
+          markerIcon: "assets/small_cottage_marker.png");
+
+      //Simulate a tap on one of the marker and check that the marker icon size increased
+      homeRobot.tapOnMarker("MySecondCottage");
+      await homeRobot.checkMarkerIsSelected("MySecondCottage");
+
+      //Check that the tile swiper is displayed
+      await homeRobot.checkTileSwiperIsDisplayed();
+
+      //Swiper TileSwiper and check that the Googlemap marker is selected
+      await homeRobot.dragTileSwiperTo("MyThirdCottage");
+      await homeRobot.checkMarkerIsSelected("MyThirdCottage");
     },
   );
 }

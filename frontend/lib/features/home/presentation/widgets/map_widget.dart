@@ -68,7 +68,7 @@ class _MapWidgetState extends State<MapWidget> {
               mapToolbarEnabled: false,
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
-              // myLocationEnabled: true,
+              myLocationEnabled: true,
               mapType: MapType.normal,
               markers: markers,
               onMapCreated: (controller) {

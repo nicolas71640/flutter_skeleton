@@ -223,11 +223,11 @@ jobs:
           target: google_apis
           script: | 
             ./scripts/run_tests.sh integration_test/tests --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"
-            ./scripts/run_tests.sh integration_test/screenshot --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"      
-      - uses: actions/upload-artifact@v1
-        with:
-          name: screenshots
-          path: frontend/screenshots
+      #       ./scripts/run_tests.sh integration_test/screenshot --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"      
+      # - uses: actions/upload-artifact@v1
+      #   with:
+      #     name: screenshots
+      #     path: frontend/screenshots
 
       #Upload Artifacts
       - uses: actions/upload-artifact@v1

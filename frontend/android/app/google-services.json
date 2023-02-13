@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "133956385153-foniq2v586hk016ld1ms49r8kls1krca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avecpaulette",
+            "certificate_hash": "a2bcba5a41677a4b01ec9ec027751535ad22a2c1"
+          }
+        },
+        {
           "client_id": "133956385153-m1tbp99veg8o4ignb387k46hv479idrj.apps.googleusercontent.com",
           "client_type": 3
         }

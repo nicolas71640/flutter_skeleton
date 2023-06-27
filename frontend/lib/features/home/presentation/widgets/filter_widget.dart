@@ -35,17 +35,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                 key: _searchFieldFrom,
                 focused: _focused,
                 onTap: () => onFocusChanged(true),
-                hintText: "From",
-                icon: const Icon(
-                    size: 17, Icons.circle_outlined, color: Colors.grey),
-              ),
-              const SizedBox(height: 10),
-              SearchField(
-                key: _serachFieldTo,
-                focused: _focused,
-                onTap: () => onFocusChanged(true),
-                hintText: "To",
-                icon: const Icon(Icons.place, color: Colors.grey),
+                hintText: "Around...",
+                icon: const Icon(size: 17, Icons.search, color: Colors.grey),
               ),
               if (_focused) const SearchResult()
             ],

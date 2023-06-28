@@ -2,6 +2,7 @@ import 'package:avecpaulette/features/home/domain/entities/cottage.dart';
 import 'package:avecpaulette/features/home/domain/entities/location_entity.dart';
 import 'package:avecpaulette/features/home/domain/usecases/cottage_usecase.dart';
 import 'package:avecpaulette/features/home/domain/usecases/location_usecase.dart';
+import 'package:avecpaulette/features/home/domain/usecases/suggestion_usecase.dart';
 import 'package:avecpaulette/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -9,16 +10,19 @@ import 'package:mockito/mockito.dart';
 
 import 'home_bloc_test.mocks.dart';
 
-@GenerateMocks([CottageUseCase, LocationUseCase])
+@GenerateMocks([CottageUseCase, LocationUseCase, SuggestionUseCase])
 void main() {
   late HomeBloc bloc;
   late MockCottageUseCase mockcottageUseCase;
   late MockLocationUseCase mockLocationUseCase;
+  late MockSuggestionUseCase mockSuggestionUseCase;
 
   setUp(() {
     mockcottageUseCase = MockCottageUseCase();
     mockLocationUseCase = MockLocationUseCase();
-    bloc = HomeBloc(mockLocationUseCase, mockcottageUseCase);
+    mockSuggestionUseCase = MockSuggestionUseCase();
+    bloc = HomeBloc(
+        mockLocationUseCase, mockcottageUseCase, mockSuggestionUseCase);
   });
 
   group("GetLocationEvent", () {

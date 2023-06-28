@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                 return MainMap(
                     key: const Key("home_map"),
                     cottages: cottages,
-                    target: target);
+                    initialTarget: target);
               }
             },
           ),

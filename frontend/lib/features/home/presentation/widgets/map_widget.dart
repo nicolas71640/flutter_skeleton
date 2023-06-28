@@ -27,6 +27,7 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   var selectedkey = "";
+  GoogleMapController? mapController;
 
   _MapWidgetState();
 
@@ -52,6 +53,9 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    mapController?.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: widget.target, zoom: 11)));
+
     widget.simpleMapController.addListener(() {
       setState(() {
         selectedkey = widget.simpleMapController.markerId;
@@ -72,6 +76,8 @@ class _MapWidgetState extends State<MapWidget> {
               mapType: MapType.normal,
               markers: markers,
               onMapCreated: (controller) {
+                print("ONMAPCREATED");
+                mapController = controller;
                 if (mounted) {
                   BlocProvider.of<HomeBloc>(context).add(GetCottages());
                 }

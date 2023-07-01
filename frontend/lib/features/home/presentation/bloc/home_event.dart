@@ -26,9 +26,9 @@ class FindPlace extends HomeEvent {
   const FindPlace(this.input, this.lang);
 }
 
-class GetPlaceDetails extends HomeEvent {
-  final String placeId;
+class PlaceSelected extends HomeEvent {
+  final SuggestionEntity suggestion;
   final String lang;
 
-  const GetPlaceDetails(this.placeId, this.lang);
+  const PlaceSelected(this.suggestion, this.lang);
 }

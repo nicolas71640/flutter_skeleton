@@ -68,15 +68,18 @@ class SuggestionService {
         'https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&language=$lang&key=$androidKey';
     return Stream.fromFuture(client.get(Uri.parse(request))).map((response) {
       final result = json.decode(response.body);
+      print(result);
       if (result['status'] == 'OK') {
         print(result['result']['geometry']['location']);
 
         //TODO clean up !!
-        return SuggestionEntity(
+        var test = SuggestionEntity(
             placeId,
             result['result']['formatted_address'],
             LatLng(result['result']['geometry']["location"]["lat"] as double,
                 result['result']['geometry']["location"]["lng"] as double));
+                print(test);
+        return test;
       }
       throw Error();
     });

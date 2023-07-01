@@ -3,34 +3,39 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
-import 'dart:ui' as _i18;
+import 'dart:async' as _i7;
+import 'dart:ui' as _i19;
 
 import 'package:avecpaulette/features/credentials/data/datasources/credentials_api_service.dart'
-    as _i7;
-import 'package:avecpaulette/features/credentials/data/models/api/forget_password_request.dart'
-    as _i16;
-import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart'
-    as _i15;
-import 'package:avecpaulette/features/credentials/data/models/api/login_request.dart'
-    as _i11;
-import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart'
-    as _i10;
-import 'package:avecpaulette/features/credentials/data/models/api/oauth_request.dart'
-    as _i13;
-import 'package:avecpaulette/features/credentials/data/models/api/oauth_response.dart'
-    as _i12;
-import 'package:avecpaulette/features/credentials/data/models/api/refresh_token_response.dart'
-    as _i14;
-import 'package:avecpaulette/features/credentials/data/models/api/signup_request.dart'
-    as _i9;
-import 'package:avecpaulette/features/credentials/data/models/api/signup_response.dart'
     as _i8;
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_request.dart'
+    as _i17;
+import 'package:avecpaulette/features/credentials/data/models/api/forget_password_response.dart'
+    as _i16;
+import 'package:avecpaulette/features/credentials/data/models/api/login_request.dart'
+    as _i12;
+import 'package:avecpaulette/features/credentials/data/models/api/login_response.dart'
+    as _i11;
+import 'package:avecpaulette/features/credentials/data/models/api/oauth_request.dart'
+    as _i14;
+import 'package:avecpaulette/features/credentials/data/models/api/oauth_response.dart'
+    as _i13;
+import 'package:avecpaulette/features/credentials/data/models/api/refresh_token_response.dart'
+    as _i15;
+import 'package:avecpaulette/features/credentials/data/models/api/signup_request.dart'
+    as _i10;
+import 'package:avecpaulette/features/credentials/data/models/api/signup_response.dart'
+    as _i9;
+import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart'
+    as _i20;
+import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart'
+    as _i21;
 import 'package:dio/dio.dart' as _i3;
 import 'package:google_sign_in/google_sign_in.dart' as _i2;
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart'
-    as _i5;
-import 'package:location/location.dart' as _i17;
+    as _i6;
+import 'package:http/http.dart' as _i5;
+import 'package:location/location.dart' as _i18;
 import 'package:location_platform_interface/location_platform_interface.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
@@ -77,6 +82,16 @@ class _FakeLocationData_2 extends _i1.SmartFake implements _i4.LocationData {
         );
 }
 
+class _FakeClient_3 extends _i1.SmartFake implements _i5.Client {
+  _FakeClient_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [GoogleSignIn].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -86,10 +101,10 @@ class MockGoogleSignIn extends _i1.Mock implements _i2.GoogleSignIn {
   }
 
   @override
-  _i5.SignInOption get signInOption => (super.noSuchMethod(
+  _i6.SignInOption get signInOption => (super.noSuchMethod(
         Invocation.getter(#signInOption),
-        returnValue: _i5.SignInOption.standard,
-      ) as _i5.SignInOption);
+        returnValue: _i6.SignInOption.standard,
+      ) as _i6.SignInOption);
   @override
   List<String> get scopes => (super.noSuchMethod(
         Invocation.getter(#scopes),
@@ -101,13 +116,13 @@ class MockGoogleSignIn extends _i1.Mock implements _i2.GoogleSignIn {
         returnValue: false,
       ) as bool);
   @override
-  _i6.Stream<_i2.GoogleSignInAccount?> get onCurrentUserChanged =>
+  _i7.Stream<_i2.GoogleSignInAccount?> get onCurrentUserChanged =>
       (super.noSuchMethod(
         Invocation.getter(#onCurrentUserChanged),
-        returnValue: _i6.Stream<_i2.GoogleSignInAccount?>.empty(),
-      ) as _i6.Stream<_i2.GoogleSignInAccount?>);
+        returnValue: _i7.Stream<_i2.GoogleSignInAccount?>.empty(),
+      ) as _i7.Stream<_i2.GoogleSignInAccount?>);
   @override
-  _i6.Future<_i2.GoogleSignInAccount?> signInSilently({
+  _i7.Future<_i2.GoogleSignInAccount?> signInSilently({
     bool? suppressErrors = true,
     bool? reAuthenticate = false,
   }) =>
@@ -120,48 +135,48 @@ class MockGoogleSignIn extends _i1.Mock implements _i2.GoogleSignIn {
             #reAuthenticate: reAuthenticate,
           },
         ),
-        returnValue: _i6.Future<_i2.GoogleSignInAccount?>.value(),
-      ) as _i6.Future<_i2.GoogleSignInAccount?>);
+        returnValue: _i7.Future<_i2.GoogleSignInAccount?>.value(),
+      ) as _i7.Future<_i2.GoogleSignInAccount?>);
   @override
-  _i6.Future<bool> isSignedIn() => (super.noSuchMethod(
+  _i7.Future<bool> isSignedIn() => (super.noSuchMethod(
         Invocation.method(
           #isSignedIn,
           [],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
   @override
-  _i6.Future<_i2.GoogleSignInAccount?> signIn() => (super.noSuchMethod(
+  _i7.Future<_i2.GoogleSignInAccount?> signIn() => (super.noSuchMethod(
         Invocation.method(
           #signIn,
           [],
         ),
-        returnValue: _i6.Future<_i2.GoogleSignInAccount?>.value(),
-      ) as _i6.Future<_i2.GoogleSignInAccount?>);
+        returnValue: _i7.Future<_i2.GoogleSignInAccount?>.value(),
+      ) as _i7.Future<_i2.GoogleSignInAccount?>);
   @override
-  _i6.Future<_i2.GoogleSignInAccount?> signOut() => (super.noSuchMethod(
+  _i7.Future<_i2.GoogleSignInAccount?> signOut() => (super.noSuchMethod(
         Invocation.method(
           #signOut,
           [],
         ),
-        returnValue: _i6.Future<_i2.GoogleSignInAccount?>.value(),
-      ) as _i6.Future<_i2.GoogleSignInAccount?>);
+        returnValue: _i7.Future<_i2.GoogleSignInAccount?>.value(),
+      ) as _i7.Future<_i2.GoogleSignInAccount?>);
   @override
-  _i6.Future<_i2.GoogleSignInAccount?> disconnect() => (super.noSuchMethod(
+  _i7.Future<_i2.GoogleSignInAccount?> disconnect() => (super.noSuchMethod(
         Invocation.method(
           #disconnect,
           [],
         ),
-        returnValue: _i6.Future<_i2.GoogleSignInAccount?>.value(),
-      ) as _i6.Future<_i2.GoogleSignInAccount?>);
+        returnValue: _i7.Future<_i2.GoogleSignInAccount?>.value(),
+      ) as _i7.Future<_i2.GoogleSignInAccount?>);
   @override
-  _i6.Future<bool> requestScopes(List<String>? scopes) => (super.noSuchMethod(
+  _i7.Future<bool> requestScopes(List<String>? scopes) => (super.noSuchMethod(
         Invocation.method(
           #requestScopes,
           [scopes],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
 }
 
 /// A class which mocks [GoogleSignInAccount].
@@ -185,29 +200,29 @@ class MockGoogleSignInAccount extends _i1.Mock
         returnValue: '',
       ) as String);
   @override
-  _i6.Future<_i2.GoogleSignInAuthentication> get authentication =>
+  _i7.Future<_i2.GoogleSignInAuthentication> get authentication =>
       (super.noSuchMethod(
         Invocation.getter(#authentication),
-        returnValue: _i6.Future<_i2.GoogleSignInAuthentication>.value(
+        returnValue: _i7.Future<_i2.GoogleSignInAuthentication>.value(
             _FakeGoogleSignInAuthentication_0(
           this,
           Invocation.getter(#authentication),
         )),
-      ) as _i6.Future<_i2.GoogleSignInAuthentication>);
+      ) as _i7.Future<_i2.GoogleSignInAuthentication>);
   @override
-  _i6.Future<Map<String, String>> get authHeaders => (super.noSuchMethod(
+  _i7.Future<Map<String, String>> get authHeaders => (super.noSuchMethod(
         Invocation.getter(#authHeaders),
-        returnValue: _i6.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i6.Future<Map<String, String>>);
+        returnValue: _i7.Future<Map<String, String>>.value(<String, String>{}),
+      ) as _i7.Future<Map<String, String>>);
   @override
-  _i6.Future<void> clearAuthCache() => (super.noSuchMethod(
+  _i7.Future<void> clearAuthCache() => (super.noSuchMethod(
         Invocation.method(
           #clearAuthCache,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }
 
 /// A class which mocks [GoogleSignInAuthentication].
@@ -224,7 +239,7 @@ class MockGoogleSignInAuthentication extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCredentialsApiService extends _i1.Mock
-    implements _i7.CredentialsApiService {
+    implements _i8.CredentialsApiService {
   MockCredentialsApiService() {
     _i1.throwOnMissingStub(this);
   }
@@ -238,68 +253,68 @@ class MockCredentialsApiService extends _i1.Mock
         ),
       ) as _i3.Dio);
   @override
-  _i6.Stream<_i8.SignupResponse> signup(_i9.SignupRequest? signupRequest) =>
+  _i7.Stream<_i9.SignupResponse> signup(_i10.SignupRequest? signupRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #signup,
           [signupRequest],
         ),
-        returnValue: _i6.Stream<_i8.SignupResponse>.empty(),
-      ) as _i6.Stream<_i8.SignupResponse>);
+        returnValue: _i7.Stream<_i9.SignupResponse>.empty(),
+      ) as _i7.Stream<_i9.SignupResponse>);
   @override
-  _i6.Stream<_i10.LoginResponse> login(_i11.LoginRequest? loginRequest) =>
+  _i7.Stream<_i11.LoginResponse> login(_i12.LoginRequest? loginRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #login,
           [loginRequest],
         ),
-        returnValue: _i6.Stream<_i10.LoginResponse>.empty(),
-      ) as _i6.Stream<_i10.LoginResponse>);
+        returnValue: _i7.Stream<_i11.LoginResponse>.empty(),
+      ) as _i7.Stream<_i11.LoginResponse>);
   @override
-  _i6.Stream<_i12.OAuthResponse> oauth(_i13.OAuthRequest? oAuthRequest) =>
+  _i7.Stream<_i13.OAuthResponse> oauth(_i14.OAuthRequest? oAuthRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #oauth,
           [oAuthRequest],
         ),
-        returnValue: _i6.Stream<_i12.OAuthResponse>.empty(),
-      ) as _i6.Stream<_i12.OAuthResponse>);
+        returnValue: _i7.Stream<_i13.OAuthResponse>.empty(),
+      ) as _i7.Stream<_i13.OAuthResponse>);
   @override
-  _i6.Stream<_i14.RefreshTokenResponse> refreshToken(String? refreshToken) =>
+  _i7.Stream<_i15.RefreshTokenResponse> refreshToken(String? refreshToken) =>
       (super.noSuchMethod(
         Invocation.method(
           #refreshToken,
           [refreshToken],
         ),
-        returnValue: _i6.Stream<_i14.RefreshTokenResponse>.empty(),
-      ) as _i6.Stream<_i14.RefreshTokenResponse>);
+        returnValue: _i7.Stream<_i15.RefreshTokenResponse>.empty(),
+      ) as _i7.Stream<_i15.RefreshTokenResponse>);
   @override
-  _i6.Stream<_i15.ForgetPasswordResponse> forgetPassword(
-          _i16.ForgetPasswordRequest? forgetPasswordRequest) =>
+  _i7.Stream<_i16.ForgetPasswordResponse> forgetPassword(
+          _i17.ForgetPasswordRequest? forgetPasswordRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #forgetPassword,
           [forgetPasswordRequest],
         ),
-        returnValue: _i6.Stream<_i15.ForgetPasswordResponse>.empty(),
-      ) as _i6.Stream<_i15.ForgetPasswordResponse>);
+        returnValue: _i7.Stream<_i16.ForgetPasswordResponse>.empty(),
+      ) as _i7.Stream<_i16.ForgetPasswordResponse>);
 }
 
 /// A class which mocks [Location].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocation extends _i1.Mock implements _i17.Location {
+class MockLocation extends _i1.Mock implements _i18.Location {
   MockLocation() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Stream<_i4.LocationData> get onLocationChanged => (super.noSuchMethod(
+  _i7.Stream<_i4.LocationData> get onLocationChanged => (super.noSuchMethod(
         Invocation.getter(#onLocationChanged),
-        returnValue: _i6.Stream<_i4.LocationData>.empty(),
-      ) as _i6.Stream<_i4.LocationData>);
+        returnValue: _i7.Stream<_i4.LocationData>.empty(),
+      ) as _i7.Stream<_i4.LocationData>);
   @override
-  _i6.Future<bool> changeSettings({
+  _i7.Future<bool> changeSettings({
     _i4.LocationAccuracy? accuracy = _i4.LocationAccuracy.high,
     int? interval = 1000,
     double? distanceFilter = 0.0,
@@ -314,82 +329,82 @@ class MockLocation extends _i1.Mock implements _i17.Location {
             #distanceFilter: distanceFilter,
           },
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
   @override
-  _i6.Future<bool> isBackgroundModeEnabled() => (super.noSuchMethod(
+  _i7.Future<bool> isBackgroundModeEnabled() => (super.noSuchMethod(
         Invocation.method(
           #isBackgroundModeEnabled,
           [],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
   @override
-  _i6.Future<bool> enableBackgroundMode({bool? enable = true}) =>
+  _i7.Future<bool> enableBackgroundMode({bool? enable = true}) =>
       (super.noSuchMethod(
         Invocation.method(
           #enableBackgroundMode,
           [],
           {#enable: enable},
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
   @override
-  _i6.Future<_i4.LocationData> getLocation() => (super.noSuchMethod(
+  _i7.Future<_i4.LocationData> getLocation() => (super.noSuchMethod(
         Invocation.method(
           #getLocation,
           [],
         ),
-        returnValue: _i6.Future<_i4.LocationData>.value(_FakeLocationData_2(
+        returnValue: _i7.Future<_i4.LocationData>.value(_FakeLocationData_2(
           this,
           Invocation.method(
             #getLocation,
             [],
           ),
         )),
-      ) as _i6.Future<_i4.LocationData>);
+      ) as _i7.Future<_i4.LocationData>);
   @override
-  _i6.Future<_i4.PermissionStatus> hasPermission() => (super.noSuchMethod(
+  _i7.Future<_i4.PermissionStatus> hasPermission() => (super.noSuchMethod(
         Invocation.method(
           #hasPermission,
           [],
         ),
-        returnValue: _i6.Future<_i4.PermissionStatus>.value(
+        returnValue: _i7.Future<_i4.PermissionStatus>.value(
             _i4.PermissionStatus.granted),
-      ) as _i6.Future<_i4.PermissionStatus>);
+      ) as _i7.Future<_i4.PermissionStatus>);
   @override
-  _i6.Future<_i4.PermissionStatus> requestPermission() => (super.noSuchMethod(
+  _i7.Future<_i4.PermissionStatus> requestPermission() => (super.noSuchMethod(
         Invocation.method(
           #requestPermission,
           [],
         ),
-        returnValue: _i6.Future<_i4.PermissionStatus>.value(
+        returnValue: _i7.Future<_i4.PermissionStatus>.value(
             _i4.PermissionStatus.granted),
-      ) as _i6.Future<_i4.PermissionStatus>);
+      ) as _i7.Future<_i4.PermissionStatus>);
   @override
-  _i6.Future<bool> serviceEnabled() => (super.noSuchMethod(
+  _i7.Future<bool> serviceEnabled() => (super.noSuchMethod(
         Invocation.method(
           #serviceEnabled,
           [],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
   @override
-  _i6.Future<bool> requestService() => (super.noSuchMethod(
+  _i7.Future<bool> requestService() => (super.noSuchMethod(
         Invocation.method(
           #requestService,
           [],
         ),
-        returnValue: _i6.Future<bool>.value(false),
-      ) as _i6.Future<bool>);
+        returnValue: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
   @override
-  _i6.Future<_i4.AndroidNotificationData?> changeNotificationOptions({
+  _i7.Future<_i4.AndroidNotificationData?> changeNotificationOptions({
     String? channelName,
     String? title,
     String? iconName,
     String? subtitle,
     String? description,
-    _i18.Color? color,
+    _i19.Color? color,
     bool? onTapBringToFront,
   }) =>
       (super.noSuchMethod(
@@ -406,8 +421,8 @@ class MockLocation extends _i1.Mock implements _i17.Location {
             #onTapBringToFront: onTapBringToFront,
           },
         ),
-        returnValue: _i6.Future<_i4.AndroidNotificationData?>.value(),
-      ) as _i6.Future<_i4.AndroidNotificationData?>);
+        returnValue: _i7.Future<_i4.AndroidNotificationData?>.value(),
+      ) as _i7.Future<_i4.AndroidNotificationData?>);
 }
 
 /// A class which mocks [LocationData].
@@ -417,4 +432,81 @@ class MockLocationData extends _i1.Mock implements _i4.LocationData {
   MockLocationData() {
     _i1.throwOnMissingStub(this);
   }
+}
+
+/// A class which mocks [SuggestionService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSuggestionService extends _i1.Mock implements _i20.SuggestionService {
+  MockSuggestionService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Client get client => (super.noSuchMethod(
+        Invocation.getter(#client),
+        returnValue: _FakeClient_3(
+          this,
+          Invocation.getter(#client),
+        ),
+      ) as _i5.Client);
+  @override
+  String get sessionToken => (super.noSuchMethod(
+        Invocation.getter(#sessionToken),
+        returnValue: '',
+      ) as String);
+  @override
+  String get apiKey => (super.noSuchMethod(
+        Invocation.getter(#apiKey),
+        returnValue: '',
+      ) as String);
+  @override
+  _i7.Stream<List<_i21.SuggestionEntity>> getSuggestions(
+    String? country,
+    String? input,
+    String? lang,
+    int? offset,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSuggestions,
+          [
+            country,
+            input,
+            lang,
+            offset,
+          ],
+        ),
+        returnValue: _i7.Stream<List<_i21.SuggestionEntity>>.empty(),
+      ) as _i7.Stream<List<_i21.SuggestionEntity>>);
+  @override
+  _i7.Stream<List<_i21.SuggestionEntity>> findPlace(
+    String? input,
+    String? lang,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #findPlace,
+          [
+            input,
+            lang,
+          ],
+        ),
+        returnValue: _i7.Stream<List<_i21.SuggestionEntity>>.empty(),
+      ) as _i7.Stream<List<_i21.SuggestionEntity>>);
+  @override
+  _i7.Stream<_i21.SuggestionEntity> getPlaceDetails(
+    String? placeId,
+    String? lang,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPlaceDetails,
+          [
+            placeId,
+            lang,
+          ],
+        ),
+        returnValue: _i7.Stream<_i21.SuggestionEntity>.empty(),
+      ) as _i7.Stream<_i21.SuggestionEntity>);
 }

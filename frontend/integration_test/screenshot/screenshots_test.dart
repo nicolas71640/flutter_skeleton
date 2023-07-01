@@ -45,17 +45,17 @@ main() {
 
   /** Only one screenshots by test is possible see : https://github.com/flutter/flutter/issues/92381*/
   testWidgets('Login Screenshot', (WidgetTester tester) async {
-    await TestUtils.startApp(tester);
+    await tester.startApp();
 
     await takeScreenshot(tester, binding, "login");
   });
 
   testWidgets('Signup Screenshot', (WidgetTester tester) async {
-    await TestUtils.startApp(tester);
+    await tester.startApp();
 
     await tester.tap(find.text("Sign up now"));
 
-    await TestUtils.pumpUntilFound(tester, find.text("SignUp"));
+    await tester.pumpUntilFound(find.text("SignUp"));
 
     await takeScreenshot(tester, binding, "signup");
   });
@@ -65,7 +65,7 @@ main() {
   //   await ApiUtils().signupUser().first;
 
   //   // Render the UI of the app
-  //   await TestUtils.startApp(tester, keyToFind: "home_map");
+  //   await tester.startApp(tester, keyToFind: "home_map");
 
   //   expect(find.byType(GoogleMap), findsOneWidget);
 

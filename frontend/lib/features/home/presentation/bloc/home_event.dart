@@ -32,3 +32,5 @@ class PlaceSelected extends HomeEvent {
 
   const PlaceSelected(this.suggestion, this.lang);
 }
+
+class ClearSearch extends HomeEvent {}

@@ -76,7 +76,6 @@ class _MapWidgetState extends State<MapWidget> {
               mapType: MapType.normal,
               markers: markers,
               onMapCreated: (controller) {
-                print("ONMAPCREATED");
                 mapController = controller;
                 if (mounted) {
                   BlocProvider.of<HomeBloc>(context).add(GetCottages());

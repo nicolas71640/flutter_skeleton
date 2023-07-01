@@ -24,10 +24,16 @@ class _FilterWidgetState extends State<FilterWidget> {
   String target = "";
 
   void onFocusChanged(bool isFocused) {
-    setState(() {
-      target = "";
-      _focused = isFocused;
-    });
+    if (isFocused != _focused) {
+      if (isFocused) {
+        onTextChanged(target);
+      }
+
+      setState(() {
+        target = "";
+        _focused = isFocused;
+      });
+    }
   }
 
   @override
@@ -43,66 +49,81 @@ class _FilterWidgetState extends State<FilterWidget> {
             padding: const EdgeInsets.only(top: 40, left: 15, right: 15),
             child: Column(children: [
               SearchField(
-                key: _searchFieldFrom,
-                focused: _focused,
-                onTap: () => onFocusChanged(true),
-                hintText: "Around...",
-                text: target,
-                icon: const Icon(size: 17, Icons.search, color: Colors.grey),
-                onClear: () {
-                  target = "";
-                },
-              ),
-              if (_focused)
-                SearchResult(onResult: (filter) {
-                  setState(() {
-                    target = filter.suggestion.description;
-                    _focused = false;
-                    FocusScope.of(context).unfocus();
-                    widget.onUpdate(filter);
-                  });
-                })
+                  key: _searchFieldFrom,
+                  focused: _focused,
+                  onTap: () => onFocusChanged(true),
+                  hintText: "Around...",
+                  text: target,
+                  onTextChanged: onTextChanged,
+                  onSubmitted: onSubmitted),
+              BlocConsumer<HomeBloc, HomeState>(
+                  listenWhen: (previous, current) => current is PlaceDetails,
+                  listener: (context, state) => widget
+                      .onUpdate(Filter((state as PlaceDetails).suggestion)),
+                  buildWhen: (previous, current) =>
+                      current is SuggestionsUpdate,
+                  builder: (context, state) {
+                    if (state is SuggestionsUpdate && _focused) {
+                      return SearchResult(
+                          suggestions: state.suggestions,
+                          onTap: onPlaceSelected);
+                    } else {
+                      return Container();
+                    }
+                  }),
             ])),
       ),
     );
   }
+
+  void onTextChanged(String text) {
+    if (text.isEmpty) {
+      BlocProvider.of<HomeBloc>(context).add(ClearSearch());
+    } else {
+      BlocProvider.of<HomeBloc>(context).add(GetSuggestions(
+          WidgetsBinding.instance.window.locale.countryCode ?? "fr",
+          text,
+          WidgetsBinding.instance.window.locale.languageCode));
+    }
+  }
+
+  void onSubmitted(String text) {
+    BlocProvider.of<HomeBloc>(context).add(
+        FindPlace(text, WidgetsBinding.instance.window.locale.languageCode));
+  }
+
+  void onPlaceSelected(SuggestionEntity suggestion) {
+    setState(() {
+      FocusScope.of(context).unfocus();
+      target = suggestion.description;
+      _focused = false;
+    });
+
+    BlocProvider.of<HomeBloc>(context).add(PlaceSelected(
+        suggestion, WidgetsBinding.instance.window.locale.languageCode));
+  }
 }
 
-class SearchResult extends StatefulWidget {
-  final void Function(Filter) onResult;
+class SearchResult extends StatelessWidget {
+  final void Function(SuggestionEntity) onTap;
+  final List<SuggestionEntity> suggestions;
+
   const SearchResult({
     Key? key,
-    required this.onResult,
+    required this.onTap,
+    required this.suggestions,
   }) : super(key: key);
 
   @override
-  State<SearchResult> createState() => _SearchResultState();
-}
-
-class _SearchResultState extends State<SearchResult> {
-  @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-      if (state is PlaceDetails) {
-        widget.onResult(Filter(state.suggestion));
-      }
-    }, builder: (context, state) {
-      if (state is SuggestionsUpdate) {
+    return Expanded(child: Builder(builder: (context) {
+      if (suggestions.isNotEmpty) {
         return ListView.builder(
           itemBuilder: (context, index) => ListTile(
-            title: Text(state.suggestions[index].description),
-            onTap: () {
-              if (state.suggestions[index].latLng != null) {
-                widget.onResult(Filter(state.suggestions[index]));
-              } else {
-                BlocProvider.of<HomeBloc>(context).add(GetPlaceDetails(
-                    state.suggestions[index].placeId,
-                    WidgetsBinding.instance.window.locale.languageCode));
-              }
-            },
+            title: Text(suggestions[index].description),
+            onTap: () => onTap(suggestions[index]),
           ),
-          itemCount: state.suggestions.length,
+          itemCount: suggestions.length,
         );
       }
       return const Text("no result");
@@ -113,19 +134,19 @@ class _SearchResultState extends State<SearchResult> {
 class SearchField extends StatefulWidget {
   final String hintText;
   final GestureTapCallback? onTap;
-  final Function() onClear;
+  final Function(String) onTextChanged;
+  final Function(String) onSubmitted;
   final bool focused;
-  final Icon icon;
   final String text;
 
   const SearchField(
       {super.key,
       required this.hintText,
-      this.onTap,
+      required this.onTap,
       required this.focused,
-      required this.icon,
       required this.text,
-      required this.onClear});
+      required this.onTextChanged,
+      required this.onSubmitted});
 
   @override
   State<SearchField> createState() => _SearchFieldState();
@@ -136,30 +157,25 @@ class _SearchFieldState extends State<SearchField> {
       TextEditingController(text: widget.text);
   @override
   Widget build(BuildContext context) {
-    if (widget.text.isNotEmpty) controller.text = widget.text;
+    if (widget.text.isNotEmpty) {
+      controller.text = widget.text;
+    }
     return TextField(
         textInputAction: TextInputAction.search,
-        onSubmitted: (text) {
-          BlocProvider.of<HomeBloc>(context).add(FindPlace(
-              text, WidgetsBinding.instance.window.locale.languageCode));
-        },
+        onSubmitted: widget.onSubmitted,
         onTap: widget.onTap,
         controller: controller,
-        onChanged: (text) {
-          BlocProvider.of<HomeBloc>(context).add(GetSuggestions(
-              WidgetsBinding.instance.window.locale.countryCode ?? "fr",
-              text,
-              WidgetsBinding.instance.window.locale.languageCode));
-        },
+        onChanged: widget.onTextChanged,
         key: const Key("search_field"),
         decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             focusColor: Colors.white,
-            prefixIcon: widget.icon,
+            prefixIcon: const Icon(Icons.search, color: Colors.grey),
             suffixIcon: IconButton(
+              key: const Key("clear_search_button"),
               onPressed: () {
-                widget.onClear();
                 controller.clear();
+                widget.onTextChanged("");
               },
               icon: const Icon(Icons.clear),
             ),

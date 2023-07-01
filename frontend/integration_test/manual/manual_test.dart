@@ -38,7 +38,7 @@ void main() {
       FlutterError.onError =
           FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-      await TestUtils.startApp(tester);
+      await tester.startApp();
 
       await tester.tap(find.text("Login"));
       await tester.pumpAndSettle();
@@ -48,7 +48,7 @@ void main() {
   testWidgets(
     "should send an email to reset password",
     (WidgetTester tester) async {
-      await TestUtils.startApp(tester);
+      await tester.startApp();
 
       await tester.tap(find.text("Sign up now"));
 

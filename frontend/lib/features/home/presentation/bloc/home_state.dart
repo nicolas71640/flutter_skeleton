@@ -62,3 +62,5 @@ class PlaceDetails extends HomeState {
   @override
   List<Object> get props => [suggestion];
 }
+
+class ClearSearchState extends HomeState {}

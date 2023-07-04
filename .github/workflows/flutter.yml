@@ -124,7 +124,7 @@ jobs:
       - run: flutter pub get
 
       # Build apk.
-      - run: flutter build apk --debug -v
+      - run: flutter build apk --debug
 
       # Upload generated apk to the artifacts.
       - uses: actions/upload-artifact@v1
@@ -201,6 +201,8 @@ jobs:
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
 
+      - run: flutter build apk
+
       # Setup Server
       - name: Install Server
         uses: ./.github/actions/install-server-action
@@ -222,14 +224,7 @@ jobs:
           profile: ${{ matrix.device }}
           target: google_apis
           script: | 
-            ./scripts/run_tests.sh integration_test/tests --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"
-      #       ./scripts/run_tests.sh integration_test/screenshot --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://10.0.2.2:3000/api -d "emulator-5554"      
-      # - uses: actions/upload-artifact@v1
-      #   with:
-      #     name: screenshots
-      #     path: frontend/screenshots
-
-      #Upload Artifacts
+            flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
       - uses: actions/upload-artifact@v1
         if: always()
         with:
@@ -269,6 +264,16 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          
+      # Build 
+      - name: "Build Ipa"
+        run: |
+          ls
+          ls ios/
+          flutter build ios --simulator --target=integration_test/tests/credentials_test.dart || true 
+          ls ios/
+          cat ios/Podfile 
+        working-directory: ./frontend
 
       # Setup Server
       - name: Install Server
@@ -283,9 +288,8 @@ jobs:
 
       # Launch tests
       - name: "Run Flutter Driver tests"
+        run: flutter test integration_test/tests --dart-define=BASE_URL=http://localhost:3000/api --dart-define=FIREBASE_ENABLED=false
         working-directory: ./frontend
-        run: |
-          ./scripts/run_tests.sh integration_test/tests --dart-define=FIREBASE_ENABLED=false --dart-define=BASE_URL=http://localhost:3000/api 
 
       #Upload Artifacts
       - uses: actions/upload-artifact@v1

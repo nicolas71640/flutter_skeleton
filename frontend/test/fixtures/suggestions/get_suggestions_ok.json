@@ -1,0 +1,197 @@
+{
+  "predictions": [
+    {
+      "description": "Paris, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
+      "reference": "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
+      "structured_formatting": {
+        "main_text": "Paris",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Paris"
+        },
+        {
+          "offset": 7,
+          "value": "France"
+        }
+      ],
+      "types": ["locality", "political", "geocode"]
+    },
+    {
+      "description": "A\u00e9roport de Paris-Charles de Gaulle (CDG), Roissy-en-France, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 12
+        }
+      ],
+      "place_id": "ChIJW89MjgM-5kcRLKZbL5jgKwQ",
+      "reference": "ChIJW89MjgM-5kcRLKZbL5jgKwQ",
+      "structured_formatting": {
+        "main_text": "A\u00e9roport de Paris-Charles de Gaulle (CDG)",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 12
+          }
+        ],
+        "secondary_text": "Roissy-en-France, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "A\u00e9roport de Paris-Charles de Gaulle (CDG)"
+        },
+        {
+          "offset": 43,
+          "value": "Roissy-en-France"
+        },
+        {
+          "offset": 61,
+          "value": "France"
+        }
+      ],
+      "types": ["airport", "point_of_interest", "establishment"]
+    },
+    {
+      "description": "Parc Ast\u00e9rix, Plailly, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJu0FPRK5x5kcRQvu8cZ0oz5U",
+      "reference": "ChIJu0FPRK5x5kcRQvu8cZ0oz5U",
+      "structured_formatting": {
+        "main_text": "Parc Ast\u00e9rix",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Plailly, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Parc Ast\u00e9rix"
+        },
+        {
+          "offset": 14,
+          "value": "Plailly"
+        },
+        {
+          "offset": 23,
+          "value": "France"
+        }
+      ],
+      "types": [
+        "amusement_park",
+        "tourist_attraction",
+        "store",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Paris La D\u00e9fense Arena, Jardin de l'Arche, Nanterre, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJjZJ4Mvlk5kcRMDY957S2Scc",
+      "reference": "ChIJjZJ4Mvlk5kcRMDY957S2Scc",
+      "structured_formatting": {
+        "main_text": "Paris La D\u00e9fense Arena",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Jardin de l'Arche, Nanterre, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Paris La D\u00e9fense Arena"
+        },
+        {
+          "offset": 24,
+          "value": "Jardin de l'Arche"
+        },
+        {
+          "offset": 43,
+          "value": "Nanterre"
+        },
+        {
+          "offset": 53,
+          "value": "France"
+        }
+      ],
+      "types": ["stadium", "point_of_interest", "establishment"]
+    },
+    {
+      "description": "Paris Beauvais Airport, Route de l'A\u00e9roport, Till\u00e9, France",
+      "matched_substrings": [
+        {
+          "length": 3,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJLTyNDYxv5kcRbtc9TZBbD_o",
+      "reference": "ChIJLTyNDYxv5kcRbtc9TZBbD_o",
+      "structured_formatting": {
+        "main_text": "Paris Beauvais Airport",
+        "main_text_matched_substrings": [
+          {
+            "length": 3,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Route de l'A\u00e9roport, Till\u00e9, France"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Paris Beauvais Airport"
+        },
+        {
+          "offset": 24,
+          "value": "Route de l'A\u00e9roport"
+        },
+        {
+          "offset": 45,
+          "value": "Till\u00e9"
+        },
+        {
+          "offset": 52,
+          "value": "France"
+        }
+      ],
+      "types": ["airport", "point_of_interest", "establishment"]
+    }
+  ],
+  "status": "OK"
+}

@@ -113,8 +113,9 @@ void initFeatures() {
       () => NumberTriviaLocalDataSourceImpl(sl()),
       dependsOn: [SharedPreferences]);
 
+  sl.registerLazySingleton<Dio>(instanceName: "Dio", () => Api.createDio());
   sl.registerLazySingleton<Dio>(
-      instanceName: "Dio", () => Api.createDio(sl(), sl()));
+      instanceName: "InternalDio", () => Api.createInternalDio(sl(), sl()));
   sl.registerLazySingleton<Dio>(
       instanceName: "CredentialsDio", () => Api.createCredentialsDio());
 
@@ -123,16 +124,16 @@ void initFeatures() {
   sl.registerLazySingleton<CredentialsApiService>(
       () => CredentialsApiService(sl(instanceName: "CredentialsDio")));
   sl.registerLazySingleton<StuffApiService>(
-      () => StuffApiService(sl(instanceName: "Dio")));
+      () => StuffApiService(sl(instanceName: "InternalDio")));
   sl.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn(
         scopes: ['email'],
       ));
   sl.registerLazySingleton<CottageApiService>(
-      () => CottageApiService(sl(instanceName: "Dio")));
+      () => CottageApiService(sl(instanceName: "InternalDio")));
   sl.registerLazySingleton<LocationService>(() => LocationService(sl()));
   sl.registerLazySingleton<Location>(() => Location());
   sl.registerLazySingleton<SuggestionService>(
-      () => SuggestionService(const Uuid().v4()));
+      () => SuggestionService(sl(instanceName: "Dio"), const Uuid().v4()));
 }
 
 void initCore() {

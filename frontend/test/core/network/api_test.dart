@@ -223,7 +223,7 @@ void main() {
     test(
         "should create a dio with the corect URL and the correct interceptors (Log and App)",
         () async {
-      var dio = Api.createDio(
+      var dio = Api.createInternalDio(
           mockCredentialsLocalDataSource, mockCredentialsApiService);
       expect(dio.options.baseUrl, NetworkUtils.BASE_URL);
       expect(dio.interceptors[0], const TypeMatcher<AppInterceptors>());

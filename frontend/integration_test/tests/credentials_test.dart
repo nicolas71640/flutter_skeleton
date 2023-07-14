@@ -5,7 +5,6 @@ import 'package:avecpaulette/features/credentials/presentation/bloc/forgotten_pa
 import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart';
 import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart';
-import 'package:avecpaulette/features/home/presentation/widgets/filter_widget.dart';
 import 'package:avecpaulette/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,7 +18,6 @@ import '../robots/app_robot.dart';
 import '../robots/login_robot.dart';
 import '../robots/signup_robot.dart';
 import '../utils/api_utils.dart';
-import '../utils/test_utils.dart';
 import 'credentials_test.mocks.dart';
 import 'package:location/location.dart';
 import '../robots/home_robot.dart';
@@ -275,7 +273,7 @@ void main() {
         const SuggestionEntity("placeId", "London", londonLocation)
       ]);
 
-      when(mockSuggestionService.getSuggestions(any, any, any, any))
+      when(mockSuggestionService.getSuggestions(any))
           .thenAnswer((_) => Stream.value(suggestions));
 
       await homeRobot.focusToSearchTextView();
@@ -297,11 +295,6 @@ void main() {
       await homeRobot.clearSearch();
       await homeRobot.checkTextSearched("");
       await homeRobot.checkSuggestionsList([]);
-
-      //await tester.wait(const Duration(seconds: 50));
-      //while (true) {
-      //  await tester.pumpAndSettle();
-      //}
     },
   );
 }

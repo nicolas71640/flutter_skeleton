@@ -1,38 +1,37 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart';
-
 import '../../domain/entities/suggestion_entity.dart';
+import '../models/api/suggestion_request.dart';
+import '../models/api/suggestion_response.dart';
 
 class SuggestionService {
-  final client = Client();
+  final Dio dio;
   final String sessionToken;
 
-  SuggestionService(this.sessionToken);
+  SuggestionService(this.dio, this.sessionToken);
 
   static const String androidKey = 'AIzaSyC_vDjUyeO6YbjqxRJKRK2w4syomcbJwfs';
   static const String iosKey = 'YOUR_API_KEY_HERE';
   final apiKey = Platform.isAndroid ? androidKey : iosKey;
 
-  Stream<List<SuggestionEntity>> getSuggestions(
-      String country, String input, String lang, int offset) {
-    final request =
-        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&language=$lang&components=country:$country&key=$androidKey&sessiontoken=$sessionToken';
-    return Stream.fromFuture(client.get(Uri.parse(request))).map((response) {
-      final result = json.decode(response.body);
-      if (result['status'] == 'OK') {
-        print(result);
-        return result['predictions']
-            .map<SuggestionEntity>(
-                (p) => SuggestionEntity(p['place_id'], p['description'], null))
+  Stream<List<SuggestionEntity>> getSuggestions(SuggestionRequest request) {
+    final requestUrl =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${request.input}&language=${request.lang}&components=country:${request.country}&key=$androidKey&sessiontoken=$sessionToken';
+    return Stream.fromFuture(dio.get(requestUrl)).map((response) {
+      final suggestionResponse = SuggestionResponse.fromJson(response.data);
+
+      if (suggestionResponse.status == 'OK') {
+        return suggestionResponse.predictions
+            .map((p) => SuggestionEntity(p.place_id, p.description, null))
             .toList();
       }
-      if (result['status'] == 'ZERO_RESULTS') {
+
+      if (suggestionResponse.status == 'ZERO_RESULTS') {
         return [];
       }
-      print("ERROR"); //TODO to handle
+
       return [];
     });
   }
@@ -40,10 +39,10 @@ class SuggestionService {
   Stream<List<SuggestionEntity>> findPlace(String input, String lang) {
     final request =
         'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&language=$lang&key=$androidKey';
-    return Stream.fromFuture(client.get(Uri.parse(request))).map((response) {
+    return Stream.fromFuture(dio.get(request)).map((response) {
       print("FIND A PLACE ");
       print(response);
-      final result = json.decode(response.body);
+      final result = json.decode(response.data);
       if (result['status'] == 'OK') {
         print(result);
         return result['results']
@@ -65,8 +64,8 @@ class SuggestionService {
   Stream<SuggestionEntity> getPlaceDetails(String placeId, String lang) {
     final request =
         'https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&language=$lang&key=$androidKey';
-    return Stream.fromFuture(client.get(Uri.parse(request))).map((response) {
-      final result = json.decode(response.body);
+    return Stream.fromFuture(dio.get(request)).map((response) {
+      final result = json.decode(response.data);
       print(result);
       if (result['status'] == 'OK') {
         print(result['result']['geometry']['location']);
@@ -77,7 +76,7 @@ class SuggestionService {
             result['result']['formatted_address'],
             LatLng(result['result']['geometry']["location"]["lat"] as double,
                 result['result']['geometry']["location"]["lng"] as double));
-                print(test);
+        print(test);
         return test;
       }
       throw Error();

@@ -21,11 +21,11 @@ class StuffPage extends StatelessWidget {
   BlocProvider<StuffBloc> buildBody(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<StuffBloc>(),
-      child: Center(
+      child: const Center(
         child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: Column(
-              children: const [GetStuffControls()],
+              children: [GetStuffControls()],
             )),
       ),
     );

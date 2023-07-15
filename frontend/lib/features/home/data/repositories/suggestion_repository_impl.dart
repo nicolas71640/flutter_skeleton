@@ -1,7 +1,9 @@
 import 'package:avecpaulette/core/error/failures.dart';
 import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart';
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart';
 import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart';
 import '../../domain/repositories/suggestion_repository.dart';
+import '../models/api/find_place_request.dart';
 import '../models/api/suggestion_request.dart';
 
 class WrongIds extends ServerFailure {}
@@ -19,11 +21,11 @@ class SuggestionRepositoryImpl implements SuggestionRepository {
 
   @override
   Stream<List<SuggestionEntity>> findPlace(String input, String lang) {
-    return suggestionService.findPlace(input, lang);
+    return suggestionService.findPlace(FindPlaceRequest(input, lang));
   }
 
   @override
   Stream<SuggestionEntity> getPlaceDetails(String placeId, String lang) {
-    return suggestionService.getPlaceDetails(placeId, lang);
+    return suggestionService.getPlaceDetails(GetPlaceDetailsRequest(placeId, lang));
   }
 }

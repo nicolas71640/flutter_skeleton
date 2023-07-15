@@ -1,8 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../domain/entities/suggestion_entity.dart';
+import '../models/api/find_place_request.dart';
+import '../models/api/find_place_response.dart';
+import '../models/api/get_place_details_response.dart';
 import '../models/api/suggestion_request.dart';
 import '../models/api/suggestion_response.dart';
 
@@ -36,46 +39,39 @@ class SuggestionService {
     });
   }
 
-  Stream<List<SuggestionEntity>> findPlace(String input, String lang) {
-    final request =
-        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$input&language=$lang&key=$androidKey';
-    return Stream.fromFuture(dio.get(request)).map((response) {
-      print("FIND A PLACE ");
-      print(response);
-      final result = json.decode(response.data);
-      if (result['status'] == 'OK') {
-        print(result);
-        return result['results']
+  Stream<List<SuggestionEntity>> findPlace(FindPlaceRequest request) {
+    final requestUrl =
+        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=${request.input}&language=${request.lang}&key=$androidKey';
+    return Stream.fromFuture(dio.get(requestUrl)).map((response) {
+      final findPlaceResponse = FindPlaceResponse.fromJson(response.data);
+      if (findPlaceResponse.status == 'OK') {
+        return findPlaceResponse.results
             .map<SuggestionEntity>((p) => SuggestionEntity(
-                p['place_id'],
-                p['formatted_address'],
-                LatLng(p['geometry']['location']['lat'] as double,
-                    p['geometry']['location']['lng'] as double)))
+                p.place_id,
+                p.formatted_address,
+                LatLng(p.geometry.location.lat, p.geometry.location.lng)))
             .toList();
       }
-      if (result['status'] == 'ZERO_RESULTS') {
+      if (findPlaceResponse.status == 'ZERO_RESULTS') {
         return [];
       }
-      print("ERROR"); //TODO to handle
+
       return [];
     });
   }
 
-  Stream<SuggestionEntity> getPlaceDetails(String placeId, String lang) {
-    final request =
-        'https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&language=$lang&key=$androidKey';
-    return Stream.fromFuture(dio.get(request)).map((response) {
-      final result = json.decode(response.data);
-      print(result);
-      if (result['status'] == 'OK') {
-        print(result['result']['geometry']['location']);
-
-        //TODO clean up !!
+  Stream<SuggestionEntity> getPlaceDetails(GetPlaceDetailsRequest request) {
+    final requestUrl =
+        'https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.placeId}&language=${request.lang}&key=$androidKey';
+    return Stream.fromFuture(dio.get(requestUrl)).map((response) {
+      final getPlaceDetailsResponse =
+          GetPlaceDetailsResponse.fromJson(response.data);
+      if (getPlaceDetailsResponse.status == 'OK') {
         var test = SuggestionEntity(
-            placeId,
-            result['result']['formatted_address'],
-            LatLng(result['result']['geometry']["location"]["lat"] as double,
-                result['result']['geometry']["location"]["lng"] as double));
+            request.placeId,
+            getPlaceDetailsResponse.result.formatted_address,
+            LatLng(getPlaceDetailsResponse.result.geometry.location.lat,
+                getPlaceDetailsResponse.result.geometry.location.lng));
         print(test);
         return test;
       }

@@ -28,6 +28,10 @@ import 'package:avecpaulette/features/credentials/data/models/api/signup_respons
     as _i8;
 import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart'
     as _i19;
+import 'package:avecpaulette/features/home/data/models/api/find_place_request.dart'
+    as _i22;
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart'
+    as _i23;
 import 'package:avecpaulette/features/home/data/models/api/suggestion_request.dart'
     as _i21;
 import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart'
@@ -463,31 +467,21 @@ class MockSuggestionService extends _i1.Mock implements _i19.SuggestionService {
       ) as _i6.Stream<List<_i20.SuggestionEntity>>);
   @override
   _i6.Stream<List<_i20.SuggestionEntity>> findPlace(
-    String? input,
-    String? lang,
-  ) =>
+          _i22.FindPlaceRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #findPlace,
-          [
-            input,
-            lang,
-          ],
+          [request],
         ),
         returnValue: _i6.Stream<List<_i20.SuggestionEntity>>.empty(),
       ) as _i6.Stream<List<_i20.SuggestionEntity>>);
   @override
   _i6.Stream<_i20.SuggestionEntity> getPlaceDetails(
-    String? placeId,
-    String? lang,
-  ) =>
+          _i23.GetPlaceDetailsRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPlaceDetails,
-          [
-            placeId,
-            lang,
-          ],
+          [request],
         ),
         returnValue: _i6.Stream<_i20.SuggestionEntity>.empty(),
       ) as _i6.Stream<_i20.SuggestionEntity>);

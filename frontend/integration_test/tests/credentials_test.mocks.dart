@@ -28,14 +28,18 @@ import 'package:avecpaulette/features/credentials/data/models/api/signup_respons
     as _i8;
 import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart'
     as _i19;
-import 'package:avecpaulette/features/home/data/models/api/find_place_request.dart'
+import 'package:avecpaulette/features/home/data/models/api/find_place_item_response.dart'
     as _i22;
-import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart'
+import 'package:avecpaulette/features/home/data/models/api/find_place_request.dart'
     as _i23;
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart'
+    as _i25;
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_response.dart'
+    as _i24;
+import 'package:avecpaulette/features/home/data/models/api/suggestion_item_response.dart'
+    as _i20;
 import 'package:avecpaulette/features/home/data/models/api/suggestion_request.dart'
     as _i21;
-import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart'
-    as _i20;
 import 'package:dio/dio.dart' as _i3;
 import 'package:google_sign_in/google_sign_in.dart' as _i2;
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart'
@@ -456,33 +460,33 @@ class MockSuggestionService extends _i1.Mock implements _i19.SuggestionService {
         returnValue: '',
       ) as String);
   @override
-  _i6.Stream<List<_i20.SuggestionEntity>> getSuggestions(
+  _i6.Stream<List<_i20.SuggestionItemResponse>> getSuggestions(
           _i21.SuggestionRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #getSuggestions,
           [request],
         ),
-        returnValue: _i6.Stream<List<_i20.SuggestionEntity>>.empty(),
-      ) as _i6.Stream<List<_i20.SuggestionEntity>>);
+        returnValue: _i6.Stream<List<_i20.SuggestionItemResponse>>.empty(),
+      ) as _i6.Stream<List<_i20.SuggestionItemResponse>>);
   @override
-  _i6.Stream<List<_i20.SuggestionEntity>> findPlace(
-          _i22.FindPlaceRequest? request) =>
+  _i6.Stream<List<_i22.FindPlaceItemResponse>> findPlace(
+          _i23.FindPlaceRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #findPlace,
           [request],
         ),
-        returnValue: _i6.Stream<List<_i20.SuggestionEntity>>.empty(),
-      ) as _i6.Stream<List<_i20.SuggestionEntity>>);
+        returnValue: _i6.Stream<List<_i22.FindPlaceItemResponse>>.empty(),
+      ) as _i6.Stream<List<_i22.FindPlaceItemResponse>>);
   @override
-  _i6.Stream<_i20.SuggestionEntity> getPlaceDetails(
-          _i23.GetPlaceDetailsRequest? request) =>
+  _i6.Stream<_i24.GetPlaceDetailsResult> getPlaceDetails(
+          _i25.GetPlaceDetailsRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPlaceDetails,
           [request],
         ),
-        returnValue: _i6.Stream<_i20.SuggestionEntity>.empty(),
-      ) as _i6.Stream<_i20.SuggestionEntity>);
+        returnValue: _i6.Stream<_i24.GetPlaceDetailsResult>.empty(),
+      ) as _i6.Stream<_i24.GetPlaceDetailsResult>);
 }

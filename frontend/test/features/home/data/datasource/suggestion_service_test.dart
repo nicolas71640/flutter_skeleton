@@ -1,4 +1,3 @@
-import 'package:avecpaulette/core/error/exceptions.dart';
 import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart';
 import 'package:avecpaulette/features/home/data/models/api/find_place_request.dart';
 import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart';
@@ -7,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:uuid/uuid.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import 'cottage_api_service_test.mocks.dart';
 
@@ -39,7 +37,7 @@ void main() {
       for (int i = 0; i < expectedSuggestions.length; i++) {
         expect(getSuggestionsResponse[i].description,
             expectedSuggestions[i]["description"]);
-        expect(getSuggestionsResponse[i].placeId,
+        expect(getSuggestionsResponse[i].place_id,
             expectedSuggestions[i]["place_id"]);
       }
     });
@@ -104,10 +102,10 @@ void main() {
 
       final expectedSuggestions = (jsonResponse["results"] as List);
       for (int i = 0; i < expectedSuggestions.length; i++) {
-        expect(findPlaceResponse[i].description,
+        expect(findPlaceResponse[i].formatted_address,
             expectedSuggestions[i]["formatted_address"]);
         expect(
-            findPlaceResponse[i].placeId, expectedSuggestions[i]["place_id"]);
+            findPlaceResponse[i].place_id, expectedSuggestions[i]["place_id"]);
       }
     });
 
@@ -161,16 +159,33 @@ void main() {
           statusCode: 200,
           data: jsonResponse));
 
-      final response = await suggestionService
-          .getPlaceDetails(GetPlaceDetailsRequest("ChIJD7fiBh9u5kcRYJSMaMOCCwQ", "fr"))
+      final result = await suggestionService
+          .getPlaceDetails(
+              GetPlaceDetailsRequest("ChIJD7fiBh9u5kcRYJSMaMOCCwQ", "fr"))
           .first;
 
-      expect(response.placeId, jsonResponse["result"]["place_id"]);
-      expect(response.description, jsonResponse["result"]["formatted_address"]);
-      expect(response.latLng!.latitude,
+      expect(result.place_id, jsonResponse["result"]["place_id"]);
+      expect(result.formatted_address,
+          jsonResponse["result"]["formatted_address"]);
+      expect(result.geometry.location.lat,
           jsonResponse["result"]["geometry"]["location"]["lat"]);
-      expect(response.latLng!.longitude,
+      expect(result.geometry.location.lng,
           jsonResponse["result"]["geometry"]["location"]["lng"]);
+    });
+    test("should throw an exception if cannot find the place", () async {
+      suggestionService = SuggestionService(Dio(), "ss");
+      final jsonResponse =
+          fixtureJson("suggestions/get_place_details_no_result.json");
+
+      when(mockDio.get(any)).thenAnswer((realInvocation) async => Response(
+          requestOptions: RequestOptions(path: ""),
+          statusCode: 200,
+          data: jsonResponse));
+
+      expect(
+          suggestionService
+              .getPlaceDetails(GetPlaceDetailsRequest("WRONG PLACE ID", "fr")),
+          emitsError(const TypeMatcher<CannotGetPlaceDetails>()));
     });
   });
 }

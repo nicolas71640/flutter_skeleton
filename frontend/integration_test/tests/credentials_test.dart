@@ -4,6 +4,7 @@ import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/forgotten_password_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
 import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart';
+import 'package:avecpaulette/features/home/data/models/api/suggestion_item_response.dart';
 import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart';
 import 'package:avecpaulette/injection_container.dart';
 import 'package:flutter/material.dart';
@@ -268,24 +269,28 @@ void main() {
 
       const LatLng newYorkLocation = LatLng(40.712784, -74.005941);
       const LatLng londonLocation = LatLng(51.509865, -0.118092);
-      List<SuggestionEntity> suggestions = List.from([
+      List<SuggestionItemResponse> suggestions = List.from([
         const SuggestionEntity("placeId", "New York", newYorkLocation),
         const SuggestionEntity("placeId", "London", londonLocation)
       ]);
+
+      List<SuggestionEntity> suggestionEntities = suggestions
+          .map((p) => SuggestionEntity(p.place_id, p.description, null))
+          .toList();
 
       when(mockSuggestionService.getSuggestions(any))
           .thenAnswer((_) => Stream.value(suggestions));
 
       await homeRobot.focusToSearchTextView();
       await homeRobot.enterTextToSearch("P");
-      await homeRobot.checkSuggestionsList(suggestions);
+      await homeRobot.checkSuggestionsList(suggestionEntities);
       await tester.tap(find.text("New York"));
       await tester.pumpAndSettle();
       await homeRobot.checkTextSearched("New York");
       await homeRobot.checkCurrentMapTarget(newYorkLocation);
 
       await homeRobot.focusToSearchTextView();
-      await homeRobot.checkSuggestionsList(suggestions);
+      await homeRobot.checkSuggestionsList(suggestionEntities);
       await tester.tap(find.text("London"));
       await tester.pumpAndSettle();
       await homeRobot.checkTextSearched("London");

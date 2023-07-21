@@ -1,0 +1,11 @@
+{
+  "name": "Flutter",
+  "image": "nicolas71640/docked_flutter:latest",
+  "mounts": ["type=bind,source=/dev/bus/usb,target=/dev/bus/usb"],
+  "runArgs": ["--privileged"],
+  "containerEnv": {
+      "FLUTTER_WORKSPACE_DIRECTORY": "/workspaces/flutter_skeleton"
+  },
+  "postStartCommand": "echo source '/workspaces/flutter_skeleton/tools/env.env' >> ~/.bashrc",
+  "extensions": ["dart-code.dart-code", "dart-code.flutter"]
+}

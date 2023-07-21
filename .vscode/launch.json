@@ -8,7 +8,7 @@
             "name": "Frontend: Launch App",
             "type": "dart",
             "request": "launch",
-            "program": "lib/main.dart",
+            "program": "frontend/lib/main.dart",
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
@@ -19,7 +19,7 @@
             "name": "Frontend: Run Unit Tests",
             "type": "dart",
             "request": "launch",
-            "program": "./test/",
+            "program": "./frontend/test/",
             "args": [
                 "-v",
                 "--coverage",
@@ -31,7 +31,7 @@
             "name": "Frontend: Run Integration Tests",
             "type": "dart",
             "request": "launch",
-            "program": "./integration_test/tests",
+            "program": "./frontend/integration_test/tests",
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
@@ -42,7 +42,7 @@
             "name": "Run",
             "type": "dart",
             "request": "launch",
-            "program": "./integration_test/",
+            "program": "./frontend/integration_test/",
             "codeLens": {
                 "path": "integration_test/",
                 "for": [
@@ -60,7 +60,7 @@
             "name": "Debug",
             "type": "dart",
             "request": "launch",
-            "program": "./integration_test/",
+            "program": "./frontend/integration_test/",
             "codeLens": {
                 "for": [
                     "debug-test",
@@ -78,9 +78,9 @@
             "name": "Run",
             "type": "dart",
             "request": "launch",
-            "program": "test",
+            "program": "./frontend/test",
             "codeLens": {
-                "path": "test/",
+                "path": "/frontend/test/",
                 "for": [
                     "run-test",
                     "run-test-file"

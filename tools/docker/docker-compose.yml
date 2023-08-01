@@ -1,0 +1,24 @@
+version: '3'
+services:
+  node:
+    image: custom_node 
+    restart: always
+    ports:
+      - 80:3000
+    volumes:
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backend2
+    environment:
+      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=/root/backend2
+      - FLUTTER_WORKSPACE_DIRECTORY=/root
+      - CREDENTIALS_FOLDER=/root/credentials
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/myapp
+
+    volumes:
+      - mongodb:/data/db
+volumes:
+ mongodb:

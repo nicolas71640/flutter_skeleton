@@ -26,8 +26,9 @@ class Server {
     this.app.use('/api/cottage',CottageRoutes);
 
     this.app.use(apiErrorHandler);
-    
-    mongoose.connect('mongodb://localhost:27017/myapp',
+   
+    mongoose.set('strictQuery', false);
+    mongoose.connect('mongodb://mongo:27017/myapp',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true

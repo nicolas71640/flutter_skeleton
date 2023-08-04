@@ -12,7 +12,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://192.168.1.20:3000/api"
             ]
         },
         {
@@ -24,7 +24,7 @@
                 "-v",
                 "--coverage",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://192.168.1.20:3000/api"
             ]
         },
         {
@@ -35,7 +35,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://192.168.1.20:3000/api"
             ]
         },
         {
@@ -53,7 +53,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://192.168.1.20:3000/api"
             ]
         },
         {
@@ -70,7 +70,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://192.168.1.20:3000/api"
             ]
         },
 

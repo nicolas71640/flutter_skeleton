@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "133956385153-foniq2v586hk016ld1ms49r8kls1krca.apps.googleusercontent.com",
+          "client_id": "133956385153-hi4nbpp1rc31icbbhrg5b9mgjk490mlr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.avecpaulette",
-            "certificate_hash": "a2bcba5a41677a4b01ec9ec027751535ad22a2c1"
+            "certificate_hash": "4ea9d6ec8b99af90e817301c83d84e27b66c5995"
+          }
+        },
+        {
+          "client_id": "133956385153-ighhhcuao5mk6iu9irt1i87p684m4nm1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avecpaulette",
+            "certificate_hash": "e7a6e6e6a26ed2777fc5ce5d8654d8d69b099de0"
           }
         },
         {

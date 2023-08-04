@@ -4,11 +4,11 @@ services:
     image: custom_node 
     restart: always
     ports:
-      - 80:3000
+      - 3000:3000
     volumes:
-      - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backend2
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backendWorkspace
     environment:
-      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=/root/backend2
+      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=/root/backendWorkspace
       - FLUTTER_WORKSPACE_DIRECTORY=/root
       - CREDENTIALS_FOLDER=/root/credentials
   mongo:

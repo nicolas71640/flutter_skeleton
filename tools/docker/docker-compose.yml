@@ -15,10 +15,14 @@ services:
     image: mongo
     ports:
       - 27017:27017
-    environment:
-      - MONGO_URL=mongodb://mongo:27017/myapp
-
     volumes:
       - mongodb:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/frontend/assets:/docker-entrypoint-initdb.d/assets
+
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/myapp
+      - INITIAL_JSON=/root/assets/cottages.json
+
 volumes:
  mongodb:

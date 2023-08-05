@@ -1,4 +1,4 @@
-[
+myData = [
     {
         "title": "MyFirstCottage",
         "description": "This is my first cottage",

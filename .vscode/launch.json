@@ -35,7 +35,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.20:3000/api"
+                "--dart-define=BASE_URL=http://192.168.146.117:3000/api"
             ]
         },
         {

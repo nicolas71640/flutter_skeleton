@@ -1,9 +1,8 @@
 FROM node
 
-#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
+RUN apt update
+RUN apt install -y sudo
 RUN npm install nodemon -g
-
 
 WORKDIR /root 
 COPY tools/env.env .
@@ -13,11 +12,7 @@ ENV  FLUTTER_WORKSPACE_DIRECTORY=/root
 COPY backend backend 
 COPY credentials credentials 
 
-
 WORKDIR /root/backend
 RUN npm install
-
-RUN apt update
-RUN apt install -y sudo
 
 CMD ["/bin/bash", "-c", "DEV=1 nodemon -w $FLUTTER_BACKEND_WORKSPACE_DIRECTORY $FLUTTER_BACKEND_WORKSPACE_DIRECTORY/app/index.js"]

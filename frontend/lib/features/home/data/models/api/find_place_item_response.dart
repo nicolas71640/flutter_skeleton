@@ -16,7 +16,7 @@ class Location {
 }
 
 @JsonSerializable(createToJson: false)
-class Geometry{
+class Geometry {
   final Location location;
 
   Geometry(this.location);
@@ -35,5 +35,4 @@ class FindPlaceItemResponse {
 
   factory FindPlaceItemResponse.fromJson(Map<String, dynamic> json) =>
       _$FindPlaceItemResponseFromJson(json);
-
 }

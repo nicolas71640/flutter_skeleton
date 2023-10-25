@@ -13,5 +13,4 @@ class FindPlaceResponse {
 
   factory FindPlaceResponse.fromJson(Map<String, dynamic> json) =>
       _$FindPlaceResponseFromJson(json);
-
 }

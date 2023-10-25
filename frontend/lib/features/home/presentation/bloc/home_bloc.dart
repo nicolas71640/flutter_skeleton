@@ -60,22 +60,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
     on<PlaceSelected>((event, emit) async {
-      await emit.forEach<SuggestionEntity>(
-          _onPlaceSelected(event),
+      await emit.forEach<SuggestionEntity>(_onPlaceSelected(event),
           onData: (suggestion) => PlaceDetails(suggestion: suggestion),
           onError: (_, __) =>
               const CottagesUpdateError(message: COULD_NOT_GET_SUGGESTIONS));
     });
 
-    on<ClearSearch>((event, emit) => emit(const SuggestionsUpdate(suggestions: [])));
+    on<ClearSearch>(
+        (event, emit) => emit(const SuggestionsUpdate(suggestions: [])));
   }
 
-
-  Stream<SuggestionEntity> _onPlaceSelected(PlaceSelected event)
-  {
-    if(event.suggestion.latLng == null)
-    {
-      return suggestionUseCase.getPlaceDetails(event.suggestion.placeId, event.lang);
+  Stream<SuggestionEntity> _onPlaceSelected(PlaceSelected event) {
+    if (event.suggestion.latLng == null) {
+      return suggestionUseCase.getPlaceDetails(
+          event.suggestion.placeId, event.lang);
     }
     return Stream<SuggestionEntity>.value(event.suggestion);
   }

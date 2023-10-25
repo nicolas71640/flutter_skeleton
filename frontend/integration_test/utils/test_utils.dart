@@ -44,7 +44,7 @@ extension TesterHelper on WidgetTester {
     }
   }
 
-  Future<void> pumpUntilNotFound(Finder finder) async{
+  Future<void> pumpUntilNotFound(Finder finder) async {
     await pumpUntilMatch(() => Future.value(finder.evaluate()),
         (elements) => (elements as Iterable<Element>).isEmpty);
   }

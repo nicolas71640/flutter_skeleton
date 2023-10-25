@@ -56,7 +56,8 @@ class SuggestionService {
     });
   }
 
-  Stream<GetPlaceDetailsResult> getPlaceDetails(GetPlaceDetailsRequest request) {
+  Stream<GetPlaceDetailsResult> getPlaceDetails(
+      GetPlaceDetailsRequest request) {
     final requestUrl =
         'https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.placeId}&language=${request.lang}&key=$androidKey';
     return Stream.fromFuture(dio.get(requestUrl)).map((response) {

@@ -137,10 +137,8 @@ void main() {
       when(mockSuggestionService.findPlace(any))
           .thenAnswer((_) => Stream.error(error));
 
-      expect(suggestionRepositoryImpl.findPlace("", ""),
-          emitsError(error));
+      expect(suggestionRepositoryImpl.findPlace("", ""), emitsError(error));
     });
-
   });
   group("getPlaceDetails", () {
     test("should return a SuggestionEntity when no error is thrown", () async {
@@ -181,7 +179,7 @@ void main() {
       expect(suggestionRepositoryImpl.getPlaceDetails("Par", "fr"),
           emitsError(const TypeMatcher<ServerFailure>()));
     });
-    
+
     test(
         "should throw the same error when another error than a dio error is thrown ",
         () async {
@@ -190,8 +188,8 @@ void main() {
       when(mockSuggestionService.getPlaceDetails(any))
           .thenAnswer((_) => Stream.error(error));
 
-      expect(suggestionRepositoryImpl.getPlaceDetails("", ""), emitsError(error));
+      expect(
+          suggestionRepositoryImpl.getPlaceDetails("", ""), emitsError(error));
     });
-
   });
 }

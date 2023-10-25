@@ -5,13 +5,14 @@ import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
 class Api {
-
   static Dio createDio() {
     Dio dio = Dio();
     dio.interceptors.add(LogInterceptor());
     return dio;
   }
-  static Dio createInternalDio(CredentialsLocalDataSource credentialsLocalDataSource,
+
+  static Dio createInternalDio(
+      CredentialsLocalDataSource credentialsLocalDataSource,
       CredentialsApiService credentialsApiService) {
     Dio dio = Dio(BaseOptions(baseUrl: NetworkUtils.BASE_URL));
     dio.interceptors.addAll({

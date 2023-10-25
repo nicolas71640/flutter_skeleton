@@ -13,5 +13,4 @@ class SuggestionItemResponse {
 
   factory SuggestionItemResponse.fromJson(Map<String, dynamic> json) =>
       _$SuggestionItemResponseFromJson(json);
-
 }

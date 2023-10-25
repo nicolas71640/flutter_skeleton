@@ -9,8 +9,6 @@ class SuggestionRequest {
   final String lang;
 
   SuggestionRequest(this.country, this.input, this.lang);
-  
-
 
   Map<String, dynamic> toJson() => _$SuggestionRequestToJson(this);
 }

@@ -8,27 +8,26 @@ on:
 jobs:
   backend-unit-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
+    container:
+      image: nicolas71640/docked_flutter
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install Server
-        uses: ./.github/actions/install-server-action
+      - name: Install
+        run: cd backend && npm install
+      - name: Start mongo
+        run: mkdir -p /data/db && mongod --fork --logpath /var/log/mongodb/mongod.log
       - name: Run Tests
         env:
           CI: true
           MONGO_URL: "mongodb://localhost:27017/myapp"
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
-        run: npx nyc --reporter=lcov npm run test
-
-
+        run: cd backend && npx nyc --reporter=lcov npm run test
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./backend/coverage/lcov.info
+          file: backend/coverage/lcov.info
           flags: backend
 
   frontend-setup:

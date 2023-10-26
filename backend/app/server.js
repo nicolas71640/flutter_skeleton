@@ -1,3 +1,4 @@
+const config = require('./config');
 const express = require('express');
 const apiErrorHandler = require('./error/api-error-handler');
 const mongoose = require('mongoose');
@@ -28,7 +29,7 @@ class Server {
     this.app.use(apiErrorHandler);
    
     mongoose.set('strictQuery', false);
-    mongoose.connect('mongodb://mongo:27017/myapp',
+    mongoose.connect(config.mongo.url,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true

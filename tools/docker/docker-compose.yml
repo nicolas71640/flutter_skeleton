@@ -11,6 +11,7 @@ services:
       - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=/root/backendWorkspace
       - FLUTTER_WORKSPACE_DIRECTORY=/root
       - CREDENTIALS_FOLDER=/root/credentials
+      - MONGO_URL=mongodb://mongo:27017/myapp
   mongo:
     image: mongo
     ports:

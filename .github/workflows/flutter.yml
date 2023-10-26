@@ -16,13 +16,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Server
         uses: ./.github/actions/install-server-action
-      - name: Install mocha and chai
-        run: npm install -g mocha chai
-      - name: Install Dependencies
-        run: npm install
       - name: Run Tests
         env:
           CI: true
+          MONGO_URL: "mongodb://localhost:27017/myapp"
           CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
         run: npx nyc --reporter=lcov npm run test
 

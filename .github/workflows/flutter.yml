@@ -32,9 +32,8 @@ jobs:
 
   frontend-setup:
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: ./frontend
+    container:
+      image: nicolas71640/docked_flutter
     strategy:
       matrix:
         os: [macos-latest]

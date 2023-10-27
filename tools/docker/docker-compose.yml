@@ -3,19 +3,20 @@ services:
   node:
     image: nicolas71640/node_server 
     restart: always
+    networks:
+      - serverAndDb
     ports:
       - 3000:3000
     volumes:
       - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backendWorkspace
     environment:
-      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=/root/backendWorkspace
-      - FLUTTER_WORKSPACE_DIRECTORY=/root
+      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=${BACKEND_SOURCE}
       - CREDENTIALS_FOLDER=/root/credentials
       - MONGO_URL=mongodb://mongo:27017/myapp
   mongo:
     image: mongo
-    ports:
-      - 27017:27017
+    networks:
+      - serverAndDb
     volumes:
       - mongodb:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
@@ -27,3 +28,7 @@ services:
 
 volumes:
  mongodb:
+
+networks:
+  serverAndDb:
+    driver: bridge

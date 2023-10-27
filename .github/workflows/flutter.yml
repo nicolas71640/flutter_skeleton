@@ -95,7 +95,6 @@ jobs:
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
           cache-path: $(dirname $PUB_CACHE)
-        
 
       # Cache gradle
       - name: Gradle cache
@@ -143,10 +142,57 @@ jobs:
           file: ./frontend/coverage/lcov.info
           flags: frontend
 
+  test:
+    name: test docker 
+    runs-on: macos-latest #Need to be macos for hardware acceleration
+    strategy:
+      matrix:
+        device:
+          - "pixel"
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:      
+      - uses: actions/checkout@v1
+      - name: Setup Docker on macOS
+        uses: ./.github/actions/setup-docker-action
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - run: docker-compose --env-file ../tools/docker/compose_prod.env -f ../tools/docker/docker-compose.yml up  
+        env:
+          FLUTTER_WORKSPACE_DIRECTORY: /workspaces/flutter_skeleton
+      - run: docker ps
+      - run: colima list
+      #- run: curl http://127.0.0.1:3000
+      # Cache Flutter Environment
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          
+      - run: flutter build apk
+
+      # Launch Tests and screenshots
+      - name: run tests
+        timeout-minutes: 30
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          working-directory: ./frontend
+          api-level: 29
+          profile: ${{ matrix.device }}
+          target: google_apis
+          script: |
+            flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
+
 #  frontend-android-integration-test:
 #    needs: frontend-build
 #    name: run integration test on Android emulator
-#    runs-on: macos-latest
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v1
+#
+#    container:
+#      image: nicolas71640/docked_flutter
 #    defaults:
 #      run:
 #        working-directory: ./frontend
@@ -161,15 +207,12 @@ jobs:
 #          java-version: "12.x"
 #
 #      # Cache Flutter Environment
-#      - name: Cache Flutter
-#        id: cache-flutter
-#        uses: actions/cache@v3
-#        with:
-#          path: /Users/runner/hostedtoolcache/flutter
-#          key: cache-flutter
 #      - uses: subosito/flutter-action@v2
 #        with:
 #          channel: "stable"
+#          cache: true
+#          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+#          cache-path: $(dirname $PUB_CACHE)
 #
 #      # Cache gradle
 #      - name: Gradle cache

@@ -2,6 +2,6 @@
 
 db = connect( 'mongodb://localhost/myapp' );
 
-load('/docker-entrypoint-initdb.d/assets/cottages.js');
+//load('/docker-entrypoint-initdb.d/assets/cottages.js');
 
-db.cottages.insertMany(myData);
+//db.cottages.insertMany(myData);

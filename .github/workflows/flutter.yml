@@ -142,8 +142,8 @@ jobs:
           file: ./frontend/coverage/lcov.info
           flags: frontend
 
-  test:
-    name: test docker 
+  android-integration-tests:
+    name: Android Integration Tests
     runs-on: macos-latest #Need to be macos for hardware acceleration
     strategy:
       matrix:
@@ -154,23 +154,27 @@ jobs:
         working-directory: ./frontend
     steps:      
       - uses: actions/checkout@v1
-      - name: Setup Docker on macOS
-        uses: ./.github/actions/setup-docker-action
+
+
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
-      - run: docker-compose --env-file ../tools/docker/compose_prod.env -f ../tools/docker/docker-compose.yml up  
+
+      - name: Setup Docker on macOS
+        uses: ./.github/actions/setup-docker-action
+        with:
+          network: true
+
+      - run: docker-compose --env-file ../tools/docker/compose_prod.env -f ../tools/docker/docker-compose.yml up --detach
         env:
           FLUTTER_WORKSPACE_DIRECTORY: /workspaces/flutter_skeleton
-      - run: docker ps
-      - run: colima list
-      #- run: curl http://127.0.0.1:3000
-      # Cache Flutter Environment
+          CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
+
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
-          
-      - run: flutter build apk
+ 
+      - run: flutter build apk # Need this to decrease test duration (12 minutes timeout issue)
 
       # Launch Tests and screenshots
       - name: run tests
@@ -184,69 +188,28 @@ jobs:
           script: |
             flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
 
-#  frontend-android-integration-test:
-#    needs: frontend-build
-#    name: run integration test on Android emulator
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v1
-#
-#    container:
-#      image: nicolas71640/docked_flutter
-#    defaults:
-#      run:
-#        working-directory: ./frontend
-#    strategy:
-#      matrix:
-#        device:
-#          - "pixel"
-#    steps:
-#      - uses: actions/checkout@v1
-#      - uses: actions/setup-java@v1
-#        with:
-#          java-version: "12.x"
-#
-#      # Cache Flutter Environment
-#      - uses: subosito/flutter-action@v2
-#        with:
-#          channel: "stable"
-#          cache: true
-#          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
-#          cache-path: $(dirname $PUB_CACHE)
-#
-#      # Cache gradle
-#      - name: Gradle cache
-#        uses: gradle/gradle-build-action@v2
-#
-#      - run: flutter build apk
-#
-#      # Setup Server
-#      - name: Install Server
-#        uses: ./.github/actions/install-server-action
-#      - name: Start Server
-#        working-directory: ./backend
-#        env:
-#          CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
-#        run: |
-#          mongoimport --jsonArray --db myapp --collection cottages --file ../frontend/assets/cottages.json
-#          ((DEV=1 node ./app/index.js) &> backend.log) &
-#
-#      # Launch Tests and screenshots
-#      - name: run tests
-#        timeout-minutes: 30
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          working-directory: ./frontend
-#          api-level: 29
-#          profile: ${{ matrix.device }}
-#          target: google_apis
-#          script: |
-#            flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
-#      - uses: actions/upload-artifact@v1
-#        if: always()
-#        with:
-#          name: backend_${{ github.job }}.log
-#          path: backend/backend.log
+      - name: Create backend logs
+        if: always()
+        run: | 
+          ls
+          docker logs -t mongo > mongo.log
+          docker logs -t server > server.log
+          ls
+          pwd
+
+      #Upload Artifacts
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: mongo_${{ github.job }}.log
+          path: ./frontend/mongo.log
+          
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: server_${{ github.job }}.log
+          path: ./frontend/server.log
+
 
 #  frontend-ios-integration-test:
 #    needs: frontend-setup

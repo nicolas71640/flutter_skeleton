@@ -1,0 +1,21 @@
+name: Upload Backend Logs
+description: Upload backend logs to github
+runs:
+  using: "composite"
+  
+  steps:     
+    - name: Create backend logs
+      shell: bash
+      run: | 
+        docker logs -t mongo > mongo.log
+        docker logs -t server > server.log
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: mongo_${{ github.job }}.log
+        path: ./mongo.log
+        
+    - uses: actions/upload-artifact@v1
+      with:
+        name: server_${{ github.job }}.log
+        path: ./server.log

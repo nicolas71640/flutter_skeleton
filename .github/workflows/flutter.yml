@@ -152,7 +152,7 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
-    steps:      
+    steps:
       - uses: actions/checkout@v1
 
       - uses: actions/setup-java@v1
@@ -170,7 +170,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
- 
+
       - run: flutter build apk # Need this to decrease test duration (12 minutes timeout issue)
 
       # Launch Tests and screenshots
@@ -185,25 +185,9 @@ jobs:
           script: |
             flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
 
-      - name: Create backend logs
+      - name: Upload Backend Logs
+        uses: ./.github/actions/upload-backend-logs-action
         if: always()
-        run: | 
-          docker logs -t mongo > mongo.log
-          docker logs -t server > server.log
-
-      #Upload Artifacts
-      - uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: mongo_${{ github.job }}.log
-          path: ./frontend/mongo.log
-          
-      - uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: server_${{ github.job }}.log
-          path: ./frontend/server.log
-
 
 #  frontend-ios-integration-test:
 #    needs: frontend-setup

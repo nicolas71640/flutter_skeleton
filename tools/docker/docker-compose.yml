@@ -4,6 +4,8 @@ services:
     image: nicolas71640/node_server 
     container_name: server 
     restart: always
+    depends_on:  
+      - mongo
     networks:
       - serverAndDb
     ports:

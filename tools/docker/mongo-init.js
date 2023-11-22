@@ -1,7 +1,7 @@
 #!/usr/bin/mongo --quiet
-
-db = connect( 'mongodb://localhost/myapp' );
+const mongoUrl = process.env.MONGO_URL;
+db = connect(mongoUrl);
 
 load('/docker-entrypoint-initdb.d/assets/cottages.js');
-
+//
 db.cottages.insertMany(myData);

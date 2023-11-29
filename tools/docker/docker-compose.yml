@@ -21,12 +21,15 @@ services:
     container_name: mongo
     networks:
       - serverAndDb
+    ports:
+      - 27017:27017
     volumes:
       - mongodb:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/tools/docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ${FLUTTER_WORKSPACE_DIRECTORY}/frontend/assets:/docker-entrypoint-initdb.d/assets
 
     environment:
+      - MONGO_INITDB_DATABASE=myapp
       - MONGO_URL=mongodb://mongo:27017/myapp
       - INITIAL_JSON=/root/assets/cottages.json
 

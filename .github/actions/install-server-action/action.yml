@@ -7,6 +7,6 @@ runs:
     - run: docker-compose --env-file ./tools/docker/compose_prod.env -f ./tools/docker/docker-compose.yml up 
       shell: bash
       env:
-        FLUTTER_WORKSPACE_DIRECTORY: /workspaces/flutter_skeleton
+        FLUTTER_WORKSPACE_DIRECTORY: ${{ github.workspace }}
         CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
     

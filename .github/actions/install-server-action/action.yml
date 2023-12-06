@@ -4,7 +4,7 @@ runs:
   using: "composite"
   
   steps:      
-    - run: docker-compose --env-file ./tools/docker/compose_prod.env -f ./tools/docker/docker-compose.yml up --detach
+    - run: docker-compose --env-file ./tools/docker/compose_prod.env -f ./tools/docker/docker-compose.yml up 
       shell: bash
       env:
         FLUTTER_WORKSPACE_DIRECTORY: /workspaces/flutter_skeleton

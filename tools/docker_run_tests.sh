@@ -19,6 +19,8 @@ startEmulator() {
     fi;
 }
 
+set -e
+
 source $FLUTTER_WORKSPACE_DIRECTORY/tools/env.env
 
 startEmulator

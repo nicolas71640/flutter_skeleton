@@ -25,7 +25,7 @@ services:
       - 27017:27017
     volumes:
       - mongodb:/data/db
-      - ${FLUTTER_WORKSPACE_DIRECTORY}/tools/docker/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init2.js:ro
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/tools/docker/mongo-init2.js:/docker-entrypoint-initdb.d/mongo-init2.js:ro
       - ${FLUTTER_WORKSPACE_DIRECTORY}/frontend/assets:/docker-entrypoint-initdb.d/assets
 
     environment:

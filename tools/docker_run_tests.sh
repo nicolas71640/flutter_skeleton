@@ -6,10 +6,10 @@ startEmulator() {
 
         adb start-server; \
         echo -ne "n\n" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n first_avd -k "system-images;android-29;google_apis;x86"
-        bash -c 'echo "hw.lcd.density=213" >> $ANDROID_HOME/.android/avd/first_avd.avd/config.ini'
-        bash -c 'echo "hw.lcd.height=1280" >> $ANDROID_HOME/.android/avd/first_avd.avd/config.ini'
-        bash -c 'echo "hw.lcd.width=800" >> $ANDROID_HOME/.android/avd/first_avd.avd/config.ini'
-        bash -c 'echo "hw.mainKeys=no" >> $ANDROID_HOME/.android/avd/first_avd.avd/config.ini'
+        bash -c 'echo "hw.lcd.density=213" >> $HOME/.android/avd/first_avd.avd/config.ini'
+        bash -c 'echo "hw.lcd.height=1280" >> $HOME/.android/avd/first_avd.avd/config.ini'
+        bash -c 'echo "hw.lcd.width=800" >> $HOME/.android/avd/first_avd.avd/config.ini'
+        bash -c 'echo "hw.mainKeys=no" >> $HOME/.android/avd/first_avd.avd/config.ini'
 
         $ANDROID_HOME/emulator/emulator -avd first_avd -gpu off -no-window -no-audio -dns-server 8.8.8.8 -skin 800x1280 &
 

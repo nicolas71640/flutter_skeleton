@@ -15,9 +15,10 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "dart-code.dart-code",
-        "dart-code.flutter"
-      ],
+		"dart-code.dart-code",
+		"dart-code.flutter",
+		"eamodio.gitlens"
+	],
       "settings": {
         "dart.flutterShowEmulators": "always"
       }

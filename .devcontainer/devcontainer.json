@@ -9,17 +9,17 @@
     "--network=docker_serverAndDb"
   ],
   "containerEnv": {
-    "SERVER_BASE_URL": "${localEnv:SERVER_BASE_URL}",
     "FLUTTER_WORKSPACE_DIRECTORY": "/workspaces/flutter_skeleton"
   },
   "postStartCommand": "echo source '/workspaces/flutter_skeleton/tools/env.env' >> ~/.bashrc",
   "customizations": {
     "vscode": {
       "extensions": [
-        "dart-code.dart-code",
-        "dart-code.flutter",
-        "eamodio.gitlens"
-      ],
+		"dart-code.dart-code",
+		"dart-code.flutter",
+		"eamodio.gitlens",
+		"ms-azuretools.vscode-docker"
+	],
       "settings": {
         "dart.flutterShowEmulators": "always"
       }

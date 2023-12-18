@@ -13,7 +13,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=${env:SERVER_BASE_URL}"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
@@ -25,7 +25,7 @@
                 "-v",
                 "--coverage",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=${env:SERVER_BASE_URL}"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
@@ -36,7 +36,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=${env:SERVER_BASE_URL}"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
@@ -54,7 +54,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=${env:SERVER_BASE_URL}"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
@@ -71,7 +71,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=${env:SERVER_BASE_URL}"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
 

@@ -6,9 +6,9 @@ services:
     restart: always
     depends_on:  
       - mongo
-    networks:
-      serverAndDb:
-        ipv4_address: 172.20.0.4 #Need a fixed address to give to the Android emulator (For test only)
+    #networks:
+    #  serverAndDb:
+    #    ipv4_address: 172.20.0.4 #Need a fixed address to give to the Android emulator (For test only)
     ports:
       - 3000:3000
     volumes:

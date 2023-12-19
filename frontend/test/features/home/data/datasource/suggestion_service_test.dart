@@ -161,7 +161,7 @@ void main() {
 
       final result = await suggestionService
           .getPlaceDetails(
-              GetPlaceDetailsRequest("ChIJD7fiBh9u5kcRYJSMaMOCCwQ", "fr"))
+              const GetPlaceDetailsRequest("ChIJD7fiBh9u5kcRYJSMaMOCCwQ", "fr"))
           .first;
 
       expect(result.place_id, jsonResponse["result"]["place_id"]);
@@ -184,7 +184,7 @@ void main() {
 
       expect(
           suggestionService
-              .getPlaceDetails(GetPlaceDetailsRequest("WRONG PLACE ID", "fr")),
+              .getPlaceDetails(const GetPlaceDetailsRequest("WRONG PLACE ID", "fr")),
           emitsError(const TypeMatcher<CannotGetPlaceDetails>()));
     });
   });

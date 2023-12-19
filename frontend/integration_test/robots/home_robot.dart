@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:avecpaulette/core/util/asset_utils.dart';
 import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart';
-import 'package:avecpaulette/features/home/presentation/widgets/filter_widget.dart';
 import 'package:avecpaulette/features/home/presentation/widgets/map_widget.dart';
 import 'package:avecpaulette/features/home/presentation/widgets/tile/info_tile_swiper.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +117,6 @@ class HomeRobot extends Robot {
   Future focusToSearchTextView() async {
     await tester.pumpUntilFound(find.byKey(const Key("search_field")));
     await tester.tap(find.byKey(const Key("search_field")));
-    await tester.pumpUntilFound(find.byType(SearchResult));
   }
 
   Future enterTextToSearch(String searchString) async {

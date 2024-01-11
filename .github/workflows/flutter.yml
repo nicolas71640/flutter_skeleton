@@ -167,6 +167,8 @@ jobs:
       - name: Install Server
         uses: ./.github/actions/install-server-action
 
+      - run: colima list
+
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -205,7 +207,7 @@ jobs:
           path: ./frontend/server.log
 
 
-#  frontend-ios-integration-test:
+#  frontend-ios-integration-testt:
 #    needs: frontend-setup
 #    #Create a construction matrix
 #    strategy:

@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Start MongoDB
-        uses: ankane/setup-mongodb@v1
+        uses: supercharge/mongodb-github-action@1.10.0
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -27,8 +27,6 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Start mongo
-        run: mongod --fork --logpath /var/log/mongodb/mongod.log
       - name: Run Tests
         env:
           CI: true

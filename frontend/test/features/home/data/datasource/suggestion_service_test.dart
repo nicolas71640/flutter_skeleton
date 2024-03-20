@@ -183,8 +183,8 @@ void main() {
           data: jsonResponse));
 
       expect(
-          suggestionService
-              .getPlaceDetails(const GetPlaceDetailsRequest("WRONG PLACE ID", "fr")),
+          suggestionService.getPlaceDetails(
+              const GetPlaceDetailsRequest("WRONG PLACE ID", "fr")),
           emitsError(const TypeMatcher<CannotGetPlaceDetails>()));
     });
   });

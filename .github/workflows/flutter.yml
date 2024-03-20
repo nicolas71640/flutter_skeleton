@@ -8,17 +8,27 @@ on:
 jobs:
   backend-unit-test:
     runs-on: ubuntu-latest
-    container:
-      image: nicolas71640/docked_flutter
     defaults:
       run:
         working-directory: ./backend
     steps:
       - uses: actions/checkout@v4
+
+      - name: Start MongoDB
+        uses: ankane/setup-mongodb@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "npm"
+          cache-dependency-path: './backend/package-lock.json'
+
       - name: Install
         run: npm install
+
       - name: Start mongo
-        run: mkdir -p /data/db && mongod --fork --logpath /var/log/mongodb/mongod.log
+        run: mongod --fork --logpath /var/log/mongodb/mongod.log
       - name: Run Tests
         env:
           CI: true

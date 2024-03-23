@@ -186,14 +186,17 @@ jobs:
       # Launch Tests and screenshots
       - name: run tests
         timeout-minutes: 30
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: Wandalen/wretry.action@master
         with:
-          working-directory: ./frontend
-          api-level: 29
-          profile: ${{ matrix.device }}
-          target: google_apis
-          script: |
-            flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
+          attempt_limit: 3
+          action: reactivecircus/android-emulator-runner@v2
+          with: |
+            working-directory: ./frontend
+            api-level: 29
+            profile: ${{ matrix.device }}
+            target: google_apis
+            script: |
+              flutter test integration_test/tests --verbose --dart-define=BASE_URL=http://10.0.2.2:3000/api --dart-define=FIREBASE_ENABLED=false
 
       - name: Create backend logs
         if: always()

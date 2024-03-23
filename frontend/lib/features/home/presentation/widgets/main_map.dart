@@ -61,13 +61,12 @@ class _MainMapState extends State<MainMap> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      onPopInvoked: (didPop) {
         setState(() {
           simpleMapController.selectMarker("");
           _isTileSwiperVisible = false;
         });
-        return Future.value(true);
       },
       child: Stack(children: [
         Center(

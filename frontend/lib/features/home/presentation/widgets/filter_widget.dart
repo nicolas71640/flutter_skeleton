@@ -38,10 +38,9 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: (() {
+    return PopScope(
+      onPopInvoked: ((didPop) {
         onFocusChanged(false);
-        return Future.value(false);
       }),
       child: Container(
         color: (_focused) ? Colors.white : null,
@@ -81,15 +80,15 @@ class _FilterWidgetState extends State<FilterWidget> {
       BlocProvider.of<HomeBloc>(context).add(ClearSearch());
     } else {
       BlocProvider.of<HomeBloc>(context).add(GetSuggestions(
-          WidgetsBinding.instance.window.locale.countryCode ?? "fr",
+          View.of(context).platformDispatcher.locale.countryCode ?? "fr",
           text,
-          WidgetsBinding.instance.window.locale.languageCode));
+          View.of(context).platformDispatcher.locale.languageCode));
     }
   }
 
   void onSubmitted(String text) {
-    BlocProvider.of<HomeBloc>(context).add(
-        FindPlace(text, WidgetsBinding.instance.window.locale.languageCode));
+    BlocProvider.of<HomeBloc>(context).add(FindPlace(
+        text, View.of(context).platformDispatcher.locale.languageCode));
   }
 
   void onPlaceSelected(SuggestionEntity suggestion) {
@@ -100,7 +99,7 @@ class _FilterWidgetState extends State<FilterWidget> {
     });
 
     BlocProvider.of<HomeBloc>(context).add(PlaceSelected(
-        suggestion, WidgetsBinding.instance.window.locale.languageCode));
+        suggestion, View.of(context).platformDispatcher.locale.languageCode));
   }
 }
 

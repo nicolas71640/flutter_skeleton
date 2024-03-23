@@ -282,8 +282,8 @@ void main() {
           .toList();
 
       for (var suggestion in suggestions) {
-        var request = GetPlaceDetailsRequest(suggestion.placeId,
-            WidgetsBinding.instance.window.locale.languageCode);
+        var request = GetPlaceDetailsRequest(
+            suggestion.placeId, tester.platformDispatcher.locale.languageCode);
         when(mockSuggestionService.getPlaceDetails(argThat(equals(request))))
             .thenAnswer((_) => Stream.value(GetPlaceDetailsResult(
                 suggestion.description,

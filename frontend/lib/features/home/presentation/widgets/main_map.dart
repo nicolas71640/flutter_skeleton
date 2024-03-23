@@ -9,12 +9,12 @@ import 'tile/cottage_info_tile.dart';
 
 class MainMap extends StatefulWidget {
   final Set<Cottage> cottages;
-  final LatLng target;
+  final LatLng initialTarget;
 
   const MainMap({
     Key? key,
     required this.cottages,
-    required this.target,
+    required this.initialTarget,
   }) : super(key: key);
 
   @override
@@ -25,6 +25,7 @@ class _MainMapState extends State<MainMap> {
   TileSwiperController tileSwiperController = TileSwiperController();
   final SimpleMapController simpleMapController = SimpleMapController();
   var _isTileSwiperVisible = false;
+  LatLng? currentTarget;
 
   List<CottageInfoTile> _getMapTiles() {
     return widget.cottages.map((cottage) => CottageInfoTile(cottage)).toList();
@@ -60,13 +61,12 @@ class _MainMapState extends State<MainMap> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      onPopInvoked: (didPop) {
         setState(() {
           simpleMapController.selectMarker("");
           _isTileSwiperVisible = false;
         });
-        return Future.value(true);
       },
       child: Stack(children: [
         Center(
@@ -75,11 +75,20 @@ class _MainMapState extends State<MainMap> {
             child: MapWidget(
                 simpleMapController: simpleMapController,
                 cottages: widget.cottages,
-                target: widget.target,
+                target: currentTarget ?? widget.initialTarget,
                 onCottageSelected: _onCottageTapped),
           ),
         ),
-        const FilterWidget(),
+        FilterWidget(
+          onUpdate: (filter) {
+            var latLng = filter.suggestion.latLng;
+            if (latLng != null) {
+              setState(() {
+                currentTarget = latLng;
+              });
+            }
+          },
+        ),
         Visibility(
           visible: _isTileSwiperVisible,
           child: TileSwiper(

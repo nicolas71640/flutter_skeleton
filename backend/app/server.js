@@ -1,3 +1,4 @@
+const config = require('./config');
 const express = require('express');
 const apiErrorHandler = require('./error/api-error-handler');
 const mongoose = require('mongoose');
@@ -26,8 +27,9 @@ class Server {
     this.app.use('/api/cottage',CottageRoutes);
 
     this.app.use(apiErrorHandler);
-    
-    mongoose.connect('mongodb://localhost:27017/myapp',
+   
+    mongoose.set('strictQuery', false);
+    mongoose.connect(config.mongo.url,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true

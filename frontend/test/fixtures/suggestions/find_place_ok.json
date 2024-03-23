@@ -1,0 +1,666 @@
+{
+  "html_attributions": [],
+  "next_page_token": "Aaw_FcL44LixP9yMytT5PKMCDMbIzE8ZB6_jQsdcYRN2Pr94jXxgf-KqBh6VR42KUqMcErZ9DWLX62aZ8oilioA6RkJ9hhH0Oaz_Jf_wQWyvSwbzX43IDkr9Q0lYR-T57Mwxi6qUNxVWaZBYt1AvhVIoFTgay1a1TigFG1fhn_NWSr3LCtLm4iEWLOFieEy6NjA526NEu0dxIQnLVI5_L3L07UMd4m9pTyMb6kAX2PzgYbzoKGxIIcx6wwoiKVOJSzxFULhYGCPa3cxPC9J-4EB3jdKqRcrWviF0zhGfw0YACMg93TaCBZlsJlOwAk84HsVgs_L6QGL7xL_2i8MLJcMNE5SjRWO_iozjEiQMCGSW981RAOOGBk4tPJaFu_t17g",
+  "results": [
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "10 Rue Père Dieuzaide, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8388765, "lng": -0.5853048 },
+        "viewport": {
+          "northeast": { "lat": 44.84037022989272, "lng": -0.5839818701072776 },
+          "southwest": { "lat": 44.83767057010728, "lng": -0.5866815298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "PAR TOUTOUTIS",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 3264,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/109115520458280785856\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcLuFWWFApWZGH0F7gefoNcH4JrS1OZDNWI1w3Qh_HeIr1m4lBIBxuUM3RMgJT5CELn2DskjOn3ogepUz9T2ytlqw0s8YYoUBHomcTn7M9-F2PomOyotNPSflWi8n19gX35s1tYWdbYHOnViv5QStGGzqao5vxtONZq5VUzWPk8MspUg",
+          "width": 1836
+        }
+      ],
+      "place_id": "ChIJ_-8P_sEnVQ0RpM2Av0QFMgM",
+      "plus_code": {
+        "compound_code": "RCQ7+HV Bordeaux",
+        "global_code": "8CPXRCQ7+HV"
+      },
+      "rating": 0,
+      "reference": "ChIJ_-8P_sEnVQ0RpM2Av0QFMgM",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "Rue du Commandant Charcot, 33140 Villenave-d'Ornon, France",
+      "geometry": {
+        "location": { "lat": 44.7822638, "lng": -0.5722045 },
+        "viewport": {
+          "northeast": { "lat": 44.78359332989272, "lng": -0.5709141701072777 },
+          "southwest": { "lat": 44.78089367010728, "lng": -0.5736138298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color": "#4B96F3",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name": "Par Toutacycle",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 2666,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117088857984428756558\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcII5Gt6VRSjMTilOcb9A7vWA4mK9CSjQbszNkcP1_pdWP9TfefxjMXWEfNhHYQtMK4Uty5nq0zAxU9bWzJDA-MEZ7KlqQzY3YY-cLPYWxKFLgRknBRo5I3qSN-cRT4tDF907ZA1SR98Tk0ThjJR97ola30vCn7rpJNp1jsEyVIWpCP7",
+          "width": 3999
+        }
+      ],
+      "place_id": "ChIJDezIuHInVQ0R_AYOLwItkuE",
+      "plus_code": {
+        "compound_code": "QCJH+W4 Villenave-d'Ornon",
+        "global_code": "8CPXQCJH+W4"
+      },
+      "rating": 4.9,
+      "reference": "ChIJDezIuHInVQ0R_AYOLwItkuE",
+      "types": [
+        "clothing_store",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 16
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "57 Rue du Château d'Eau, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8387723, "lng": -0.5842665 },
+        "viewport": {
+          "northeast": { "lat": 44.84033197989272, "lng": -0.5827088701072778 },
+          "southwest": { "lat": 44.83763232010728, "lng": -0.5854085298927223 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color": "#4B96F3",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name": "Trois Par 3 Chaussures",
+      "opening_hours": { "open_now": false },
+      "place_id": "ChIJwzUryMQnVQ0RKWOwxC5X5UE",
+      "plus_code": {
+        "compound_code": "RCQ8+G7 Bordeaux",
+        "global_code": "8CPXRCQ8+G7"
+      },
+      "rating": 4.1,
+      "reference": "ChIJwzUryMQnVQ0RKWOwxC5X5UE",
+      "types": ["shoe_store", "store", "point_of_interest", "establishment"],
+      "user_ratings_total": 27
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "blanqui, 33270 Floirac, France",
+      "geometry": {
+        "location": { "lat": 44.8417371, "lng": -0.5416434 },
+        "viewport": {
+          "northeast": { "lat": 44.84310262989272, "lng": -0.5403470701072778 },
+          "southwest": { "lat": 44.84040297010728, "lng": -0.5430467298927223 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "L'Instant par Phé",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 2631,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/115338964645465830603\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcJNp83ZyvEGQYjBcav1es3mFqeS0vDpKhm08w6uY82fOy-r0HHAYeZfvCQBzLc2toU896_Njlz6PBjc3LnYvL9qjo6tLyM0KqzHNmVVVzab3TkTo2d5xzGo5F3lep8nL84DXb5ArRAoTny3hYGtzOYnpfXyOReN08UeBQhiueTzgCnU",
+          "width": 3941
+        }
+      ],
+      "place_id": "ChIJKXxXoRkmVQ0Rs2QqQxrG0Hc",
+      "plus_code": {
+        "compound_code": "RFR5+M8 Floirac",
+        "global_code": "8CPXRFR5+M8"
+      },
+      "rating": 5,
+      "reference": "ChIJKXxXoRkmVQ0Rs2QqQxrG0Hc",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 44
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "449Bis Rte de Toulouse, 33140 Villenave-d'Ornon, France",
+      "geometry": {
+        "location": { "lat": 44.7900251, "lng": -0.5669799999999999 },
+        "viewport": {
+          "northeast": { "lat": 44.79139627989272, "lng": -0.5655448701072778 },
+          "southwest": { "lat": 44.78869662010728, "lng": -0.5682445298927223 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "KparK Bordeaux Villenave",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 3120,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/101245579532490620665\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcJO5mu_LdPCrY2-m8gy6fJ0GBdDP-VxxKni-ybPvq5QH61hActQKFXHHRisXJU6zDhah5mpqu0ltbylG8agXXp11jafQJ2anJY1WwhmaHNee4j3t_Ulny4r7ChnvOhlC-U7gCda59zBpUMihyauSIqAxA1bV67o-F3Tly3EFVSy6qG6",
+          "width": 4160
+        }
+      ],
+      "place_id": "ChIJiS-IDiEnVQ0Ra72nuNH5l7c",
+      "plus_code": {
+        "compound_code": "QCRM+25 Villenave-d'Ornon",
+        "global_code": "8CPXQCRM+25"
+      },
+      "rating": 4.4,
+      "reference": "ChIJiS-IDiEnVQ0Ra72nuNH5l7c",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 144
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "37 Rue Thiac, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8437615, "lng": -0.5841052 },
+        "viewport": {
+          "northeast": { "lat": 44.84512077989272, "lng": -0.5827488701072778 },
+          "southwest": { "lat": 44.84242112010728, "lng": -0.5854485298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "Thérapie par le Jeu",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 608,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/116940245306010110548\">Cécile BAHIER - Thérapeute</a>"
+          ],
+          "photo_reference": "Aaw_FcJIiInzb8YPpa3HeDOCkR-At_-9apxIR94Ky5Aiqlb3xMmBRHPWCDL_GxQ3poKw94zf7j1QY8Vz7Qd2o2ZkcB0j8F6GPobHiiMVVCll0-Rbqj3OdU3yyfohfoOLIMSJBmVMr6bpeeVaYmhQMr8AZWvRwqehyxXDQbIhArGikrPUJ0q0",
+          "width": 1088
+        }
+      ],
+      "place_id": "ChIJ_Uud2OYnVQ0RuWDi11cGCh8",
+      "plus_code": {
+        "compound_code": "RCV8+G9 Bordeaux",
+        "global_code": "8CPXRCV8+G9"
+      },
+      "rating": 4.8,
+      "reference": "ChIJ_Uud2OYnVQ0RuWDi11cGCh8",
+      "types": ["health", "point_of_interest", "establishment"],
+      "user_ratings_total": 4
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "64 Cr Gambetta, 33400 Talence, France",
+      "geometry": {
+        "location": { "lat": 44.8190462, "lng": -0.5842860999999999 },
+        "viewport": {
+          "northeast": { "lat": 44.82041942989272, "lng": -0.5829121701072778 },
+          "southwest": { "lat": 44.81771977010728, "lng": -0.5856118298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "La Beauté par Mantcy",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 2160,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/107224380554666174264\">Miguel Serge</a>"
+          ],
+          "photo_reference": "Aaw_FcJ5BdqpD48nbAPUIt6fWl84EbgpjK4fTUSSNpZhjb6pOoRk7gV-E7dIemJapnmIpuzNKh9oiSZBryKwna6GdyV4gA7944q1mnuOB-mqMwLt8oT5PksxpiPXOX2YOsYjunz1CTge0cKJ6_0wTEgPSKc5vcflId0104vFflXxE_v28T5s",
+          "width": 3840
+        }
+      ],
+      "place_id": "ChIJUw-FWpgnVQ0Rj_WkwSQt8UI",
+      "plus_code": {
+        "compound_code": "RC98+J8 Talence",
+        "global_code": "8CPXRC98+J8"
+      },
+      "rating": 4.9,
+      "reference": "ChIJUw-FWpgnVQ0Rj_WkwSQt8UI",
+      "types": ["beauty_salon", "point_of_interest", "establishment"],
+      "user_ratings_total": 42
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "3 Cr Georges Clemenceau, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8420446, "lng": -0.580262 },
+        "viewport": {
+          "northeast": { "lat": 44.84334602989273, "lng": -0.5787691201072778 },
+          "southwest": { "lat": 44.84064637010728, "lng": -0.5814687798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "La Suite, par Connivence",
+      "opening_hours": {},
+      "photos": [
+        {
+          "height": 2136,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/110896175666857346346\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcI34D6O97QrYEESnLNrIIjKIuKVXiEmo-tmW7y-fnuyvds6QbsDrKhGiO3SHFF523wsCQGaieLFh4BgFQ7okeKZqTQpRxacaVxfDTwkEvqUvAf-Q8i98GoLfSwDq8kP8ZbYJBPtJPElpriJn91jd5mSneCEsf6epA76h1r_eQPG8d8W",
+          "width": 3216
+        }
+      ],
+      "place_id": "ChIJn1lj5i0nVQ0Rq638iJehhsc",
+      "plus_code": {
+        "compound_code": "RCR9+RV Bordeaux",
+        "global_code": "8CPXRCR9+RV"
+      },
+      "rating": 4.4,
+      "reference": "ChIJn1lj5i0nVQ0Rq638iJehhsc",
+      "types": ["hair_care", "point_of_interest", "establishment"],
+      "user_ratings_total": 19
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "221 Av. de Thouars, 33400 Talence, France",
+      "geometry": {
+        "location": { "lat": 44.7923183, "lng": -0.592465 },
+        "viewport": {
+          "northeast": { "lat": 44.79369702989272, "lng": -0.5909872201072778 },
+          "southwest": { "lat": 44.79099737010727, "lng": -0.5936868798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "APIS Association de Promotion et Insertion par le Sport",
+      "place_id": "ChIJizPu964nVQ0Rk0VRwJSpJJk",
+      "plus_code": {
+        "compound_code": "QCR5+W2 Talence",
+        "global_code": "8CPXQCR5+W2"
+      },
+      "rating": 0,
+      "reference": "ChIJizPu964nVQ0Rk0VRwJSpJJk",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "62 Rue Bourbon, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8615508, "lng": -0.5584213 },
+        "viewport": {
+          "northeast": { "lat": 44.8627820798927, "lng": -0.5573195201072777 },
+          "southwest": { "lat": 44.86008242010726, "lng": -0.5600191798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/bar-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/bar_pinlet",
+      "name": "Gintonéria par Le Bourbon",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 4032,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/104266372304086058422\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcKcTx8a-CQyOV0qA57Idi8_6kUTSQmfpH8ABtr-Vpe7E5meeEd1TlHOJKUVDXZIvs0oRKOilrIRzu5VZHfySlhDXmUSTwa41hBfRkL2d4ggk3UlZ_rbqC7i6YoOiQg7Uv-uPmoeSghVFJ2V979iMEux0hlJgMlMtQ4A9Zfk8YFoCMgx",
+          "width": 3024
+        }
+      ],
+      "place_id": "ChIJ-yZwZqopVQ0Rtgn6R-Wzkjs",
+      "plus_code": {
+        "compound_code": "VC6R+JJ Bordeaux",
+        "global_code": "8CPXVC6R+JJ"
+      },
+      "rating": 0,
+      "reference": "ChIJ-yZwZqopVQ0Rtgn6R-Wzkjs",
+      "types": ["bar", "point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "24 Rue André Pujol, 33600 Pessac, France",
+      "geometry": {
+        "location": { "lat": 44.80647, "lng": -0.6326847 },
+        "viewport": {
+          "northeast": { "lat": 44.80782287989273, "lng": -0.6312689201072776 },
+          "southwest": { "lat": 44.80512322010728, "lng": -0.6339685798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color": "#4B96F3",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name": "Ding Fring par Le Relais",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 437,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117830386677190645561\">Ding Fring Pessac</a>"
+          ],
+          "photo_reference": "Aaw_FcK2YgfnRAa80FU0SLAzEEBMJe0myn_gIWwLhRV4wBhWH3EwtGjCchsuWGn8BSiWhesyyHx8YW3azxTtCQMdGEGO2zqZ7uYwoTB_nuUi-EhCm9W2MrAMeV0EXK6zwxxomiJUISJFI9D1spGO7zf4MPC5gb4UKIGP5E5maSxAWDGLYwSS",
+          "width": 776
+        }
+      ],
+      "place_id": "ChIJr8eY1vvYVA0R8R6yp5LpgrQ",
+      "plus_code": {
+        "compound_code": "R948+HW Pessac",
+        "global_code": "8CPXR948+HW"
+      },
+      "rating": 4.1,
+      "reference": "ChIJr8eY1vvYVA0R8R6yp5LpgrQ",
+      "types": [
+        "clothing_store",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 189
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "89 Cr Victor Hugo, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8352757, "lng": -0.5704564 },
+        "viewport": {
+          "northeast": { "lat": 44.83661617989272, "lng": -0.5690853201072776 },
+          "southwest": { "lat": 44.83391652010727, "lng": -0.5717849798927221 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color": "#4B96F3",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name": "Ding Fring par Le Relais",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 2448,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117757273946815188318\">Ding Fring Bordeaux</a>"
+          ],
+          "photo_reference": "Aaw_FcIl6DBOvr8HGtG_r6p4VfygeaQkE-hmWhNrzPacVy2uQaDkgcIGFUOi0xSfzp0M-_J39zUYi-kJ0bXCltFugSi5zAjVfFegd7Ig3t6uNIjhgcq09xMfNB4LEDr68LgVyxUo1SK-FoFy27LWknj-ragHzwfbTWqefR_OVEHV_13YyRLq",
+          "width": 3264
+        }
+      ],
+      "place_id": "ChIJLUdp084nVQ0Rv-lH2_N7Cbw",
+      "plus_code": {
+        "compound_code": "RCPH+4R Bordeaux",
+        "global_code": "8CPXRCPH+4R"
+      },
+      "rating": 4.1,
+      "reference": "ChIJLUdp084nVQ0Rv-lH2_N7Cbw",
+      "types": [
+        "clothing_store",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 146
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "46 Av. Dr Nancel Penard, 33600 Pessac, France",
+      "geometry": {
+        "location": { "lat": 44.8095776, "lng": -0.6255518 },
+        "viewport": {
+          "northeast": { "lat": 44.81098357989272, "lng": -0.6242262201072778 },
+          "southwest": { "lat": 44.80828392010728, "lng": -0.6269258798927223 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "Résidence LA PART DES ANGES PAR MÉSOLIA. EDELIS",
+      "opening_hours": { "open_now": true },
+      "place_id": "ChIJEZ9khO3ZVA0ROFTnweJQyyI",
+      "plus_code": {
+        "compound_code": "R95F+RQ Pessac",
+        "global_code": "8CPXR95F+RQ"
+      },
+      "rating": 0,
+      "reference": "ChIJEZ9khO3ZVA0ROFTnweJQyyI",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "69 Chem. Gaston, 33140 Villenave-d'Ornon, France",
+      "geometry": {
+        "location": { "lat": 44.7748315, "lng": -0.5796257 },
+        "viewport": {
+          "northeast": { "lat": 44.77612332989273, "lng": -0.5782457701072777 },
+          "southwest": { "lat": 44.77342367010728, "lng": -0.5809454298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+      "name": "Co.p.i.p.a.s Collectif pour l'Insertion par l'Accompagnement Scolaire",
+      "opening_hours": { "open_now": false },
+      "place_id": "ChIJ-_mIzzQnVQ0Ru015UXbnonY",
+      "plus_code": {
+        "compound_code": "QCFC+W4 Villenave-d'Ornon",
+        "global_code": "8CPXQCFC+W4"
+      },
+      "rating": 0,
+      "reference": "ChIJ-_mIzzQnVQ0Ru015UXbnonY",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "Rue Cressoniere, 33320 Eysines, France",
+      "geometry": {
+        "location": { "lat": 44.89428239999999, "lng": -0.6479311 },
+        "viewport": {
+          "northeast": { "lat": 44.89561277989272, "lng": -0.6465627701072778 },
+          "southwest": { "lat": 44.89291312010728, "lng": -0.6492624298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+      "name": "La Santé par le Cheval",
+      "opening_hours": {},
+      "place_id": "ChIJO3v8VvvWVA0RpasDhygmN7o",
+      "plus_code": {
+        "compound_code": "V9V2+PR Eysines",
+        "global_code": "8CPXV9V2+PR"
+      },
+      "rating": 5,
+      "reference": "ChIJO3v8VvvWVA0RpasDhygmN7o",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 4
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "1 Rue du Prince Noir, 33310 Lormont, France",
+      "geometry": {
+        "location": { "lat": 44.8779485, "lng": -0.5291572999999999 },
+        "viewport": {
+          "northeast": { "lat": 44.87945677989272, "lng": -0.5272824201072778 },
+          "southwest": { "lat": 44.87675712010728, "lng": -0.5299820798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "restaurant Le Prince Noir par vivien durand",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3024,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117607090177654016697\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcL9rkrKewBw4CDgaZZkyugE8N9vMIyhV9F7ZHHdycJgufyItmcc7U-1m5KIWGYciq74xnfCHO8xyynXofJwIVT_vbLQ5jD01GUGlbiK2YJhymp6DdBujZc8511J8zs2gMwTpdwOCC1s2e2LpxwDXZ1MFUy5-QpNhjnTAS4bdGyz7kjy",
+          "width": 3024
+        }
+      ],
+      "place_id": "ChIJTfkoVIpOVEARH8CxwqpWPvA",
+      "plus_code": {
+        "compound_code": "VFHC+58 Lormont",
+        "global_code": "8CPXVFHC+58"
+      },
+      "price_level": 3,
+      "rating": 4.6,
+      "reference": "ChIJTfkoVIpOVEARH8CxwqpWPvA",
+      "types": ["restaurant", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 509
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "13 Rue Saint-Rémi, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8414678, "lng": -0.5713893999999999 },
+        "viewport": {
+          "northeast": { "lat": 44.84310972989272, "lng": -0.5689673500000001 },
+          "southwest": { "lat": 44.84041007010728, "lng": -0.5721967499999998 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "Sacha Bonnefond (la voix du coeur) - Thérapie par la voix parlée et chantée",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 2943,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/106640111157915689374\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcKwLg4ctA6pwBJpfRHWZIYwsSpEvb-z78QFZ8NjVRhZKWv_a-xVTF2OqpxIN3Rg5jwkcrdTveD6HrYWewA1uBgPXbDFNfiKSLASfKXjVOHYBapzG4wQ2hQVtT-_1JBIOQkyiQPJEQ9GAf5Sjim0_nkil4rYlHc26nHrrcLU5IR75RlQ",
+          "width": 2705
+        }
+      ],
+      "place_id": "ChIJE2t6BOsnVQ0RA_7NRbtU0XE",
+      "plus_code": {
+        "compound_code": "RCRH+HC Bordeaux",
+        "global_code": "8CPXRCRH+HC"
+      },
+      "rating": 5,
+      "reference": "ChIJE2t6BOsnVQ0RA_7NRbtU0XE",
+      "types": ["health", "point_of_interest", "establishment"],
+      "user_ratings_total": 5
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "34 Rue Georges Mandel, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8428221, "lng": -0.5883828 },
+        "viewport": {
+          "northeast": { "lat": 44.84418392989272, "lng": -0.5870367701072778 },
+          "southwest": { "lat": 44.84148427010728, "lng": -0.5897364298927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "Machine de nettoyage par ultrasons ULTRATECNO",
+      "place_id": "ChIJJ5GPOOQnVQ0RT6lWnY0qFyE",
+      "plus_code": {
+        "compound_code": "RCV6+4M Bordeaux",
+        "global_code": "8CPXRCV6+4M"
+      },
+      "rating": 0,
+      "reference": "ChIJJ5GPOOQnVQ0RT6lWnY0qFyE",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "Les Bureaux du Lac II, Rue Robert Caumont Immeuble P, 33300 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.874956, "lng": -0.5744549 },
+        "viewport": {
+          "northeast": { "lat": 44.87629962989272, "lng": -0.5731485201072778 },
+          "southwest": { "lat": 44.87359997010728, "lng": -0.5758481798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "Regar Gironde par GPH",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 4480,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/100010497680209055614\">A Google User</a>"
+          ],
+          "photo_reference": "Aaw_FcKzCIjeO39y3T-tq_ozNC49Q6x9FO7r5GyqTzxArGP0igQZsjmAo6WHChUEhTV9rbHQbEbWm0aiZsGoLsWyWiBGzoiYHo9U9p1LTFvwsblLEbXqSMcFQNn26GdVFqSwav0bRZq8m3j5yLt1NDWkDNzzFVEIuJH423dFEE9a_qXR5dF0",
+          "width": 6720
+        }
+      ],
+      "place_id": "ChIJlxTbueopVQ0Rr3xr5LZZNUw",
+      "plus_code": {
+        "compound_code": "VCFG+X6 Bordeaux",
+        "global_code": "8CPXVCFG+X6"
+      },
+      "rating": 0,
+      "reference": "ChIJlxTbueopVQ0Rr3xr5LZZNUw",
+      "types": ["point_of_interest", "establishment"],
+      "user_ratings_total": 0
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "formatted_address": "10 Bis All. de Tourny, 33000 Bordeaux, France",
+      "geometry": {
+        "location": { "lat": 44.8431356, "lng": -0.5754408 },
+        "viewport": {
+          "northeast": { "lat": 44.84449302989272, "lng": -0.5740831201072777 },
+          "southwest": { "lat": 44.84179337010728, "lng": -0.5767827798927222 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "exterrA par Domofrance",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 4000,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/101450955853540930495\">Thomas Dn</a>"
+          ],
+          "photo_reference": "Aaw_FcL2OQGBFPkFcBjRz7vidD7dGG2OnBlcvg5oRtRLHNAfdo0Bgj9HPc0Bo1AVpA1C7WO7GpJI1GtZpbIZUzv5Ui6PG4BGLPugxDZiq4B4IZoMTILGF_yEvR0I6Mn48xW7ObJBK7pKDI7URT3lhIR0BaVerZdnTDI4auwF4pcHOLuSwS8r",
+          "width": 6000
+        }
+      ],
+      "place_id": "ChIJtYous9snVQ0RVI4AbOwwVbg",
+      "plus_code": {
+        "compound_code": "RCVF+6Q Bordeaux",
+        "global_code": "8CPXRCVF+6Q"
+      },
+      "rating": 3.8,
+      "reference": "ChIJtYous9snVQ0RVI4AbOwwVbg",
+      "types": [
+        "point_of_interest",
+        "general_contractor",
+        "real_estate_agency",
+        "establishment"
+      ],
+      "user_ratings_total": 30
+    }
+  ],
+  "status": "OK"
+}

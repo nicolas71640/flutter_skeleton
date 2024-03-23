@@ -3,6 +3,12 @@ import 'package:avecpaulette/features/credentials/data/models/api/oauth_response
 import 'package:avecpaulette/features/credentials/domain/entities/user.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/forgotten_password_bloc.dart';
 import 'package:avecpaulette/features/credentials/presentation/bloc/signup_bloc.dart';
+import 'package:avecpaulette/features/home/data/datasources/suggestion_service.dart';
+import 'package:avecpaulette/features/home/data/models/api/find_place_item_response.dart';
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_request.dart';
+import 'package:avecpaulette/features/home/data/models/api/get_place_details_response.dart';
+import 'package:avecpaulette/features/home/data/models/api/suggestion_item_response.dart';
+import 'package:avecpaulette/features/home/domain/entities/suggestion_entity.dart';
 import 'package:avecpaulette/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +23,7 @@ import '../robots/login_robot.dart';
 import '../robots/signup_robot.dart';
 import '../utils/api_utils.dart';
 import 'credentials_test.mocks.dart';
-import 'package:location/location.dart';
+import 'package:location/location.dart' as location_package;
 import '../robots/home_robot.dart';
 
 @GenerateMocks([
@@ -25,8 +31,9 @@ import '../robots/home_robot.dart';
   GoogleSignInAccount,
   GoogleSignInAuthentication,
   CredentialsApiService,
-  Location,
-  LocationData
+  location_package.Location,
+  location_package.LocationData,
+  SuggestionService,
 ])
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +43,7 @@ void main() {
   late MockGoogleSignInAccount mockGoogleSignInAccount;
   late MockGoogleSignInAuthentication mockGoogleSignInAuthentication;
   late MockLocation mockLocation;
+  late MockSuggestionService mockSuggestionService;
 
   setUp(() async {
     init();
@@ -45,14 +53,18 @@ void main() {
     mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
     sl.registerLazySingleton<GoogleSignIn>(() => mockGoogleSignIn);
 
-    sl.unregister<Location>();
+    sl.unregister<location_package.Location>();
     mockLocation = MockLocation();
     final locationData = MockLocationData();
     when(locationData.latitude).thenReturn(48.853543);
     when(locationData.longitude).thenReturn(2.337553);
     when(mockLocation.getLocation())
         .thenAnswer((_) => Future.value(locationData));
-    sl.registerLazySingleton<Location>(() => mockLocation);
+    sl.registerLazySingleton<location_package.Location>(() => mockLocation);
+
+    sl.unregister<SuggestionService>();
+    mockSuggestionService = MockSuggestionService();
+    sl.registerLazySingleton<SuggestionService>(() => mockSuggestionService);
 
     await sl.allReady();
     await ApiUtils().cleanLocalDb().first;
@@ -246,6 +258,60 @@ void main() {
       //Swiper TileSwiper and check that the Googlemap marker is selected
       await homeRobot.dragTileSwiperTo("MyThirdCottage");
       await homeRobot.checkMarkerIsSelected("MyThirdCottage");
+    },
+  );
+
+  testWidgets(
+    "should display autocomplete suggestion when searching for a place",
+    (WidgetTester tester) async {
+      final homeRobot = HomeRobot(tester);
+
+      await ApiUtils().signupUser().first;
+
+      await AppRobot(tester).startApp(keyToFind: "search_field");
+
+      const LatLng newYorkLocation = LatLng(40.712784, -74.005941);
+      const LatLng londonLocation = LatLng(51.509865, -0.118092);
+      List<SuggestionEntity> suggestions = List.from([
+        const SuggestionEntity("placeIdNY", "New York", newYorkLocation),
+        const SuggestionEntity("placeIdLondon", "London", londonLocation)
+      ]);
+
+      List<SuggestionItemResponse> suggestionItemResponses = suggestions
+          .map((p) => SuggestionItemResponse(p.description, p.placeId))
+          .toList();
+
+      for (var suggestion in suggestions) {
+        var request = GetPlaceDetailsRequest(
+            suggestion.placeId, tester.platformDispatcher.locale.languageCode);
+        when(mockSuggestionService.getPlaceDetails(argThat(equals(request))))
+            .thenAnswer((_) => Stream.value(GetPlaceDetailsResult(
+                suggestion.description,
+                suggestion.placeId,
+                Geometry(Location(suggestion.latLng!.latitude,
+                    suggestion.latLng!.longitude)))));
+      }
+
+      when(mockSuggestionService.getSuggestions(any))
+          .thenAnswer((_) => Stream.value(suggestionItemResponses));
+
+      await homeRobot.focusToSearchTextView();
+      await homeRobot.enterTextToSearch("P");
+      await homeRobot.checkSuggestionsList(suggestions);
+      await tester.tap(find.text("New York"));
+      await homeRobot.checkTextSearched("New York");
+      await homeRobot.checkCurrentMapTarget(newYorkLocation);
+
+      await homeRobot.focusToSearchTextView();
+      await homeRobot.checkSuggestionsList(suggestions);
+      await tester.tap(find.text("London"));
+      await homeRobot.checkTextSearched("London");
+      await homeRobot.checkCurrentMapTarget(londonLocation);
+
+      await homeRobot.focusToSearchTextView();
+      await homeRobot.clearSearch();
+      await homeRobot.checkTextSearched("");
+      await homeRobot.checkSuggestionsList([]);
     },
   );
 }

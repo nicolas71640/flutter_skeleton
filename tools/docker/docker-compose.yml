@@ -1,0 +1,43 @@
+version: '3'
+services:
+  node:
+    image: nicolas71640/node_server 
+    container_name: server 
+    restart: always
+    depends_on:  
+      - mongo
+    networks:
+      - serverAndDb
+    #networks:
+    #  serverAndDb:
+    #    ipv4_address: 172.20.0.4 #Need a fixed address to give to the Android emulator (For test only)
+    ports:
+      - 3000:3000
+    volumes:
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backendWorkspace
+    environment:
+      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=${BACKEND_SOURCE}
+      - CREDENTIALS_FOLDER=/root/credentials
+      - MONGO_URL=mongodb://mongo:27017/myapp
+  mongo:
+    image: mongo
+    container_name: mongo
+    networks:
+      - serverAndDb
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/tools/docker/mongo-init2.js:/docker-entrypoint-initdb.d/mongo-init2.js:ro
+      - ${FLUTTER_WORKSPACE_DIRECTORY}/frontend/assets:/docker-entrypoint-initdb.d/assets
+
+    environment:
+      - MONGO_INITDB_DATABASE=myapp
+      - MONGO_URL=mongodb://mongo:27017/myapp
+
+volumes:
+ mongodb:
+
+networks:
+  serverAndDb:
+    driver: bridge

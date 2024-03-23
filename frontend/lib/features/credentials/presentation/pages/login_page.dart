@@ -69,10 +69,10 @@ class LoginPage extends StatelessWidget {
                                   builder: (context) => const SignupPage()));
                             });
                           },
-                          child: Row(
+                          child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text("Don't have an account? ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.w400)),

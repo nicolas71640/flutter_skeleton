@@ -44,3 +44,23 @@ class CottagesUpdateError extends HomeState {
   @override
   List<Object> get props => [message];
 }
+
+class SuggestionsUpdate extends HomeState {
+  final List<SuggestionEntity> suggestions;
+
+  const SuggestionsUpdate({required this.suggestions});
+
+  @override
+  List<Object> get props => suggestions;
+}
+
+class PlaceDetails extends HomeState {
+  final SuggestionEntity suggestion;
+
+  const PlaceDetails({required this.suggestion});
+
+  @override
+  List<Object> get props => [suggestion];
+}
+
+class ClearSearchState extends HomeState {}

@@ -1,0 +1,130 @@
+{
+  "html_attributions": [],
+  "result": {
+    "address_components": [
+      {
+        "long_name": "Paris",
+        "short_name": "Paris",
+        "types": ["locality", "political"]
+      },
+      {
+        "long_name": "Département de Paris",
+        "short_name": "Département de Paris",
+        "types": ["administrative_area_level_2", "political"]
+      },
+      {
+        "long_name": "Île-de-France",
+        "short_name": "IDF",
+        "types": ["administrative_area_level_1", "political"]
+      },
+      {
+        "long_name": "France",
+        "short_name": "FR",
+        "types": ["country", "political"]
+      }
+    ],
+    "adr_address": "<span class=\"locality\">Paris</span>, <span class=\"country-name\">France</span>",
+    "formatted_address": "Paris, France",
+    "geometry": {
+      "location": { "lat": 48.856614, "lng": 2.3522219 },
+      "viewport": {
+        "northeast": { "lat": 48.90214747577797, "lng": 2.469850925555473 },
+        "southwest": { "lat": 48.81556220872687, "lng": 2.224219054341255 }
+      }
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+    "icon_background_color": "#7B9EB0",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+    "name": "Paris",
+    "photos": [
+      {
+        "height": 2992,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/104556133035649836911\">Andrea Sangalli</a>"
+        ],
+        "photo_reference": "Aaw_FcIVeMQFFcfnioaY3fYK8z9_YlpC_793rWso82movIbaGXucYK5LAee0PZCyxZwm3PYQeR0LAN854CtaRxCZG231q3NzI8lQb1g9z2QZK857g6piZXY-jCErrK0frk-n7To3QNmX4sv_eQHGSxB73DEeHunMUGdlT6JQZbrEQh5HXaQn",
+        "width": 2992
+      },
+      {
+        "height": 720,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/105205628746544800010\">Kiran Kumar</a>"
+        ],
+        "photo_reference": "Aaw_FcJ5woUcQPmKwGhI7aajCKiMx7ZuZdT0i2rRr21gTgGBjBBurt-ZJw-qod3kW2kIBtMmAp0RyhwY_vHhaUxfKyGmqDWnGSKkvXZrvBFhPzsaE1I47AihgkiBM-G3PZkV10SBnb8Bk-Z3OReRAHg1rD-Od04-0xm5B4t4_4w5EUEf9Yas",
+        "width": 1080
+      },
+      {
+        "height": 675,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/102457535325675217912\">Florela Petculescu</a>"
+        ],
+        "photo_reference": "Aaw_FcJiZS5QCR_CFp0H26E6kjbcadw8BUbGrpsIbdtoo3ir9w3w2i-tI0LY8s1oS27Zs1hwWuh-mtCm7mJ2LuS7wQB9yH6IBcJgQRhI5rw6fjpvFgIFzG185ivJ_QybGJFIIaQPd8CvcDecXYUC2E0uaszcnBt-lArMmlRkFl8MYcdZXWyx",
+        "width": 540
+      },
+      {
+        "height": 784,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/105956371132084536354\">Haron swat</a>"
+        ],
+        "photo_reference": "Aaw_FcLyPXPQFsX8NBUeyjgB0PDeJiomkU5gg-xGjv_nt9qtchqTcncrlYyxc-j2bi_Kborml5gYShJ25OYt8Yaf1QTkjR9-eqPg_tbYHejv9hzHXUDkrvRlPHQmynrRnoDenOrReQyNvJjBv2kW_Bu7UvkOiQy2_r9ilTaTPtGMEN0pmtVb",
+        "width": 719
+      },
+      {
+        "height": 2112,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/102938466735646365189\">Edward Liu</a>"
+        ],
+        "photo_reference": "Aaw_FcKEMQZPR6Mzyx4HnHiL2_cv46PGUev69X8GObSxBotXOzdSK5y9vdWl6JraFWdNH16cuOjAIe9y0beiYwhd4NP9fEaIKrHxvfjOy-7eWhTjpt2fKl1XpGf2QTvNJelTiszVpavcnCgKUCcYtuiZ89TJrtQxhYGAyoXeUVtMh-SYcdHl",
+        "width": 2816
+      },
+      {
+        "height": 3712,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/116584297857970605315\">Simo</a>"
+        ],
+        "photo_reference": "Aaw_FcJJ4wVRUM4wQEYO9shKhQFYW172ti2rAOcxLFSQJU4rlhni5PbQFywjfrp8KXrgzLqIYoPtJyojUuClVyso1UT4PpZa5NcLh-WXEBASyI_e--HZPPGKnuFB_8JPsAS1wO_UTcEEGuKo6HQP6QIyIIjr7-wypF9vgqsK7313HtZL0LIS",
+        "width": 5568
+      },
+      {
+        "height": 667,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/103779787326158857863\">Md Ziaul Islam</a>"
+        ],
+        "photo_reference": "Aaw_FcKMEdgHUQWx2fFaR6HkrarfC7pjmsc7neVvoDz_ulGgpUESKkd9cnGw8iYIch_w4Nf0gc1LK6BPNg3VIm0MA0btoVArd0CSm0RekR_26MG9L3rELQTMw-b836yLNPI0_bjyks2lMI8QZdTKyKSSBGfLeas7fYefwjyMUZdlB2KBfItG",
+        "width": 1000
+      },
+      {
+        "height": 600,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/105621355246618599705\">Carmen Pérez Sánchez</a>"
+        ],
+        "photo_reference": "Aaw_FcIjkMEUtL8O0EJq9cBmEmYc-P0VDtefbo-MHYUwi9dpC73-VPRvCSk-pE0h0CIodPqqTD1mVkS-ZuPckS2cYxNGtoOk7j93kM-5W8FFLlEcxId9d4rF2CABu0hb4EA5mVKLsGDKHulIkim4n37-9Eq7TCsm4YiuUk7ACrCRBgnzdPDD",
+        "width": 394
+      },
+      {
+        "height": 1350,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/104110084506366550317\">Vincent Galand</a>"
+        ],
+        "photo_reference": "Aaw_FcKbD0cUZhR44QYl973sEjijeMe1zLJwr_vjMY96Pd5wo0aMnnycWMETy3P6W0xbmFXT9_4ErAdqxgWKuZTCS0yZf16njTaeCo1nU1qirS8lPrf78ORMdNzqpdVxOKLn_BBCujsVlFk1Q2DY_oy6KJPS3I7XAYXkVPcDZD2B2muHShTy",
+        "width": 1080
+      },
+      {
+        "height": 2970,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/102888276412420232045\">luis vidilla</a>"
+        ],
+        "photo_reference": "Aaw_FcJ3SIBIvY0cVdbG-HJAeISEf-CFT4snBtcq1Dny6IXuOqD7OYjTK0woDWVBwLMFbi13JqqErJK3R-Z7dY-TBZdORt4HbvDjUzQ0CuLc0ZzUEw7EoeKmzCp4pUVNmmGbe4XgXZhoyiZvGYN9XAlF3RRvJiwr_SodJpPcnJbCzf03gFiv",
+        "width": 4752
+      }
+    ],
+    "place_id": "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
+    "reference": "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
+    "types": ["locality", "political"],
+    "url": "https://maps.google.com/?q=Paris,+France&ftid=0x47e66e1f06e2b70f:0x40b82c3688c9460",
+    "utc_offset": 120,
+    "vicinity": "Paris",
+    "website": "http://www.paris.fr/"
+  },
+  "status": "OK"
+}

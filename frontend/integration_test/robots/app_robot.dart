@@ -10,7 +10,7 @@ class AppRobot extends Robot {
 
   Future startApp({String keyToFind = "login_email"}) async {
     await tester.pumpWidget(const MyApp());
-    await TestUtils.pumpUntilFound(tester, find.byKey(Key(keyToFind)));
+    await tester.pumpUntilFound(find.byKey(Key(keyToFind)));
     await tester.pump();
   }
 }

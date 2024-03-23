@@ -4,8 +4,13 @@ const { client_secret, client_id} = credentials.installed;
 const tokens = require(`${process.env.CREDENTIALS_FOLDER}/token.json`);
 const { refresh_token } = tokens;
 const oauth_config = require(`${process.env.CREDENTIALS_FOLDER}/oauth_config.json`);
+const mongoUrl = process.env.MONGO_URL;
 
 const config = convict({
+    mongo:
+    {
+        url: mongoUrl
+    },
     port: {
       doc: 'The port to bind.',
       format: 'port',

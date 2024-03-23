@@ -4,15 +4,9 @@ runs:
   using: "composite"
   
   steps:      
-    - name: Start MongoDB
-      uses: ankane/setup-mongodb@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: "npm"
-        cache-dependency-path: './backend/package-lock.json'
-    - name: Install Dependencies
-      working-directory: ./backend
+    - run: docker-compose --env-file ./tools/docker/compose_prod.env -f ./tools/docker/docker-compose.yml up  --detach
       shell: bash
-      run: npm install
+      env:
+        FLUTTER_WORKSPACE_DIRECTORY: ${{ github.workspace }}
+        CREDENTIALS_FOLDER: ${{ github.workspace }}/fake_credentials
+    

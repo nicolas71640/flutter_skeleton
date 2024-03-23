@@ -8,43 +8,42 @@
             "name": "Frontend: Launch App",
             "type": "dart",
             "request": "launch",
-            "program": "lib/main.dart",
+            "program": "frontend/lib/main.dart",
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
             "name": "Frontend: Run Unit Tests",
             "type": "dart",
             "request": "launch",
-            "program": "./test/",
+            "program": "./frontend/test/",
             "args": [
                 "-v",
                 "--coverage",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
             "name": "Frontend: Run Integration Tests",
             "type": "dart",
             "request": "launch",
-            "program": "./integration_test/tests",
+            "program": "./frontend/integration_test/tests",
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
             "name": "Run",
             "type": "dart",
             "request": "launch",
-            "program": "./integration_test/",
             "codeLens": {
-                "path": "integration_test/",
+                "path": "./frontend/integration_test/",
                 "for": [
                     "run-test",
                     "run-test-file"
@@ -53,15 +52,15 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
         {
             "name": "Debug",
             "type": "dart",
             "request": "launch",
-            "program": "./integration_test/",
             "codeLens": {
+                "path": "./frontend/integration_test/",
                 "for": [
                     "debug-test",
                     "debug-test-file"
@@ -70,7 +69,7 @@
             "toolArgs": [
                 "-v",
                 "--dart-define=FIREBASE_ENABLED=false",
-                "--dart-define=BASE_URL=http://192.168.1.17:3000/api"
+                "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]
         },
 
@@ -78,9 +77,9 @@
             "name": "Run",
             "type": "dart",
             "request": "launch",
-            "program": "test",
+            "program": "./frontend/test",
             "codeLens": {
-                "path": "test/",
+                "path": "/frontend/test/",
                 "for": [
                     "run-test",
                     "run-test-file"

@@ -84,7 +84,7 @@ class _LoginControlsState extends State<LoginControls> {
             ],
           ),
           const SizedBox(height: 30.0),
-          Row(children: const [
+          const Row(children: [
             Expanded(
                 child: Divider(
               color: Colors.grey,

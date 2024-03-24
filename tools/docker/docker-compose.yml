@@ -1,24 +1,41 @@
 version: '3'
+x-:node-common: &node-common
+  image: nicolas71640/node_server
+  container_name: server
+  restart: always
+  depends_on:
+    - mongo
+  networks:
+    - serverAndDb
+  ports:
+    - 3000:3000
+  volumes:
+    - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backendWorkspace
+  environment: &node-env-common
+    FLUTTER_BACKEND_WORKSPACE_DIRECTORY: ${BACKEND_SOURCE}
+    CREDENTIALS_FOLDER: /root/credentials
+    MONGO_URL: mongodb://mongo:27017/myapp
+
 services:
-  node:
-    image: nicolas71640/node_server 
-    container_name: server 
-    restart: always
-    depends_on:  
-      - mongo
+  node-dev:
+    <<: *node-common
+    profiles:
+      - development
     networks:
-      - serverAndDb
-    #networks:
-    #  serverAndDb:
-    #    ipv4_address: 172.20.0.4 #Need a fixed address to give to the Android emulator (For test only)
-    ports:
-      - 3000:3000
-    volumes:
-      - ${FLUTTER_WORKSPACE_DIRECTORY}/backend:/root/backendWorkspace
+      serverAndDb:
+        ipv4_address: 172.20.0.4 #Need a fixed address to give to the Android emulator (For test only)
     environment:
-      - FLUTTER_BACKEND_WORKSPACE_DIRECTORY=${BACKEND_SOURCE}
-      - CREDENTIALS_FOLDER=/root/credentials
-      - MONGO_URL=mongodb://mongo:27017/myapp
+      <<: *node-env-common
+      DEV: 1
+
+  node:
+    <<: *node-common
+    profiles:
+      - production
+    environment:
+      <<: *node-env-common
+      DEV: 0
+
   mongo:
     image: mongo
     container_name: mongo
@@ -36,7 +53,8 @@ services:
       - MONGO_URL=mongodb://mongo:27017/myapp
 
 volumes:
- mongodb:
+  mongodb:
+
 
 networks:
   serverAndDb:

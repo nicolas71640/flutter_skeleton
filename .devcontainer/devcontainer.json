@@ -2,11 +2,13 @@
   "name": "Flutter",
   "image": "nicolas71640/docked_flutter:latest",
   "mounts": [
-    "type=bind,source=/dev/bus/usb,target=/dev/bus/usb"
+    "type=bind,source=/dev/bus/usb,target=/dev/bus/usb",
+    "type=bind,source=/dev/kvm,target=/dev/kvm"
   ],
   "runArgs": [
     "--privileged",
-    "--network=docker_serverAndDb"
+    "--network=docker_serverAndDb",
+    "--device=/dev/kvm"
   ],
   "containerEnv": {
     "FLUTTER_WORKSPACE_DIRECTORY": "/workspaces/flutter_skeleton"
@@ -15,11 +17,11 @@
   "customizations": {
     "vscode": {
       "extensions": [
-		"dart-code.dart-code",
-		"dart-code.flutter",
-		"eamodio.gitlens",
-		"ms-azuretools.vscode-docker"
-	],
+        "dart-code.dart-code",
+        "dart-code.flutter",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker"
+      ],
       "settings": {
         "dart.flutterShowEmulators": "always"
       }

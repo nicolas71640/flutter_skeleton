@@ -11,6 +11,10 @@
             "program": "frontend/lib/main.dart",
             "toolArgs": [
                 "-v",
+                //"--web-browser-flag", "--no-sandbox",
+                "--web-browser-flag", "--enable-features=UseOzonePlatform",
+                "--web-browser-flag", "--ozone-platform=wayland",
+                "--web-browser-flag", "--disable-dev-shm-usage",
                 "--dart-define=FIREBASE_ENABLED=false",
                 "--dart-define=BASE_URL=http://172.20.0.4:3000/api"
             ]

@@ -54,13 +54,9 @@ RUN sdkmanager \
     "emulator"
 
 RUN sdkmanager "build-tools;30.0.3"
-RUN sdkmanager "platforms;android-31"
-RUN sdkmanager "platforms;android-32"
 RUN sdkmanager "platforms;android-33"
-RUN sdkmanager "platforms;android-34"
-RUN sdkmanager "system-images;android-34;google_apis;x86_64"
+RUN sdkmanager "system-images;android-33;google_apis;x86_64"
 
 RUN flutter precache
 
 RUN flutter doctor -v
-

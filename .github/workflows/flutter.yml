@@ -44,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: nicolas71640/docked_flutter
+      options: --user root
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
@@ -58,6 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: nicolas71640/docked_flutter
+      options: --user root
     defaults:
       run:
         working-directory: ./frontend
@@ -86,6 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: nicolas71640/docked_flutter
+      options: --user root
     defaults:
       run:
         working-directory: ./frontend
@@ -122,6 +125,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: nicolas71640/docked_flutter
+      options: --user root
     defaults:
       run:
         working-directory: ./frontend
